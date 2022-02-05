@@ -25,7 +25,33 @@ public class ServerTalker : MonoBehaviour
         //Debug.Log("Misc Data: " + node["someArray"][1]["name"] + " = " + node["someArray"][1]["value"]);
 
         //e.g.
-        
+        // Id
+        // Players 
+        // GameTurn 
+        // p1Name
+        // p2Name
+        // p3Name
+        // p4Name
+        // P1x
+        // P1y
+        // P2x
+        // P2y
+        // P3x
+        // P3y
+        // P4x
+        // P4y
+        // Action //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+        // ActionID //the Id for the action in a list
+        // TargetName//Who is being targeted this turn
+        // P1MaxHP 
+        // P2MaxHP 
+        // P3MaxHP 
+        // P4MaxHP 
+        // P1HP 
+        // P2HP 
+        // P3HP 
+        // P4HP 
+
         //PlayerData.SetBar(node["someArray"][1]["value"]);
         Debug.Log("SQL Turn: " + node["gameTurn"]);
         Debug.Log("P1X: " + node["p1x"]);
@@ -52,50 +78,144 @@ public class ServerTalker : MonoBehaviour
     public void ProcessPost()
     {
         //Debug.Log("ProcessPost fired at least");
-        StartCoroutine(Upload("https://localhost:7114/api/Game"));//, "1"
+        StartCoroutine(Upload("https://localhost:7114/api/Game/", "1"));//, "1"
     }
 
     //public static string Serialize (object? value, Type inputType, System.Text.Json.JsonSerializerOptions? options = default);
 
     // DELETE FROM "public"."Games" WHERE "Id" > 1
 
-    public IEnumerator Upload( string address )//, string myId
+    public IEnumerator Upload( string address, string myId )//, string myId
     {
-        WWWForm form = new WWWForm();
+        //[{"id":1,"players":4,"gameTurn":4,"p1Name":"a","p2Name":"s","p3Name":"d","p4Name":"g","p1x":1,"p1y":2,"p2x":2,"p2y":2,"p3x":2,"p3y":2,"p4x":2,"p4y":2,"action":2,"actionID":2,"targetName":"dff","p1MaxHP":2,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}]
+        //UnityWebRequest www = UnityWebRequest.Put(URL_01, "{\"name\":\"user_01\",\"address\":{\"raw\":\"MountFiji\"}}");
+        //www.SetRequestHeader ("Content-Type", "application/json");
+
+        WWWForm form = new WWWForm();        
+        // Id
+        // Players 
+        // GameTurn 
+        // p1Name
+        // p2Name
+        // p3Name
+        // p4Name
+        // P1x
+        // P1y
+        // P2x
+        // P2y
+        // P3x
+        // P3y
+        // P4x
+        // P4y
+        // Action //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+        // ActionID //the Id for the action in a list
+        // TargetName//Who is being targeted this turn
+        // P1MaxHP 
+        // P2MaxHP 
+        // P3MaxHP 
+        // P4MaxHP 
+        // P1HP 
+        // P2HP 
+        // P3HP 
+        // P4HP 
+        form.AddField("Id", 1);
+        form.AddField("Players", 4);
         form.AddField("gameTurn", TakeTurn);
+        form.AddField("p1Name", "aaa");
+        form.AddField("p2Name", "bbb");
+        form.AddField("p3Name", "ccc");
+        form.AddField("p4Name", "itworkedmaybe");
+        form.AddField("P1x", 1);
+        form.AddField("P1y", 1);
+        form.AddField("P2x", 1);
+        form.AddField("P2y", 1);
+        form.AddField("P3x", 1);
+        form.AddField("P3y", 1);
+        form.AddField("P4x", 1);
+        form.AddField("P4y", 1);
+        form.AddField("Action", 1);
+        form.AddField("ActionID", 1);
+        form.AddField("TargetName", "aaa");
+        form.AddField("P1MaxHP", 1);
+        form.AddField("P2MaxHP", 1);
+        form.AddField("P3MaxHP", 1);
+        form.AddField("P4MaxHP", 1);
+        form.AddField("P1HP", 1);
+        form.AddField("P2HP", 1);
+        form.AddField("P3HP", 1);
+        form.AddField("P4HP", 1);
+        //form.AddField("gameTurn", TakeTurn);//Just one change doesn't seem to work
+
+
         //Dictionary<string, string> headers = form.headers;
         //byte[] rawData = form.data; //Needed to sent Put, UNSECURE DOESN'T WORK
-        byte[] myData;
+
+        string rawData = "{\"id\":1,\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}"; 
+        //string rawData = "{\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}"; 
+
+        //byte[] myData;
         //myData = System.Text.Encoding.UTF8.GetBytes ("?gameTurn=" + TakeTurn);
-        myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"gameTurn\":\"{TakeTurn}\"}}");
+        //myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"gameTurn\":\"{TakeTurn}\"}}");
 
-        //form.AddField("Id");
+        //myData = System.Text.Encoding.UTF8.GetBytes ("{\"id\":1,\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}");
+        //myData = System.Text.Encoding.UTF8.GetBytes ("{\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}");
+        //myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"id\":{1},\"players\":{4},\"gameTurn\":{4},\"p1Name\":\"{a}\",\"p2Name\":\"{s}\",\"p3Name\":\"{d}\",\"p4Name\":\"{g}\",\"p1x\":{1},\"p1y\":{2},\"p2x\":{2},\"p2y\":{2},\"p3x\":{2},\"p3y\":{2},\"p4x\":{2},\"p4y\":{2},\"action\":{2},\"actionID\":{2},\"targetName\":\"{dff}\",\"p1MaxHP\":{2},\"p2MaxHP\":{1},\"p3MaxHP\":{1},\"p4MaxHP\":{1},\"p1HP\":{1},\"p2HP\":{1},\"p3HP\":{1},\"p4HP\":{1}}}");
+        //myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"players\":{4},\"gameTurn\":{4},\"p1Name\":\"{a}\",\"p2Name\":\"{s}\",\"p3Name\":\"{d}\",\"p4Name\":\"{g}\",\"p1x\":{1},\"p1y\":{2},\"p2x\":{2},\"p2y\":{2},\"p3x\":{2},\"p3y\":{2},\"p4x\":{2},\"p4y\":{2},\"action\":{2},\"actionID\":{2},\"targetName\":\"{dff}\",\"p1MaxHP\":{2},\"p2MaxHP\":{1},\"p3MaxHP\":{1},\"p4MaxHP\":{1},\"p1HP\":{1},\"p2HP\":{1},\"p3HP\":{1},\"p4HP\":{1}}}");
+        
+        //Post style: Returns = 409 Conflict
+        //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
+        Debug.Log("No Id: " + address);
+        Debug.Log(rawData);
+        using (UnityWebRequest www = UnityWebRequest.Put(address, rawData)) // + myId
+        {
+            //Send the request then wait here until it returns
+            yield return www.SendWebRequest(); //uwr
+            if (www.result != UnityWebRequest.Result.Success) //www
+            {
+                Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error); //uwr
+            }
+            else
+            {
+                Debug.Log("Form upload complete!" + TakeTurn);
+            }
+        }
 
-        //Debug.Log("form: " + form);
+        Debug.Log("With Id: " + address + myId);
+        Debug.Log(rawData);
+        using (UnityWebRequest www = UnityWebRequest.Put(address + myId, rawData)) // + myId
+        {
+            //Send the request then wait here until it returns
+            yield return www.SendWebRequest(); //uwr
+            if (www.result != UnityWebRequest.Result.Success) //www
+            {
+                Debug.Log("Turn: " + TakeTurn + ", Something went wrong with myId: " + www.error); //uwr
+            }
+            else
+            {
+                Debug.Log("Form upload complete with myId!" + TakeTurn);
+            }
+        }
+        
 
-        //Raw Handler
+        //Raw Handler: Returns = 409 Conflict
         /*
-        string url = address;
+        //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
+        string url = address;//+myId;
         var uwr = new UnityWebRequest(url, "PUT");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(rawData);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/json");
-        */
-
-        using (UnityWebRequest www = UnityWebRequest.Put(address, myData))
+        yield return uwr.SendWebRequest(); 
+        if (uwr.result != UnityWebRequest.Result.Success) 
         {
-        //Send the request then wait here until it returns
-        yield return www.SendWebRequest(); //uwr
-
-        if (www.result != UnityWebRequest.Result.Success) //www
-        {
-            Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error); //uwr
+            Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + uwr.error); 
         }
         else
         {
-            //Debug.Log("Form upload complete!" + TakeTurn);
+            Debug.Log("Form upload complete!" + TakeTurn);
         }
-        }
+        */
+
         /*
         UnityWebRequest www = UnityWebRequest.Put(address, form); // + myId  Post
         yield return www.SendWebRequest();
@@ -103,6 +223,27 @@ public class ServerTalker : MonoBehaviour
         //Debug.Log("address + myId: " + address + myId);
         */
         
+    }
+
+    public IEnumerator PostNew( string address )//, string myId
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("gameTurn", TakeTurn);
+
+        using (UnityWebRequest www = UnityWebRequest.Post(address, form))
+        {
+            //Send the request then wait here until it returns
+            yield return www.SendWebRequest(); //uwr
+
+            if (www.result != UnityWebRequest.Result.Success) //www
+            {
+                Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error); //uwr
+            }
+            else
+            {
+                //Debug.Log("Form upload complete!" + TakeTurn);
+            }
+        }
     }
 
     IEnumerator GetWebData( string address, string myId )//, int theTurn 
