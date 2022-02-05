@@ -21,9 +21,12 @@ public class BudgeIt : MonoBehaviour
     //Method to move square to determine a player moved something and it persisted to other players
     void BudgeLeft()
     {
+        if(!Physics2D.OverlapCircle(transform.position, 5))//number is purely chosen arbitrary
+        {
         transform.position = new Vector3(transform.position.x - 0.307f, transform.position.y);
         movePoints -= 1;
         if(movePoints < 1){canMove = false;}
+        }
     }
 
     //Method to move square to determine a player moved something and it persisted to other players
