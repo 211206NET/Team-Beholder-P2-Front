@@ -57,26 +57,51 @@ public class ServerTalker : MonoBehaviour
 
     //public static string Serialize (object? value, Type inputType, System.Text.Json.JsonSerializerOptions? options = default);
 
+    // DELETE FROM "public"."Games" WHERE "Id" > 1
+
     public IEnumerator Upload( string address )//, string myId
     {
         WWWForm form = new WWWForm();
         form.AddField("gameTurn", TakeTurn);
+        //Dictionary<string, string> headers = form.headers;
+        //byte[] rawData = form.data; //Needed to sent Put, UNSECURE DOESN'T WORK
+        byte[] myData;
+        //myData = System.Text.Encoding.UTF8.GetBytes ("?gameTurn=" + TakeTurn);
+        myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"gameTurn\":\"{TakeTurn}\"}}");
+
         //form.AddField("Id");
 
         //Debug.Log("form: " + form);
 
-        UnityWebRequest www = UnityWebRequest.Post(address, form); // + myId
-        yield return www.SendWebRequest();
+        //Raw Handler
+        /*
+        string url = address;
+        var uwr = new UnityWebRequest(url, "PUT");
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(rawData);
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/json");
+        */
 
-        //Debug.Log("address + myId: " + address + myId);
-        if (www.result != UnityWebRequest.Result.Success)
+        using (UnityWebRequest www = UnityWebRequest.Put(address, myData))
         {
-            Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error);
+        //Send the request then wait here until it returns
+        yield return www.SendWebRequest(); //uwr
+
+        if (www.result != UnityWebRequest.Result.Success) //www
+        {
+            Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error); //uwr
         }
         else
         {
             //Debug.Log("Form upload complete!" + TakeTurn);
         }
+        }
+        /*
+        UnityWebRequest www = UnityWebRequest.Put(address, form); // + myId  Post
+        yield return www.SendWebRequest();
+
+        //Debug.Log("address + myId: " + address + myId);
+        */
         
     }
 
