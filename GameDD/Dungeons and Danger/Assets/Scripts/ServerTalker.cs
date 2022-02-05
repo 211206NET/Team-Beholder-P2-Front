@@ -79,12 +79,18 @@ public class ServerTalker : MonoBehaviour
     {
         //Debug.Log("ProcessPost fired at least");
         StartCoroutine(Upload("https://localhost:7114/api/Game/", "1"));//, "1"
+        //StartCoroutine(DeleteData("https://localhost:7114/api/Game/", "2"));
     }
 
     //public static string Serialize (object? value, Type inputType, System.Text.Json.JsonSerializerOptions? options = default);
 
     // DELETE FROM "public"."Games" WHERE "Id" > 1
 
+
+    //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
+    //UnityWebRequest put = UnityWebRequest.Put("http://www.my-server.com/upload", myData);
+
+    //Put   
     public IEnumerator Upload( string address, string myId )//, string myId
     {
         //[{"id":1,"players":4,"gameTurn":4,"p1Name":"a","p2Name":"s","p3Name":"d","p4Name":"g","p1x":1,"p1y":2,"p2x":2,"p2y":2,"p3x":2,"p3y":2,"p4x":2,"p4y":2,"action":2,"actionID":2,"targetName":"dff","p1MaxHP":2,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}]
@@ -118,6 +124,7 @@ public class ServerTalker : MonoBehaviour
         // P2HP 
         // P3HP 
         // P4HP 
+        
         form.AddField("Id", 1);
         form.AddField("Players", 4);
         form.AddField("gameTurn", TakeTurn);
@@ -144,13 +151,43 @@ public class ServerTalker : MonoBehaviour
         form.AddField("P2HP", 1);
         form.AddField("P3HP", 1);
         form.AddField("P4HP", 1);
+        
+
+        /*form.AddField("Id", "1");
+        form.AddField("Players", "4");
+        form.AddField("gameTurn", "1");
+        form.AddField("p1Name", "aaa");
+        form.AddField("p2Name", "bbb");
+        form.AddField("p3Name", "ccc");
+        form.AddField("p4Name", "itworkedmaybe");
+        form.AddField("P1x", "1");
+        form.AddField("P1y", "1");
+        form.AddField("P2x", "1");
+        form.AddField("P2y", "1");
+        form.AddField("P3x", "1");
+        form.AddField("P3y", "1");
+        form.AddField("P4x", "1");
+        form.AddField("P4y", "1");
+        form.AddField("Action", "1");
+        form.AddField("ActionID", "1");
+        form.AddField("TargetName", "aaa");
+        form.AddField("P1MaxHP", "1");
+        form.AddField("P2MaxHP", "1");
+        form.AddField("P3MaxHP", "1");
+        form.AddField("P4MaxHP", "1");
+        form.AddField("P1HP", "1");
+        form.AddField("P2HP", "1");
+        form.AddField("P3HP", "1");
+        form.AddField("P4HP", "1");*/
+
         //form.AddField("gameTurn", TakeTurn);//Just one change doesn't seem to work
 
 
         //Dictionary<string, string> headers = form.headers;
-        //byte[] rawData = form.data; //Needed to sent Put, UNSECURE DOESN'T WORK
+        byte[] rawData = form.data; //Needed to sent Put, UNSECURE DOESN'T WORK
+        //byte[] rawData = System.Text.Encoding.UTF8.GetBytes(form.data); //Cannot Convert Byte to Character
 
-        string rawData = "{\"id\":1,\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}"; 
+        //string rawData = "{\"id\":1,\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}"; 
         //string rawData = "{\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}"; 
 
         //byte[] myData;
@@ -162,10 +199,14 @@ public class ServerTalker : MonoBehaviour
         //myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"id\":{1},\"players\":{4},\"gameTurn\":{4},\"p1Name\":\"{a}\",\"p2Name\":\"{s}\",\"p3Name\":\"{d}\",\"p4Name\":\"{g}\",\"p1x\":{1},\"p1y\":{2},\"p2x\":{2},\"p2y\":{2},\"p3x\":{2},\"p3y\":{2},\"p4x\":{2},\"p4y\":{2},\"action\":{2},\"actionID\":{2},\"targetName\":\"{dff}\",\"p1MaxHP\":{2},\"p2MaxHP\":{1},\"p3MaxHP\":{1},\"p4MaxHP\":{1},\"p1HP\":{1},\"p2HP\":{1},\"p3HP\":{1},\"p4HP\":{1}}}");
         //myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"players\":{4},\"gameTurn\":{4},\"p1Name\":\"{a}\",\"p2Name\":\"{s}\",\"p3Name\":\"{d}\",\"p4Name\":\"{g}\",\"p1x\":{1},\"p1y\":{2},\"p2x\":{2},\"p2y\":{2},\"p3x\":{2},\"p3y\":{2},\"p4x\":{2},\"p4y\":{2},\"action\":{2},\"actionID\":{2},\"targetName\":\"{dff}\",\"p1MaxHP\":{2},\"p2MaxHP\":{1},\"p3MaxHP\":{1},\"p4MaxHP\":{1},\"p1HP\":{1},\"p2HP\":{1},\"p3HP\":{1},\"p4HP\":{1}}}");
         
+        //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
+        //UnityWebRequest put = UnityWebRequest.Put("http://www.my-server.com/upload", myData);
+
+        /*
         //Post style: Returns = 409 Conflict
         //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
         Debug.Log("No Id: " + address);
-        Debug.Log(rawData);
+       // Debug.Log(rawData);
         using (UnityWebRequest www = UnityWebRequest.Put(address, rawData)) // + myId
         {
             //Send the request then wait here until it returns
@@ -181,7 +222,7 @@ public class ServerTalker : MonoBehaviour
         }
 
         Debug.Log("With Id: " + address + myId);
-        Debug.Log(rawData);
+        //Debug.Log(rawData);
         using (UnityWebRequest www = UnityWebRequest.Put(address + myId, rawData)) // + myId
         {
             //Send the request then wait here until it returns
@@ -195,16 +236,16 @@ public class ServerTalker : MonoBehaviour
                 Debug.Log("Form upload complete with myId!" + TakeTurn);
             }
         }
-        
+        */
 
         //Raw Handler: Returns = 409 Conflict
-        /*
+        
         //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
         string url = address;//+myId;
         var uwr = new UnityWebRequest(url, "PUT");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(rawData);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-        uwr.SetRequestHeader("Content-Type", "application/json");
+        uwr.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //'application/x-www-form-urlencoded'  ,"application/json"
         yield return uwr.SendWebRequest(); 
         if (uwr.result != UnityWebRequest.Result.Success) 
         {
@@ -214,7 +255,7 @@ public class ServerTalker : MonoBehaviour
         {
             Debug.Log("Form upload complete!" + TakeTurn);
         }
-        */
+        
 
         /*
         UnityWebRequest www = UnityWebRequest.Put(address, form); // + myId  Post
@@ -260,6 +301,23 @@ public class ServerTalker : MonoBehaviour
             //Debug.LogError(www.downloadHandler.text);//success
 
             ProcessServerResponse(www.downloadHandler.text);
+        }
+    }
+
+    
+    //Delete
+    IEnumerator DeleteData( string address, string myId )//, int theTurn 
+    {
+        UnityWebRequest www = UnityWebRequest.Delete(address+myId);
+        yield return www.SendWebRequest();
+
+        if(www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Can't delete it: " + www.error);
+        }
+        else
+        {
+            Debug.Log("It's deleted!");
         }
     }
 }
