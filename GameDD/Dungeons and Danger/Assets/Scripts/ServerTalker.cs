@@ -6,6 +6,8 @@ using SimpleJSON;
 
 public class ServerTalker : MonoBehaviour
 {
+    public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
+    bool canInitialize = true; ///Tell server you joined once
     bool showDebug = false;
     static public int TakeTurn = 1;
     //Need something like this
@@ -18,17 +20,11 @@ public class ServerTalker : MonoBehaviour
         StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
 
         
-        GameManager(1);
+        
         // StartCoroutine(checkInternetConnection((isConnected)=>{
         //     // handle connection status here
         //     Debug.Log("Player " + myTurn + " connected.");
         // }));
-    }
-
-    void GameManager(int players)
-    {
-        playersTotal++;
-        Debug.Log("Players: " + playersTotal);
     }
 
     void ProcessServerResponse( string rawResponse )
@@ -46,14 +42,14 @@ public class ServerTalker : MonoBehaviour
         // p2Name
         // p3Name
         // p4Name
-        // P1x
-        // P1y
-        // P2x
-        // P2y
-        // P3x
-        // P3y
-        // P4x
-        // P4y
+        // P1mv
+        // P2mv
+        // P3mv
+        // P4mv
+        // P1fc
+        // P2fc
+        // P3fc
+        // P4fc
         // Action //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
         // ActionID //the Id for the action in a list
         // TargetName//Who is being targeted this turn
@@ -66,19 +62,46 @@ public class ServerTalker : MonoBehaviour
         // P3HP 
         // P4HP 
 
-        //PlayerData.SetBar(node["someArray"][1]["value"]);
+        /*
+        {"id":1,"players":4,"gameTurn":1,"p1Name":"aaa","p2Name":"bbb","p3Name":"ccc","p4Name":"itworkedmaybe",
+        "p1x":1,"p1y":1,"p2x":1,"p2y":1,"p3x":1,"p3y":1,"p4x":1,"p4y":1,"action":1,"actionID":1,"targetName":"aaa",
+        "p1MaxHP":1,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}
+        */
+
         if(showDebug){
+        Debug.Log("Players: " + node["players"]);
         Debug.Log("SQL Turn: " + node["gameTurn"]);
-        Debug.Log("P1X: " + node["p1x"]);
-        Debug.Log("P1Y: " + node["p1y"]);
-        Debug.Log("P2X: " + node["p2x"]);
-        Debug.Log("P2Y: " + node["p2y"]);
-        Debug.Log("P3X: " + node["p3x"]);
-        Debug.Log("P3Y: " + node["p3y"]);
-        Debug.Log("P4X: " + node["p4x"]);
-        Debug.Log("P4Y: " + node["p4y"]);}
+        Debug.Log("P1MV: " + node["p1mv"]);
+        Debug.Log("P2MV: " + node["p2mv"]);
+        Debug.Log("P3MV: " + node["p3mv"]);
+        Debug.Log("P4MV: " + node["p4mv"]);
+        Debug.Log("P1FC: " + node["p1mv"]);
+        Debug.Log("P2FC: " + node["p2mv"]);
+        Debug.Log("P3FC: " + node["p3mv"]);
+        Debug.Log("P4FC: " + node["p4mv"]);}
+
+
+        //Initialize Once
+        if(canInitialize)
+        {
+            //yield return new WaitForSeconds(Random.Range(1, 10));
+            if(node["players"] < 4)
+            {
+                playersTotal = node["players"]+1;//Set local record of how many players there are and what player this is
+                ThisPlayerIs = playersTotal;
+                canInitialize = false;
+            }
+            else
+            {
+                //Error, this should never run starting with 4 players already, this must be a test
+                playersTotal = 1;
+                ThisPlayerIs = playersTotal;
+                canInitialize = false;
+            }
+        }
 
     }
+
 
     // static void RecordGameTurn(int takeTurn)
     // {
@@ -120,14 +143,14 @@ public class ServerTalker : MonoBehaviour
         // p2Name
         // p3Name
         // p4Name
-        // P1x
-        // P1y
-        // P2x
-        // P2y
-        // P3x
-        // P3y
-        // P4x
-        // P4y
+        // P1mv
+        // P2mv
+        // P3mv
+        // P4mv
+        // P1fc
+        // P2fc
+        // P3fc
+        // P4fc
         // Action //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
         // ActionID //the Id for the action in a list
         // TargetName//Who is being targeted this turn
@@ -141,20 +164,20 @@ public class ServerTalker : MonoBehaviour
         // P4HP 
         
         form.AddField("Id", 1);
-        form.AddField("Players", 4);
+        form.AddField("Players", playersTotal);
         form.AddField("gameTurn", TakeTurn);
         form.AddField("p1Name", "aaa");
         form.AddField("p2Name", "bbb");
         form.AddField("p3Name", "ccc");
         form.AddField("p4Name", "itworkedmaybe");
-        form.AddField("P1x", 1);
-        form.AddField("P1y", 1);
-        form.AddField("P2x", 1);
-        form.AddField("P2y", 1);
-        form.AddField("P3x", 1);
-        form.AddField("P3y", 1);
-        form.AddField("P4x", 1);
-        form.AddField("P4y", 1);
+        form.AddField("P1mv", 1);
+        form.AddField("P2mv", 1);
+        form.AddField("P3mv", 1);
+        form.AddField("P4mv", 1);
+        form.AddField("P5fc", 1);
+        form.AddField("P6fc", 1);
+        form.AddField("P7fc", 1);
+        form.AddField("P8fc", 1);
         form.AddField("Action", 1);
         form.AddField("ActionID", 1);
         form.AddField("TargetName", "aaa");
