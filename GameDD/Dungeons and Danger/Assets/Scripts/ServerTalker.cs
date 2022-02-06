@@ -6,7 +6,7 @@ using SimpleJSON;
 
 public class ServerTalker : MonoBehaviour
 {
-
+    bool showDebug = false;
     static public int TakeTurn = 1;
     //Need something like this
     //public string highscoreURL = "http://localhost/unity_test/display.php";
@@ -53,6 +53,7 @@ public class ServerTalker : MonoBehaviour
         // P4HP 
 
         //PlayerData.SetBar(node["someArray"][1]["value"]);
+        if(showDebug){
         Debug.Log("SQL Turn: " + node["gameTurn"]);
         Debug.Log("P1X: " + node["p1x"]);
         Debug.Log("P1Y: " + node["p1y"]);
@@ -61,7 +62,7 @@ public class ServerTalker : MonoBehaviour
         Debug.Log("P3X: " + node["p3x"]);
         Debug.Log("P3Y: " + node["p3y"]);
         Debug.Log("P4X: " + node["p4x"]);
-        Debug.Log("P4Y: " + node["p4y"]);
+        Debug.Log("P4Y: " + node["p4y"]);}
 
     }
 
@@ -151,94 +152,8 @@ public class ServerTalker : MonoBehaviour
         form.AddField("P2HP", 1);
         form.AddField("P3HP", 1);
         form.AddField("P4HP", 1);
-        
 
-        /*form.AddField("Id", "1");
-        form.AddField("Players", "4");
-        form.AddField("gameTurn", "1");
-        form.AddField("p1Name", "aaa");
-        form.AddField("p2Name", "bbb");
-        form.AddField("p3Name", "ccc");
-        form.AddField("p4Name", "itworkedmaybe");
-        form.AddField("P1x", "1");
-        form.AddField("P1y", "1");
-        form.AddField("P2x", "1");
-        form.AddField("P2y", "1");
-        form.AddField("P3x", "1");
-        form.AddField("P3y", "1");
-        form.AddField("P4x", "1");
-        form.AddField("P4y", "1");
-        form.AddField("Action", "1");
-        form.AddField("ActionID", "1");
-        form.AddField("TargetName", "aaa");
-        form.AddField("P1MaxHP", "1");
-        form.AddField("P2MaxHP", "1");
-        form.AddField("P3MaxHP", "1");
-        form.AddField("P4MaxHP", "1");
-        form.AddField("P1HP", "1");
-        form.AddField("P2HP", "1");
-        form.AddField("P3HP", "1");
-        form.AddField("P4HP", "1");*/
-
-        //form.AddField("gameTurn", TakeTurn);//Just one change doesn't seem to work
-
-
-        //Dictionary<string, string> headers = form.headers;
-        byte[] rawData = form.data; //Needed to sent Put, UNSECURE DOESN'T WORK
-        //byte[] rawData = System.Text.Encoding.UTF8.GetBytes(form.data); //Cannot Convert Byte to Character
-
-        //string rawData = "{\"id\":1,\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}"; 
-        //string rawData = "{\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}"; 
-
-        //byte[] myData;
-        //myData = System.Text.Encoding.UTF8.GetBytes ("?gameTurn=" + TakeTurn);
-        //myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"gameTurn\":\"{TakeTurn}\"}}");
-
-        //myData = System.Text.Encoding.UTF8.GetBytes ("{\"id\":1,\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}");
-        //myData = System.Text.Encoding.UTF8.GetBytes ("{\"players\":4,\"gameTurn\":4,\"p1Name\":\"a\",\"p2Name\":\"s\",\"p3Name\":\"d\",\"p4Name\":\"g\",\"p1x\":1,\"p1y\":2,\"p2x\":2,\"p2y\":2,\"p3x\":2,\"p3y\":2,\"p4x\":2,\"p4y\":2,\"action\":2,\"actionID\":2,\"targetName\":\"dff\",\"p1MaxHP\":2,\"p2MaxHP\":1,\"p3MaxHP\":1,\"p4MaxHP\":1,\"p1HP\":1,\"p2HP\":1,\"p3HP\":1,\"p4HP\":1}");
-        //myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"id\":{1},\"players\":{4},\"gameTurn\":{4},\"p1Name\":\"{a}\",\"p2Name\":\"{s}\",\"p3Name\":\"{d}\",\"p4Name\":\"{g}\",\"p1x\":{1},\"p1y\":{2},\"p2x\":{2},\"p2y\":{2},\"p3x\":{2},\"p3y\":{2},\"p4x\":{2},\"p4y\":{2},\"action\":{2},\"actionID\":{2},\"targetName\":\"{dff}\",\"p1MaxHP\":{2},\"p2MaxHP\":{1},\"p3MaxHP\":{1},\"p4MaxHP\":{1},\"p1HP\":{1},\"p2HP\":{1},\"p3HP\":{1},\"p4HP\":{1}}}");
-        //myData = System.Text.Encoding.UTF8.GetBytes ($"{{\"players\":{4},\"gameTurn\":{4},\"p1Name\":\"{a}\",\"p2Name\":\"{s}\",\"p3Name\":\"{d}\",\"p4Name\":\"{g}\",\"p1x\":{1},\"p1y\":{2},\"p2x\":{2},\"p2y\":{2},\"p3x\":{2},\"p3y\":{2},\"p4x\":{2},\"p4y\":{2},\"action\":{2},\"actionID\":{2},\"targetName\":\"{dff}\",\"p1MaxHP\":{2},\"p2MaxHP\":{1},\"p3MaxHP\":{1},\"p4MaxHP\":{1},\"p1HP\":{1},\"p2HP\":{1},\"p3HP\":{1},\"p4HP\":{1}}}");
-        
-        //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
-        //UnityWebRequest put = UnityWebRequest.Put("http://www.my-server.com/upload", myData);
-
-        /*
-        //Post style: Returns = 409 Conflict
-        //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
-        Debug.Log("No Id: " + address);
-       // Debug.Log(rawData);
-        using (UnityWebRequest www = UnityWebRequest.Put(address, rawData)) // + myId
-        {
-            //Send the request then wait here until it returns
-            yield return www.SendWebRequest(); //uwr
-            if (www.result != UnityWebRequest.Result.Success) //www
-            {
-                Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error); //uwr
-            }
-            else
-            {
-                Debug.Log("Form upload complete!" + TakeTurn);
-            }
-        }
-
-        Debug.Log("With Id: " + address + myId);
-        //Debug.Log(rawData);
-        using (UnityWebRequest www = UnityWebRequest.Put(address + myId, rawData)) // + myId
-        {
-            //Send the request then wait here until it returns
-            yield return www.SendWebRequest(); //uwr
-            if (www.result != UnityWebRequest.Result.Success) //www
-            {
-                Debug.Log("Turn: " + TakeTurn + ", Something went wrong with myId: " + www.error); //uwr
-            }
-            else
-            {
-                Debug.Log("Form upload complete with myId!" + TakeTurn);
-            }
-        }
-        */
-
-        //Raw Handler: Returns = 409 Conflict
+        byte[] rawData = form.data; 
         
         //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
         string url = address;//+myId;
@@ -249,20 +164,13 @@ public class ServerTalker : MonoBehaviour
         yield return uwr.SendWebRequest(); 
         if (uwr.result != UnityWebRequest.Result.Success) 
         {
-            Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + uwr.error); 
+            if(showDebug){Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + uwr.error);}
         }
         else
         {
-            Debug.Log("Form upload complete!" + TakeTurn);
+            if(showDebug){Debug.Log("Form upload complete!" + TakeTurn);}
         }
-        
 
-        /*
-        UnityWebRequest www = UnityWebRequest.Put(address, form); // + myId  Post
-        yield return www.SendWebRequest();
-
-        //Debug.Log("address + myId: " + address + myId);
-        */
         
     }
 
@@ -278,7 +186,7 @@ public class ServerTalker : MonoBehaviour
 
             if (www.result != UnityWebRequest.Result.Success) //www
             {
-                Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error); //uwr
+                if(showDebug){Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error);} //uwr
             }
             else
             {
@@ -294,7 +202,7 @@ public class ServerTalker : MonoBehaviour
 
         if(www.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError("Something went wrong dude: " + www.error);
+            if(showDebug){Debug.LogError("Something went wrong dude: " + www.error);}
         }
         else
         {
@@ -313,11 +221,11 @@ public class ServerTalker : MonoBehaviour
 
         if(www.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError("Can't delete it: " + www.error);
+            if(showDebug){Debug.LogError("Can't delete it: " + www.error);}
         }
         else
         {
-            Debug.Log("It's deleted!");
+            if(showDebug){Debug.Log("It's deleted!");}
         }
     }
 }
