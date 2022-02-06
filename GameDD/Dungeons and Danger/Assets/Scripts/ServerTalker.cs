@@ -10,11 +10,25 @@ public class ServerTalker : MonoBehaviour
     static public int TakeTurn = 1;
     //Need something like this
     //public string highscoreURL = "http://localhost/unity_test/display.php";
-
+    
+    int playersTotal = 0;
     // Start is called before the first frame update
     void Start() //http://localhost:8000/user/
     {
         StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
+
+        
+        GameManager(1);
+        // StartCoroutine(checkInternetConnection((isConnected)=>{
+        //     // handle connection status here
+        //     Debug.Log("Player " + myTurn + " connected.");
+        // }));
+    }
+
+    void GameManager(int players)
+    {
+        playersTotal++;
+        Debug.Log("Players: " + playersTotal);
     }
 
     void ProcessServerResponse( string rawResponse )
@@ -229,3 +243,6 @@ public class ServerTalker : MonoBehaviour
         }
     }
 }
+
+
+
