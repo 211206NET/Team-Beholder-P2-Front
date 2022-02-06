@@ -12,6 +12,7 @@ public class BudgeIt : MonoBehaviour
     bool moveClear = true; //If move is not blocked
     bool canAttack = false; //Deactivated for now
     public int movePoints = 3;
+    public bool dead = false;
 
     private Transform selectUI;
     private Transform targetUI;
@@ -193,7 +194,7 @@ public class BudgeIt : MonoBehaviour
                     .FirstOrDefault();
                                     
                 nClosest.GetComponent<BudgeIt>().amTarget=true; nClosest.transform.GetChild(5).gameObject.SetActive(true);
-                
+                //nClosest.GetComponent<CharacterStats>().hp = 0; //Test     
             }
         }
     }
@@ -220,6 +221,7 @@ public class BudgeIt : MonoBehaviour
         if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || singlePlayerMode == true))
         {
             if(eachTurn == true){
+            //Debug.Log("Dead? " + dead); //Test
             transform.GetChild(4).gameObject.SetActive(true); 
             ClearTargets();
             CheckTarget(); 
