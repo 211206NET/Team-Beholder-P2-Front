@@ -7,6 +7,7 @@ using SimpleJSON;
 public class ServerTalker : MonoBehaviour
 {
     public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
+    public static bool SinglePlayerMode = true;
     bool canInitialize = true; ///Tell server you joined once
     bool showDebug = false;
     static public int TakeTurn = 1;
@@ -263,6 +264,17 @@ public class ServerTalker : MonoBehaviour
         else
         {
             if(showDebug){Debug.Log("It's deleted!");}
+        }
+    }
+
+    //Continuous loop
+    void Update()
+    {
+        //Toggle single player mode for testing
+        if(Input.GetKeyDown("m"))
+        {
+            if(SinglePlayerMode == true){SinglePlayerMode = false;}
+            else{if(SinglePlayerMode == false){SinglePlayerMode = true;}}
         }
     }
 }
