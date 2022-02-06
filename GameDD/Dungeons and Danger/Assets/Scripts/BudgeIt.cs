@@ -5,7 +5,6 @@ using System.Linq;
 
 public class BudgeIt : MonoBehaviour
 {
-    bool singlePlayerMode = true;
     public int myTurn;
     public int callToTurn = TurnController.Turn;
     bool canMove = true;
@@ -237,7 +236,7 @@ public class BudgeIt : MonoBehaviour
         //callToTurn = TurnController.Turn;
         //Movement
         //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.ThisPlayerIs);
-        if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || singlePlayerMode == true))
+        if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
         {
             if(eachTurn == true){
             //Debug.Log("Dead? " + dead); //Test
@@ -339,8 +338,8 @@ public class BudgeIt : MonoBehaviour
 
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-            charStatsScript.hp -= _getdmg;
-            Debug.Log("My Hp Left: " + charStatsScript.hp);
+            charStatsScript.hp -= _getdmg; charStatsScript.TakeDamage();
+            //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }
     } 
 }
