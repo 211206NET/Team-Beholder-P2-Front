@@ -10,7 +10,7 @@ public class BudgeIt : MonoBehaviour
     public int callToTurn = TurnController.Turn;
     bool canMove = true;
     bool moveClear = true; //If move is not blocked
-    bool canAttack = false; //Deactivated for now
+    bool canAttack = true; //Deactivated for now
     public int movePoints = 3;
     public bool dead = false;
 
@@ -36,8 +36,12 @@ public class BudgeIt : MonoBehaviour
     private Transform weaponArt2;
     private Transform weaponArt3;
     private Transform weaponArt4;
+    public GameObject bloodpf;
     bool amTarget = false; //If can be attacked currently
     bool eachTurn = true;
+
+    //External values
+    private float _getdmg = 0.0f; //Get incomming damage
 
     void Awake()
     {
@@ -164,6 +168,16 @@ public class BudgeIt : MonoBehaviour
         }
     }
 
+    //Just face direction, no move, used in conjunction with attacking
+    void FaceRight()
+    {transform.localRotation = Quaternion.Euler(0, 180, 0);}
+    void FaceLeft()
+    {transform.localRotation = Quaternion.Euler(0, 0, 0);}
+    void FaceUp()
+    {transform.localRotation = Quaternion.Euler(0, 0, 270);}
+    void FaceDown()
+    {transform.localRotation = Quaternion.Euler(0, 0, 90);}
+
     void ClearTargets()
     {
         otherPlayerPref = GameObject.FindGameObjectsWithTag("Player");
@@ -176,6 +190,7 @@ public class BudgeIt : MonoBehaviour
     //Check to see if an enemy is in target range
     void CheckTarget()
     {
+        bool foundTarget = false;
         //Determine range
         if(weaponType < 3.0f){_atkrange = 1.0f;}
         if(weaponType == 3.0f){_atkrange = 2.0f;}
@@ -184,19 +199,23 @@ public class BudgeIt : MonoBehaviour
 
         //Check if any enemy is in range
         otherPlayer = GameObject.FindGameObjectsWithTag("CollideObj");
-        foreach(GameObject op in otherPlayer)
+        foreach(GameObject op in otherPlayer) //Cycle through all CollideObjs as they are only on enemy Players
         {
-            Debug.Log("Distance: " + Vector2.Distance(op.transform.position, transform.position) + ", atkRange: " + _atkrange);
+            //Debug.Log("Distance: " + Vector2.Distance(op.transform.position, transform.position) + ", atkRange: " + _atkrange);
             if(Vector2.Distance(op.transform.position, transform.position) <= _atkrange)
             {
-                var nClosest = GameObject.FindGameObjectsWithTag("Player")
+                var nClosest = GameObject.FindGameObjectsWithTag("Player")//Find the Player object on this CollideObj to access it
                     .OrderBy(o => (o.transform.position - op.transform.position).sqrMagnitude)
                     .FirstOrDefault();
-                                    
-                nClosest.GetComponent<BudgeIt>().amTarget=true; nClosest.transform.GetChild(5).gameObject.SetActive(true);
+
+                if(nClosest != null){foundTarget = true;}                 
+                nClosest.GetComponent<BudgeIt>().amTarget=true; nClosest.transform.GetChild(5).gameObject.SetActive(true); //Access enemy player
                 //nClosest.GetComponent<CharacterStats>().hp = 0; //Test     
             }
         }
+
+        if(foundTarget == false && canMove == false){canAttack = false;}
+        foundTarget = false;
     }
 
     //Player moved and Attacked, end their turn
@@ -228,6 +247,7 @@ public class BudgeIt : MonoBehaviour
             eachTurn = false;}
 
             //Player Input
+            if(canMove == true){
             if (Input.GetKeyDown("right") && !Input.GetKey("left") && !Input.GetKey("up") && !Input.GetKey("down"))
             {
                 BudgeRight();
@@ -243,6 +263,7 @@ public class BudgeIt : MonoBehaviour
             if (Input.GetKeyDown("down") && !Input.GetKey("left") && !Input.GetKey("up") && !Input.GetKey("right"))
             {
                 BudgeDown();
+            }
             }
 
             //Check Player end turn conditions
@@ -266,6 +287,60 @@ public class BudgeIt : MonoBehaviour
                 GameObject makeCol = Instantiate(blockPF, transform.position, transform.rotation);
                 makeCol.GetComponent<PlayerCollision>().myParentId = myTurn;
             }
-        }
+        } 
     }
+
+    void OnMouseDown(){
+        //Debug.Log("On Mouse Down Worked");
+        // this object was clicked - do something
+        //Get Damage
+        otherPlayerPref = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject plyr in otherPlayerPref)
+        {
+            //Find active player and record their main attack damage
+            //This will need to be overhauled for multiple skills and spells
+            if(plyr.GetComponent<BudgeIt>().myTurn == TurnController.Turn) 
+            {
+                _getdmg = plyr.GetComponent<CharacterStats>().damage; plyr.GetComponent<BudgeIt>().canAttack = false;
+                //Have player face attacking direction
+                float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
+                if(ax < dx)
+                {
+                    if(Mathf.Abs(ax-dx) > Mathf.Abs(ay-dy) && Mathf.Abs(ay-dy)<0.35){plyr.GetComponent<BudgeIt>().FaceRight();}
+                    if(Mathf.Abs(ay-dy) > Mathf.Abs(ax-dx) && ay>dy && ay-dy>=0.35){plyr.GetComponent<BudgeIt>().FaceDown();}
+                    if(Mathf.Abs(ay-dy) > Mathf.Abs(ax-dx) && ay<dy && dy-ay>=0.35){plyr.GetComponent<BudgeIt>().FaceUp();}
+                }
+                if(ax > dx)
+                {
+                    if(Mathf.Abs(ax-dx) > Mathf.Abs(ay-dy) && Mathf.Abs(ay-dy)<0.35){plyr.GetComponent<BudgeIt>().FaceLeft();}
+                    if(Mathf.Abs(ay-dy) > Mathf.Abs(ax-dx) && ay>dy && ay-dy>=0.35){plyr.GetComponent<BudgeIt>().FaceDown();}
+                    if(Mathf.Abs(ay-dy) > Mathf.Abs(ax-dx) && ay<dy && dy-ay>=0.35){plyr.GetComponent<BudgeIt>().FaceUp();}
+                }
+                if(ay < dy)
+                {
+                    if(Mathf.Abs(ay-dy) > Mathf.Abs(ax-dx) && Mathf.Abs(ax-dx)<0.35){plyr.GetComponent<BudgeIt>().FaceUp();}
+                    if(Mathf.Abs(ax-dx) > Mathf.Abs(ay-dy) && ax>dx && ax-dx>=0.35){plyr.GetComponent<BudgeIt>().FaceLeft();}
+                    if(Mathf.Abs(ax-dx) > Mathf.Abs(ay-dy) && ax<dx && dx-ax>=0.35){plyr.GetComponent<BudgeIt>().FaceRight();}
+                }
+                if(ay > dy)
+                {
+                    if(Mathf.Abs(ay-dy) > Mathf.Abs(ax-dx) && Mathf.Abs(ax-dx)<0.35){plyr.GetComponent<BudgeIt>().FaceDown();}
+                    if(Mathf.Abs(ax-dx) > Mathf.Abs(ay-dy) && ax>dx && ax-dx>=0.35){plyr.GetComponent<BudgeIt>().FaceLeft();}
+                    if(Mathf.Abs(ax-dx) > Mathf.Abs(ay-dy) && ax<dx && dx-ax>=0.35){plyr.GetComponent<BudgeIt>().FaceRight();}
+                }
+            }
+        }
+
+        if(amTarget)
+        {
+            //Make Blood
+            Vector3 objectPOS = transform.position;
+            GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+
+            //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+            CharacterStats charStatsScript = GetComponent<CharacterStats>();
+            charStatsScript.hp -= _getdmg;
+            Debug.Log("My Hp Left: " + charStatsScript.hp);
+        }
+    } 
 }
