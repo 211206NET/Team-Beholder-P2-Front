@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8484831693384618264, guid: 5c34c5e6a735e26458f4c8e6d7c929c4, type: 3}
       propertyPath: m_Name
-      value: RightBlocker
+      value: RightBlocker Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8484831693384618264, guid: 5c34c5e6a735e26458f4c8e6d7c929c4, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8484831693384618264, guid: 5c34c5e6a735e26458f4c8e6d7c929c4, type: 3}
       propertyPath: m_StaticEditorFlags
