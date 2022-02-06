@@ -1,24 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class BudgeIt : MonoBehaviour
 {
+    bool singlePlayerMode = true;
     public int myTurn;
     public int callToTurn = TurnController.Turn;
     bool canMove = true;
     bool moveClear = true; //If move is not blocked
     bool canAttack = false; //Deactivated for now
     public int movePoints = 3;
-    //int weaponType = 1; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow
+
+    private Transform selectUI;
+    private Transform targetUI;
+
+    //Collision Code
     public GameObject topBlock;
     public GameObject bottomBlock;
     public GameObject leftBlock;
     public GameObject rightBlock;
     
+    public GameObject[] otherPlayerPref;
     public GameObject[] otherPlayer;
     private bool _canMakeCollision = true;
     public GameObject blockPF;
+
+
+    //Vars for weapon
+    private float _atkrange = 0.0f;
+    public int weaponType = 1; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow
+    private Transform weaponArt1;
+    private Transform weaponArt2;
+    private Transform weaponArt3;
+    private Transform weaponArt4;
+    bool amTarget = false; //If can be attacked currently
+    bool eachTurn = true;
+
+    void Awake()
+    {
+        //Set initial weapon art
+        weaponArt1 = transform.Find("Sword"); 
+        weaponArt2 = transform.Find("SwordAndShield"); 
+        weaponArt3 = transform.Find("Staff"); 
+        weaponArt4 = transform.Find("Bow"); 
+        selectUI = transform.Find("Selected"); 
+        targetUI = transform.Find("TargetUI"); 
+        
+        transform.GetChild(0).gameObject.SetActive(true);
+        transform.GetChild(1).gameObject.SetActive(false);
+        transform.GetChild(2).gameObject.SetActive(false);
+        transform.GetChild(3).gameObject.SetActive(false);
+        transform.GetChild(4).gameObject.SetActive(false);
+        transform.GetChild(5).gameObject.SetActive(false);
+    }
 
     //Method to move square to determine a player moved something and it persisted to other players
     void BudgeRight()
@@ -30,7 +66,7 @@ public class BudgeIt : MonoBehaviour
 
         foreach(GameObject op in otherPlayer)
         {      
-            Debug.Log("Distance to other player: " + (op.transform.position.x - transform.position.x) + ", Abs x: " + Mathf.Abs(op.transform.position.y - transform.position.y));
+            //Debug.Log("Distance to other player: " + (op.transform.position.x - transform.position.x) + ", Abs x: " + Mathf.Abs(op.transform.position.y - transform.position.y));
             if((transform.position.x < op.transform.position.x && op.transform.position.x - transform.position.x < 0.35f && Mathf.Abs(op.transform.position.y - transform.position.y)<0.24f) ||
             rightBlock.transform.position.x - transform.position.x < 0.35f){moveClear = false;}
         }
@@ -41,6 +77,8 @@ public class BudgeIt : MonoBehaviour
             movePoints -= 1;
             if(movePoints < 1){canMove = false;}
         }
+        ClearTargets();
+        CheckTarget();
         moveClear = true;//reset
         }
     }
@@ -54,7 +92,7 @@ public class BudgeIt : MonoBehaviour
 
         foreach(GameObject op in otherPlayer)
         {      
-            Debug.Log("Distance to other player: " + (transform.position.x - op.transform.position.x) + ", Abs x: " + Mathf.Abs(op.transform.position.y - transform.position.y));
+            //Debug.Log("Distance to other player: " + (transform.position.x - op.transform.position.x) + ", Abs x: " + Mathf.Abs(op.transform.position.y - transform.position.y));
             if((op.transform.position.x < transform.position.x && transform.position.x - op.transform.position.x < 0.35f && Mathf.Abs(op.transform.position.y - transform.position.y)<0.24f) ||
             transform.position.x - leftBlock.transform.position.x < 0.35f){moveClear = false;}
         }
@@ -65,6 +103,8 @@ public class BudgeIt : MonoBehaviour
             movePoints -= 1;
             if(movePoints < 1){canMove = false;}
         }
+        ClearTargets();
+        CheckTarget();
         moveClear = true;//reset
         }
     }
@@ -78,7 +118,7 @@ public class BudgeIt : MonoBehaviour
 
         foreach(GameObject op in otherPlayer)
         {      
-            Debug.Log("Distance to other player: " + (op.transform.position.y - transform.position.y) + ", Abs x: " + Mathf.Abs(op.transform.position.x - transform.position.x));
+            //Debug.Log("Distance to other player: " + (op.transform.position.y - transform.position.y) + ", Abs x: " + Mathf.Abs(op.transform.position.x - transform.position.x));
             if((transform.position.y < op.transform.position.y && op.transform.position.y - transform.position.y < 0.35f && Mathf.Abs(op.transform.position.x - transform.position.x)<0.24f) ||
             topBlock.transform.position.y - transform.position.y < 0.35f){moveClear = false;}
         }
@@ -89,6 +129,8 @@ public class BudgeIt : MonoBehaviour
             movePoints -= 1;
             if(movePoints < 1){canMove = false;}
         }
+        ClearTargets();
+        CheckTarget();
         moveClear = true;//reset
         }
     }
@@ -103,7 +145,7 @@ public class BudgeIt : MonoBehaviour
 
         foreach(GameObject op in otherPlayer)
         {      
-            Debug.Log("Distance to other player: " + (transform.position.y - op.transform.position.y) + ", Abs x: " + Mathf.Abs(op.transform.position.x - transform.position.x));
+            //Debug.Log("Distance to other player: " + (transform.position.y - op.transform.position.y) + ", Abs x: " + Mathf.Abs(op.transform.position.x - transform.position.x));
             if((op.transform.position.y < transform.position.y && transform.position.y - op.transform.position.y < 0.35f && Mathf.Abs(op.transform.position.x - transform.position.x)<0.24f) ||
             transform.position.y - bottomBlock.transform.position.y < 0.35f){moveClear = false;}
         }
@@ -114,7 +156,45 @@ public class BudgeIt : MonoBehaviour
             movePoints -= 1;
             if(movePoints < 1){canMove = false;}
         }
+        
+        ClearTargets();
+        CheckTarget();
         moveClear = true;//reset
+        }
+    }
+
+    void ClearTargets()
+    {
+        otherPlayerPref = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject op in otherPlayerPref)
+        {
+            op.GetComponent<BudgeIt>().amTarget=false; op.transform.GetChild(5).gameObject.SetActive(false);
+        }
+    }
+
+    //Check to see if an enemy is in target range
+    void CheckTarget()
+    {
+        //Determine range
+        if(weaponType < 3.0f){_atkrange = 1.0f;}
+        if(weaponType == 3.0f){_atkrange = 2.0f;}
+        if(weaponType == 4.0f){_atkrange = 3.0f;}
+        _atkrange = _atkrange*0.32f; //Set range to Unity units of pixels distance
+
+        //Check if any enemy is in range
+        otherPlayer = GameObject.FindGameObjectsWithTag("CollideObj");
+        foreach(GameObject op in otherPlayer)
+        {
+            Debug.Log("Distance: " + Vector2.Distance(op.transform.position, transform.position) + ", atkRange: " + _atkrange);
+            if(Vector2.Distance(op.transform.position, transform.position) <= _atkrange)
+            {
+                var nClosest = GameObject.FindGameObjectsWithTag("Player")
+                    .OrderBy(o => (o.transform.position - op.transform.position).sqrMagnitude)
+                    .FirstOrDefault();
+                                    
+                nClosest.GetComponent<BudgeIt>().amTarget=true; nClosest.transform.GetChild(5).gameObject.SetActive(true);
+                
+            }
         }
     }
 
@@ -136,8 +216,15 @@ public class BudgeIt : MonoBehaviour
     {
         //callToTurn = TurnController.Turn;
         //Movement
-        if(callToTurn == myTurn)
+        //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.ThisPlayerIs);
+        if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || singlePlayerMode == true))
         {
+            if(eachTurn == true){
+            transform.GetChild(4).gameObject.SetActive(true); 
+            ClearTargets();
+            CheckTarget(); 
+            eachTurn = false;}
+
             //Player Input
             if (Input.GetKeyDown("right") && !Input.GetKey("left") && !Input.GetKey("up") && !Input.GetKey("down"))
             {
@@ -166,6 +253,8 @@ public class BudgeIt : MonoBehaviour
         }
         else
         {
+            eachTurn = true;
+            transform.GetChild(4).gameObject.SetActive(false);
             callToTurn = TurnController.Turn;
             //Create collider once when not your turn so other players can't collide with you
             if(_canMakeCollision == true)
