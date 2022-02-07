@@ -16,7 +16,7 @@ public class ServerTalker : MonoBehaviour
     private float _checkGet = 30.0f;
 
     //Data
-    int playersTotal = 0;
+    public static int playersTotal = 0;
     string tDp1Name = "testA";
     string tDp2Name = "testB";
     string tDp3Name = "testC";
@@ -400,6 +400,8 @@ public class ServerTalker : MonoBehaviour
         }
         if(_checkGet > 0.0f){_checkGet -= Time.time*1.0f;}
     }
+
+    //Application.Quit()
 }
 
 

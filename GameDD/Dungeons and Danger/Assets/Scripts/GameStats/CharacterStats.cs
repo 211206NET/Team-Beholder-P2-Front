@@ -8,7 +8,10 @@ public class CharacterStats : MonoBehaviour
     //Stats like this must be floating point internally but rounded up for the UI
     public float hp = 10.0f;
     public float maxHp = 10.0f;
-    public float damage = 1.0f;
+    public float damage = 1.0f; 
+
+    //Core stats
+
 
     //GUI/Effects
     public HealthBar healthBar;
@@ -49,5 +52,11 @@ public class CharacterStats : MonoBehaviour
         {
             Die();
         }
+    }
+
+    void SetClassWarrior()
+    {
+        //intelleigence = 1;
+
     }
 }
