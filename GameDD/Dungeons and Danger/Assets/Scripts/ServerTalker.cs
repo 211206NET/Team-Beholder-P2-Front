@@ -16,7 +16,7 @@ public class ServerTalker : MonoBehaviour
     private float _checkGet = 30.0f;
 
     //Data
-    int playersTotal = 0;
+    public static int playersTotal = 0;
     string tDp1Name = "testA";
     string tDp2Name = "testB";
     string tDp3Name = "testC";
