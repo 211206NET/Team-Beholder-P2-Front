@@ -13,7 +13,8 @@ public class ServerTalker : MonoBehaviour
     static public int TakeTurn = 1;
     GameObject[] playerObjs;
 
-    private float _checkGet = 30.0f;
+    private float _checkGet = 30;
+    private float _getdmg = 0.0f;
 
     //Data
     public static int playersTotal = 0;
@@ -187,19 +188,25 @@ public class ServerTalker : MonoBehaviour
             if(node["p2fc"]==4){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<BudgeIt>().FaceDown();}}
             if(node["p3fc"]==4){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 3 && ThisPlayerIs != 3){plr.GetComponent<BudgeIt>().FaceDown();}}
             if(node["p4fc"]==4){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 4 && ThisPlayerIs != 4){plr.GetComponent<BudgeIt>().FaceDown();}}
+            
+            //Get the dmg
+            if(node["targetName"] != "" && plr.GetComponent<BudgeIt>().myTurn == TakeTurn){
+                _getdmg = plr.GetComponent<CharacterStats>.damage;
+            }
 
+            //Make the attack
             if(node["action"]==1){
             if(node["actionID"]==1){
-                if(node["targetName"]==plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(0.01f);}//Just to create attack effect
+                if(node["targetName"]==plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getdmg);}//Just to create attack effect
             }}
 
             //Set Current HPs
-            if(node["p1HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<CharacterStats>().hp=node["p1HP"];}}
-            if(node["p2HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<CharacterStats>().hp=node["p2HP"];}}
-            if(node["p3HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 3 && ThisPlayerIs != 3){plr.GetComponent<CharacterStats>().hp=node["p3HP"];}}
-            if(node["p4HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 4 && ThisPlayerIs != 4){plr.GetComponent<CharacterStats>().hp=node["p4HP"];}}
+            // if(node["p1HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<CharacterStats>().hp=node["p1HP"];}}
+            // if(node["p2HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<CharacterStats>().hp=node["p2HP"];}}
+            // if(node["p3HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 3 && ThisPlayerIs != 3){plr.GetComponent<CharacterStats>().hp=node["p3HP"];}}
+            // if(node["p4HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 4 && ThisPlayerIs != 4){plr.GetComponent<CharacterStats>().hp=node["p4HP"];}}
 
-            //Max HP...
+           //Max HP...
         }
         //Reset vars...
         node["tDP1mv"] = 0;
@@ -393,12 +400,12 @@ public class ServerTalker : MonoBehaviour
         }
 
         //Get data every so often for all players
-        if(_checkGet < 30.0f)
+        if(_checkGet < 30)
         {
             ProcessGet();
-            _checkGet = Time.time*30.0f;
+            _checkGet = Time.time*2;
         }
-        if(_checkGet > 0.0f){_checkGet -= Time.time*1.0f;}
+        if(_checkGet > 0){_checkGet -= Time.time*2;}
     }
 
     //Application.Quit()

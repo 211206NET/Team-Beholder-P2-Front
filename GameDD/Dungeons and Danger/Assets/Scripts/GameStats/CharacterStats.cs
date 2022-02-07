@@ -26,7 +26,7 @@ public class CharacterStats : MonoBehaviour
     }
 
     //what to do when character takes damage
-    public void TakeDamage(float dmg)
+    public void TakeDamage(float dmg, int turn, string name)
     {
         //Make Blood
         Vector3 objectPOS = transform.position;
@@ -36,6 +36,17 @@ public class CharacterStats : MonoBehaviour
         //GUI
         int hpInt = Convert.ToInt32(hp);
         healthBar.SetHealth(hpInt);//Update health bar current value
+        //Send to server
+        GameObject findGOD; findGOD = GameObject.Find("GOD");
+        if(turn == 1 && turn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1fc = 4;}
+        if(turn == 2 && turn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2fc = 4;}
+        if(turn == 3 && turn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3fc = 4;}
+        if(turn == 4 && turn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4fc = 4;}
+
+        findGOD.GetComponent<Servertalker>().tDAction = 1; 
+        findGOD.GetComponent<Servertalker>().tDActionID = 1; 
+        findGOD.GetComponent<Servertalker>().tDTargetName = name;
+        UpdateServer();
     }
 
     //This player is defeated
@@ -43,6 +54,14 @@ public class CharacterStats : MonoBehaviour
     {
         BudgeIt budgescript = GetComponent<BudgeIt>();
         budgescript.dead = true;
+        UpdateServer();
+    }
+
+    //Update the server with information
+    void UpdateServer()
+    {
+        GameObject sTalk; sTalk = GameObject.Find("GOD");
+        sTalk.GetComponent<ServerTalker>().ProcessPost();
     }
 
     // Update is called once per frame

@@ -8,6 +8,7 @@ public class BudgeIt : MonoBehaviour
     public int myTurn;
     public string myName;
     public int callToTurn = TurnController.Turn;
+    public GameObject findGOD;
     bool canMove = true;
     bool moveClear = true; //If move is not blocked
     bool canAttack = true; //Deactivated for now
@@ -44,6 +45,9 @@ public class BudgeIt : MonoBehaviour
 
     void Awake()
     {
+        
+        findGOD = GameObject.Find("GOD"); 
+
         //Set initial weapon art
         weaponArt1 = transform.Find("Sword"); 
         weaponArt2 = transform.Find("SwordAndShield"); 
@@ -81,6 +85,11 @@ public class BudgeIt : MonoBehaviour
             movePoints -= 1;
             if(movePoints < 1){canMove = false;}
         }
+        
+        if(myTurn == 1 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1mv = 1;}
+        if(myTurn == 2 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2mv = 1;}
+        if(myTurn == 3 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3mv = 1;}
+        if(myTurn == 4 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4mv = 1;}
         ClearTargets();
         CheckTarget();
         UpdateServer();
@@ -108,6 +117,11 @@ public class BudgeIt : MonoBehaviour
             movePoints -= 1;
             if(movePoints < 1){canMove = false;}
         }
+        
+        if(myTurn == 1 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1mv = 2;}
+        if(myTurn == 2 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2mv = 2;}
+        if(myTurn == 3 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3mv = 2;}
+        if(myTurn == 4 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4mv = 2;}
         ClearTargets();
         CheckTarget();
         UpdateServer();
@@ -135,6 +149,11 @@ public class BudgeIt : MonoBehaviour
             movePoints -= 1;
             if(movePoints < 1){canMove = false;}
         }
+        
+        if(myTurn == 1 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1mv = 3;}
+        if(myTurn == 2 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2mv = 3;}
+        if(myTurn == 3 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3mv = 3;}
+        if(myTurn == 4 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4mv = 3;}
         ClearTargets();
         CheckTarget();
         UpdateServer();
@@ -164,6 +183,10 @@ public class BudgeIt : MonoBehaviour
             if(movePoints < 1){canMove = false;}
         }
         
+        if(myTurn == 1 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1mv = 4;}
+        if(myTurn == 2 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2mv = 4;}
+        if(myTurn == 3 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3mv = 4;}
+        if(myTurn == 4 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4mv = 4;}
         ClearTargets();
         CheckTarget();
         UpdateServer();
@@ -173,13 +196,33 @@ public class BudgeIt : MonoBehaviour
 
     //Just face direction, no move, used in conjunction with attacking
     public void FaceRight()
-    {transform.localRotation = Quaternion.Euler(0, 180, 0); UpdateServer();}
+    {transform.localRotation = Quaternion.Euler(0, 180, 0); 
+    if(myTurn == 1 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1fc = 1;}
+    if(myTurn == 2 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2fc = 1;}
+    if(myTurn == 3 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3fc = 1;}
+    if(myTurn == 4 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4fc = 1;}
+    UpdateServer();}
     public void FaceLeft()
-    {transform.localRotation = Quaternion.Euler(0, 0, 0); UpdateServer();}
+    {transform.localRotation = Quaternion.Euler(0, 0, 0); 
+    if(myTurn == 1 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1fc = 2;}
+    if(myTurn == 2 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2fc = 2;}
+    if(myTurn == 3 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3fc = 2;}
+    if(myTurn == 4 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4fc = 2;}
+    UpdateServer();}
     public void FaceUp()
-    {transform.localRotation = Quaternion.Euler(0, 0, 270); UpdateServer();}
+    {transform.localRotation = Quaternion.Euler(0, 0, 270); 
+    if(myTurn == 1 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1fc = 3;}
+    if(myTurn == 2 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2fc = 3;}
+    if(myTurn == 3 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3fc = 3;}
+    if(myTurn == 4 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4fc = 3;}
+    UpdateServer();}
     public void FaceDown()
-    {transform.localRotation = Quaternion.Euler(0, 0, 90); UpdateServer();}
+    {transform.localRotation = Quaternion.Euler(0, 0, 90); 
+    if(myTurn == 1 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1fc = 4;}
+    if(myTurn == 2 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2fc = 4;}
+    if(myTurn == 3 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3fc = 4;}
+    if(myTurn == 4 && myTurn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4fc = 4;}
+    UpdateServer();}
 
     void ClearTargets()
     {
@@ -344,12 +387,12 @@ public class BudgeIt : MonoBehaviour
 
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-            charStatsScript.TakeDamage(_getdmg);
+            charStatsScript.TakeDamage(_getdmg, myTurn);
             //charStatsScript.hp -= _getdmg; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
 
             
-            UpdateServer();
+            
         }
     } 
 }
