@@ -7,39 +7,42 @@ using SimpleJSON;
 public class ServerTalker : MonoBehaviour
 {
     public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
-    public static bool SinglePlayerMode = true;
+    public static bool SinglePlayerMode = false;
     bool canInitialize = true; ///Tell server you joined once
     bool showDebug = false;
     static public int TakeTurn = 1;
     GameObject[] playerObjs;
 
-    private float _checkGet = 30.0f;
+    private float _checkGet = 30;
+    private float _getdmg = 0.0f;
+    private int _getturn = 0;
+    private string _gettarget = "";
 
     //Data
     public static int playersTotal = 0;
-    string tDp1Name = "testA";
-    string tDp2Name = "testB";
-    string tDp3Name = "testC";
-    string tDp4Name = "testD";
-    int tDP1mv = 0;
-    int tDP2mv = 0;
-    int tDP3mv = 0;
-    int tDP4mv = 0;
-    int tDP1fc = 0;
-    int tDP2fc = 0;
-    int tDP3fc = 0;
-    int tDP4fc = 0;
-    int tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-    int tDActionID = 0; //the Id for the action in a list
-    string tDTargetName = "testA";//Who is being targeted this turn
-    int tDP1MaxHP = 10; 
-    int tDP2MaxHP = 10; 
-    int tDP3MaxHP = 10; 
-    int tDP4MaxHP = 10; 
-    int tDP1HP = 10; 
-    int tDP2HP = 10; 
-    int tDP3HP = 10; 
-    int tDP4HP = 10; 
+    public string tDp1Name = "Name1";
+    public string tDp2Name = "testB";
+    public string tDp3Name = "testC";
+    public string tDp4Name = "testD";
+    public int tDP1mv = 0;
+    public int tDP2mv = 0;
+    public int tDP3mv = 0;
+    public int tDP4mv = 0;
+    public int tDP1fc = 0;
+    public int tDP2fc = 0;
+    public int tDP3fc = 0;
+    public int tDP4fc = 0;
+    public int tDAction = 5; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+    public int tDActionID = 5; //the Id for the action in a list
+    public string tDTargetName = "NOTA";//Who is being targeted this turn
+    public int tDP1MaxHP = 10; 
+    public int tDP2MaxHP = 10; 
+    public int tDP3MaxHP = 10; 
+    public int tDP4MaxHP = 10; 
+    public int tDP1HP = 10; 
+    public int tDP2HP = 10; 
+    public int tDP3HP = 10; 
+    public int tDP4HP = 10; 
 
 
 
@@ -118,11 +121,17 @@ public class ServerTalker : MonoBehaviour
             if(node["players"] < 4)
             {
                 playersTotal = node["players"]+1;//Set local record of how many players there are and what player this is
-                ThisPlayerIs = playersTotal;
+                ThisPlayerIs = playersTotal; //Only sets once per player
                 foreach(GameObject pl in playerObjs)
                 {
-                    if(pl.GetComponent<BudgeIt>().myTurn == playersTotal)
-                    {pl.GetComponent<BudgeIt>().myName = node["targetName"];}//Change this to spawn players****
+                    if(pl.GetComponent<BudgeIt>().myTurn == 1)
+                    {Debug.Log("I was named: " + node["p1Name"]); tDp1Name = node["p1Name"]; pl.GetComponent<BudgeIt>().myName = node["p1Name"];}
+                    if(pl.GetComponent<BudgeIt>().myTurn == 2)
+                    {Debug.Log("I was named: " + node["p2Name"]); tDp2Name = node["p2Name"]; pl.GetComponent<BudgeIt>().myName = node["p2Name"];}
+                    if(pl.GetComponent<BudgeIt>().myTurn == 3)
+                    {Debug.Log("I was named: " + node["p3Name"]); tDp3Name = node["p3Name"]; pl.GetComponent<BudgeIt>().myName = node["p3Name"];}
+                    if(pl.GetComponent<BudgeIt>().myTurn == 4)
+                    {Debug.Log("I was named: " + node["p4Name"]); tDp4Name = node["p4Name"]; pl.GetComponent<BudgeIt>().myName = node["p4Name"];}
                 }
                 canInitialize = false;
             }
@@ -187,32 +196,40 @@ public class ServerTalker : MonoBehaviour
             if(node["p2fc"]==4){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<BudgeIt>().FaceDown();}}
             if(node["p3fc"]==4){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 3 && ThisPlayerIs != 3){plr.GetComponent<BudgeIt>().FaceDown();}}
             if(node["p4fc"]==4){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 4 && ThisPlayerIs != 4){plr.GetComponent<BudgeIt>().FaceDown();}}
+            
+            //Get the dmg
+            if(node["targetName"] != "" && plr.GetComponent<BudgeIt>().myTurn == TakeTurn){
+                _getdmg = plr.GetComponent<CharacterStats>().damage;
+            }
 
+            
+            _getturn = TakeTurn; _gettarget = node["targetName"]; 
+            //Make the attack
             if(node["action"]==1){
             if(node["actionID"]==1){
-                if(node["targetName"]==plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(0.01f);}//Just to create attack effect
+                if(node["targetName"]==plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getdmg, _getturn, _gettarget, false);}//Just to create attack effect
             }}
 
             //Set Current HPs
-            if(node["p1HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<CharacterStats>().hp=node["p1HP"];}}
-            if(node["p2HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<CharacterStats>().hp=node["p2HP"];}}
-            if(node["p3HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 3 && ThisPlayerIs != 3){plr.GetComponent<CharacterStats>().hp=node["p3HP"];}}
-            if(node["p4HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 4 && ThisPlayerIs != 4){plr.GetComponent<CharacterStats>().hp=node["p4HP"];}}
+            // if(node["p1HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<CharacterStats>().hp=node["p1HP"];}}
+            // if(node["p2HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<CharacterStats>().hp=node["p2HP"];}}
+            // if(node["p3HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 3 && ThisPlayerIs != 3){plr.GetComponent<CharacterStats>().hp=node["p3HP"];}}
+            // if(node["p4HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 4 && ThisPlayerIs != 4){plr.GetComponent<CharacterStats>().hp=node["p4HP"];}}
 
-            //Max HP...
+           //Max HP...
         }
         //Reset vars...
-        node["tDP1mv"] = 0;
-        node["tDP2mv"] = 0;
-        node["tDP3mv"] = 0;
-        node["tDP4mv"] = 0;
-        node["tDP1fc"] = 0;
-        node["tDP2fc"] = 0;
-        node["tDP3fc"] = 0;
-        node["tDP4fc"] = 0;
-        node["action"] = 0;
-        node["actionID"] = 0;
-        node["targetName"] = "";
+        // node["tDP1mv"] = 0;
+        // node["tDP2mv"] = 0;
+        // node["tDP3mv"] = 0;
+        // node["tDP4mv"] = 0;
+        // node["tDP1fc"] = 0;
+        // node["tDP2fc"] = 0;
+        // node["tDP3fc"] = 0;
+        // node["tDP4fc"] = 0;
+        // node["action"] = 0;
+        // node["actionID"] = 0;
+        // node["targetName"] = "";
 
         ProcessPost(); 
 
@@ -393,12 +410,12 @@ public class ServerTalker : MonoBehaviour
         }
 
         //Get data every so often for all players
-        if(_checkGet < 30.0f)
+        if(_checkGet < 30)
         {
             ProcessGet();
-            _checkGet = Time.time*30.0f;
+            _checkGet = Time.time*1;
         }
-        if(_checkGet > 0.0f){_checkGet -= Time.time*1.0f;}
+        if(_checkGet > 0){_checkGet -= Time.time*1;}
     }
 
     //Application.Quit()

@@ -230,6 +230,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fdaedf3d7d470489ec115363cfd081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tDp1Name: testA
+  tDp2Name: testB
+  tDp3Name: testC
+  tDp4Name: testD
+  tDP1mv: 0
+  tDP2mv: 0
+  tDP3mv: 0
+  tDP4mv: 0
+  tDP1fc: 0
+  tDP2fc: 0
+  tDP3fc: 0
+  tDP4fc: 0
+  tDAction: 0
+  tDActionID: 0
+  tDTargetName: testA
+  tDP1MaxHP: 10
+  tDP2MaxHP: 10
+  tDP3MaxHP: 10
+  tDP4MaxHP: 10
+  tDP1HP: 10
+  tDP2HP: 10
+  tDP3HP: 10
+  tDP4HP: 10
 --- !u!4 &122940760
 Transform:
   m_ObjectHideFlags: 0
@@ -1889,7 +1912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2434368852863152482, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.388
+      value: -1.087
       objectReference: {fileID: 0}
     - target: {fileID: 2434368852863152482, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1993,7 +2016,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2434368852863152482, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.386
+      value: -1.078
       objectReference: {fileID: 0}
     - target: {fileID: 2434368852863152482, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
       propertyPath: m_LocalPosition.z
