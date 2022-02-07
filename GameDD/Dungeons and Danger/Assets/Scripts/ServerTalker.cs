@@ -400,6 +400,8 @@ public class ServerTalker : MonoBehaviour
         }
         if(_checkGet > 0.0f){_checkGet -= Time.time*1.0f;}
     }
+
+    //Application.Quit()
 }
 
 
