@@ -3,15 +3,27 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
+<<<<<<< HEAD
   tags: []
+=======
+  tags:
+  - CollideObj
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
+<<<<<<< HEAD
   - 
   - Water
   - UI
   - 
+=======
+  - Effects
+  - Water
+  - UI
+  - Ground
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
   - 
   - 
   - 
