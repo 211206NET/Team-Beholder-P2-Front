@@ -287,7 +287,8 @@ public class BudgeIt : MonoBehaviour
     {
         //callToTurn = TurnController.Turn;
         //Movement
-        //if(myTurn == 1){Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);}
+        //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.ThisPlayerIs);
+        Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);
         if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
         {
             if(eachTurn == true){
@@ -354,7 +355,8 @@ public class BudgeIt : MonoBehaviour
             //This will need to be overhauled for multiple skills and spells
             if(plyr.GetComponent<BudgeIt>().myTurn == TurnController.Turn) 
             {
-                _getdmg = plyr.GetComponent<CharacterStats>().damage; plyr.GetComponent<BudgeIt>().canAttack = false;
+                _getdmg = plyr.GetComponent<CharacterStats>().damage;
+                plyr.GetComponent<BudgeIt>().canAttack = false;
                 //Have player face attacking direction
                 float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
                 if(ax < dx)
