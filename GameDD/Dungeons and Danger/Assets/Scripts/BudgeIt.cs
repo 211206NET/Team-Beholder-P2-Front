@@ -292,8 +292,8 @@ public class BudgeIt : MonoBehaviour
         {
             if(eachTurn == true){
             //Debug.Log("Dead? " + dead); //Test
-            ServerTalker myST = GetComponent<ServerTalker>();
-            myST.checkNow = true; //Get update
+            GameObject sTalk; sTalk = GameObject.Find("GOD");
+            sTalk.GetComponent<ServerTalker>().checkNow;
             transform.GetChild(4).gameObject.SetActive(true); 
             ClearTargets();
             CheckTarget(); 
