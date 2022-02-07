@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTurn: 1
+  myName: 
   callToTurn: 1
   movePoints: 3
   dead: 0
@@ -280,7 +281,6 @@ MonoBehaviour:
   otherPlayer: []
   blockPF: {fileID: 0}
   weaponType: 1
-  bloodpf: {fileID: 1248622831651091097, guid: 62c3186dff3f3484baa0a72dadc5ed0a, type: 3}
 --- !u!114 &1218880770537984288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,6 +297,7 @@ MonoBehaviour:
   maxHp: 10
   damage: 1
   healthBar: {fileID: 4108244155418031746}
+  bloodpf: {fileID: 1248622831651091097, guid: 62c3186dff3f3484baa0a72dadc5ed0a, type: 3}
 --- !u!61 &5520025081283567987
 BoxCollider2D:
   m_ObjectHideFlags: 0
