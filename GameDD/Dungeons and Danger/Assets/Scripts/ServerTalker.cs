@@ -13,45 +13,70 @@ public class ServerTalker : MonoBehaviour
     static public int TakeTurn = 1;
     GameObject[] playerObjs;
 
+    public bool checkNow = false; //Run Get data from database
     private float _checkGet = 30;
     private float _getdmg = 0.0f;
     private int _getturn = 0;
     private string _gettarget = "";
 
     //Data
-    public static int playersTotal = 0;
-    public string tDp1Name = "Name1";
-    public string tDp2Name = "testB";
-    public string tDp3Name = "testC";
-    public string tDp4Name = "testD";
-    public int tDP1mv = 0;
-    public int tDP2mv = 0;
-    public int tDP3mv = 0;
-    public int tDP4mv = 0;
-    public int tDP1fc = 0;
-    public int tDP2fc = 0;
-    public int tDP3fc = 0;
-    public int tDP4fc = 0;
-    public int tDAction = 5; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-    public int tDActionID = 5; //the Id for the action in a list
-    public string tDTargetName = "NOTA";//Who is being targeted this turn
-    public int tDP1MaxHP = 10; 
-    public int tDP2MaxHP = 10; 
-    public int tDP3MaxHP = 10; 
-    public int tDP4MaxHP = 10; 
-    public int tDP1HP = 10; 
-    public int tDP2HP = 10; 
-    public int tDP3HP = 10; 
-    public int tDP4HP = 10; 
+    public static int playersTotal { get; set; }
+    public string tDp1Name { get; set; }
+    public string tDp2Name { get; set; }
+    public string tDp3Name { get; set; }
+    public string tDp4Name { get; set; }
+    public int tDP1mv { get; set; }
+    public int tDP2mv { get; set; }
+    public int tDP3mv { get; set; }
+    public int tDP4mv { get; set; }
+    public int tDP1fc { get; set; }
+    public int tDP2fc { get; set; }
+    public int tDP3fc { get; set; }
+    public int tDP4fc { get; set; }
+    public int tDAction { get; set; } //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+    public int tDActionID { get; set; } //the Id for the action in a list
+    public string tDTargetName { get; set; }//Who is being targeted this turn
+    public int tDP1MaxHP { get; set; }
+    public int tDP2MaxHP { get; set; }
+    public int tDP3MaxHP { get; set; } 
+    public int tDP4MaxHP { get; set; } 
+    public int tDP1HP { get; set; } 
+    public int tDP2HP { get; set; } 
+    public int tDP3HP { get; set; } 
+    public int tDP4HP { get; set; } 
 
 
 
     // Start is called before the first frame update
     void Start() //http://localhost:8000/user/
     {
+        tDp1Name = "z";
+        tDp2Name = "z";
+        tDp3Name = "z";
+        tDp4Name = "z";
+        tDP1mv = 0;
+        tDP2mv = 0;
+        tDP3mv = 0;
+        tDP4mv = 0;
+        tDP1fc = 0;
+        tDP2fc = 0;
+        tDP3fc = 0;
+        tDP4fc = 0;
+        tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+        tDActionID = 0; //the Id for the action in a list
+        tDTargetName = "z";//Who is being targeted this turn
+        tDP1MaxHP = 0; 
+        tDP2MaxHP = 0; 
+        tDP3MaxHP = 0; 
+        tDP4MaxHP = 0; 
+        tDP1HP = 0; 
+        tDP2HP = 0; 
+        tDP3HP = 0; 
+        tDP4HP = 0; 
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
         ProcessGet();
         
+        //Debug.Log("Name of target at start: "+tDTargetName);
         
         // StartCoroutine(checkInternetConnection((isConnected)=>{
         //     // handle connection status here
@@ -155,6 +180,7 @@ public class ServerTalker : MonoBehaviour
         //Get Data to send to other players to update
         foreach(GameObject plr in playerObjs) //Loop through each player and update with server data
         {
+            if(ThisPlayerIs != TakeTurn){//For other players
             //All move character right
             if(node["p1mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<BudgeIt>().BudgeRight();}}
             if(node["p2mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<BudgeIt>().BudgeRight();}}
@@ -205,10 +231,11 @@ public class ServerTalker : MonoBehaviour
             
             _getturn = TakeTurn; _gettarget = node["targetName"]; 
             //Make the attack
-            if(node["action"]==1){
-            if(node["actionID"]==1){
-                if(node["targetName"]==plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getdmg, _getturn, _gettarget, false);}//Just to create attack effect
+            if(node["action"] == 1){
+            if(node["actionID"] == 1){
+                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getdmg, _getturn, _gettarget, false);}//Just to create attack effect
             }}
+            }
 
             //Set Current HPs
             // if(node["p1HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<CharacterStats>().hp=node["p1HP"];}}
@@ -295,7 +322,8 @@ public class ServerTalker : MonoBehaviour
         // P2HP 
         // P3HP 
         // P4HP  
-
+        //tDTargetName = "NOTFRICKINGA";
+        Debug.Log("Name of target: " + tDTargetName + ", But I won't set it for no REASON!!");
         form.AddField("Id", 1);
         form.AddField("Players", playersTotal);
         form.AddField("gameTurn", TakeTurn);
@@ -409,13 +437,20 @@ public class ServerTalker : MonoBehaviour
             else{if(SinglePlayerMode == false){SinglePlayerMode = true;}}
         }
 
-        //Get data every so often for all players
-        if(_checkGet < 30)
+        //Run a get data
+        if(checkNow == true)
         {
             ProcessGet();
-            _checkGet = Time.time*1;
+            checkNow = false;
         }
-        if(_checkGet > 0){_checkGet -= Time.time*1;}
+
+        //Get data every so often for all players
+        // if(_checkGet < 30)
+        // {
+        //     ProcessGet();
+        //     _checkGet = Time.time*1;
+        // }
+        // if(_checkGet > 0){_checkGet -= Time.time*1;}
     }
 
     //Application.Quit()
