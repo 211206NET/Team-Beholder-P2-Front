@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+
 public class CharacterStats : MonoBehaviour
 {
-    //Stats like this must be floating point internally but rounded up for the UI
-    public float hp = 10.0f;
-    public float maxHp = 10.0f;
-    public float damage = 1.0f; 
+    
 
+    //Stats like this must be floating point internally but rounded up for the UI
+    public float maxHp;
+    public float hp;
+    public int strength;
+    public int constitution;
+    public int armorClass;
+    public float damage;
+
+    //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
 
 
@@ -20,9 +28,10 @@ public class CharacterStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //int maxHpInt = maxHp as int;
-        int maxHpInt = Convert.ToInt32(maxHp);
-        healthBar.SetMaxHealth(maxHpInt);//This will need to be placed anywhere max health gets altered
+        ClassStats classStatsScript = GetComponent<ClassStats>();
+        Random rand = new Random();
+        int number = rand.Next(1, 100);
+        classStatsScript.SetClassBarbarian(maxHp, hp, str, con, AC);
     }
 
     //what to do when character takes damage
@@ -53,10 +62,5 @@ public class CharacterStats : MonoBehaviour
             Die();
         }
     }
-
-    void SetClassWarrior()
-    {
-        //intelleigence = 1;
-
-    }
+    
 }
