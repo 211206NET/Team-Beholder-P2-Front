@@ -26,8 +26,9 @@ public class CharacterStats : MonoBehaviour
     }
 
     //what to do when character takes damage
-    public void TakeDamage(float dmg, int turn, string name)
+    public void TakeDamage(float dmg, int turn, string name, bool local)
     {
+        Debug.Log("Ow! My name is "+name);
         //Make Blood
         Vector3 objectPOS = transform.position;
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
@@ -37,16 +38,13 @@ public class CharacterStats : MonoBehaviour
         int hpInt = Convert.ToInt32(hp);
         healthBar.SetHealth(hpInt);//Update health bar current value
         //Send to server
+        if(local == true){
         GameObject findGOD; findGOD = GameObject.Find("GOD");
-        if(turn == 1 && turn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP1fc = 4;}
-        if(turn == 2 && turn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP2fc = 4;}
-        if(turn == 3 && turn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP3fc = 4;}
-        if(turn == 4 && turn == Servertalker.ThisPlayerIs){findGOD.GetComponent<Servertalker>().tDP4fc = 4;}
-
-        findGOD.GetComponent<Servertalker>().tDAction = 1; 
-        findGOD.GetComponent<Servertalker>().tDActionID = 1; 
-        findGOD.GetComponent<Servertalker>().tDTargetName = name;
+        findGOD.GetComponent<ServerTalker>().tDAction = 1; //What kind of attack was used on me; 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell 
+        findGOD.GetComponent<ServerTalker>().tDActionID = 1; //The Id for the action in a list
+        findGOD.GetComponent<ServerTalker>().tDTargetName = name; //My name (target of attack)
         UpdateServer();
+        Debug.Log("Server Update Sent!");}
     }
 
     //This player is defeated
