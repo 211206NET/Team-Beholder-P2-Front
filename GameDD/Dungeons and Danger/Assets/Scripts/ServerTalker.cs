@@ -11,10 +11,35 @@ public class ServerTalker : MonoBehaviour
     bool canInitialize = true; ///Tell server you joined once
     bool showDebug = false;
     static public int TakeTurn = 1;
-    //Need something like this
-    //public string highscoreURL = "http://localhost/unity_test/display.php";
-    
+
+    //Data
     int playersTotal = 0;
+    string tDp1Name = "testA";
+    string tDp2Name = "testB";
+    string tDp3Name = "testC";
+    string tDp4Name = "testD";
+    int tDP1mv = 0;
+    int tDP2mv = 0;
+    int tDP3mv = 0;
+    int tDP4mv = 0;
+    int tDP1fc = 0;
+    int tDP2fc = 0;
+    int tDP3fc = 0;
+    int tDP4fc = 0;
+    int tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+    int tDActionID = 0; //the Id for the action in a list
+    string tDTargetName = "testA";//Who is being targeted this turn
+    float tDP1MaxHP = 10.0f; 
+    float tDP2MaxHP = 10.0f; 
+    float tDP3MaxHP = 10.0f; 
+    float tDP4MaxHP = 10.0f; 
+    float tDP1HP = 10.0f; 
+    float tDP2HP = 10.0f; 
+    float tDP3HP = 10.0f; 
+    float tDP4HP = 10.0f; 
+
+
+
     // Start is called before the first frame update
     void Start() //http://localhost:8000/user/
     {
@@ -63,12 +88,6 @@ public class ServerTalker : MonoBehaviour
         // P3HP 
         // P4HP 
 
-        /*
-        {"id":1,"players":4,"gameTurn":1,"p1Name":"aaa","p2Name":"bbb","p3Name":"ccc","p4Name":"itworkedmaybe",
-        "p1x":1,"p1y":1,"p2x":1,"p2y":1,"p3x":1,"p3y":1,"p4x":1,"p4y":1,"action":1,"actionID":1,"targetName":"aaa",
-        "p1MaxHP":1,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}
-        */
-
         if(showDebug){
         Debug.Log("Players: " + node["players"]);
         Debug.Log("SQL Turn: " + node["gameTurn"]);
@@ -76,10 +95,10 @@ public class ServerTalker : MonoBehaviour
         Debug.Log("P2MV: " + node["p2mv"]);
         Debug.Log("P3MV: " + node["p3mv"]);
         Debug.Log("P4MV: " + node["p4mv"]);
-        Debug.Log("P1FC: " + node["p1mv"]);
-        Debug.Log("P2FC: " + node["p2mv"]);
-        Debug.Log("P3FC: " + node["p3mv"]);
-        Debug.Log("P4FC: " + node["p4mv"]);}
+        Debug.Log("P1FC: " + node["p1fc"]);
+        Debug.Log("P2FC: " + node["p2fc"]);
+        Debug.Log("P3FC: " + node["p3fc"]);
+        Debug.Log("P4FC: " + node["p4fc"]);}
 
 
         //Initialize Once
@@ -100,6 +119,18 @@ public class ServerTalker : MonoBehaviour
                 canInitialize = false;
             }
         }
+
+
+
+        /*
+        {"id":1,"players":4,"gameTurn":1,"p1Name":"aaa","p2Name":"bbb","p3Name":"ccc","p4Name":"itworkedmaybe",
+        "p1mv":1,"p2mv":1,"p3mv":1,"p4mv":1,"p1fc":1,"p2fc":1,"p3fc":1,"p4fc":1,"action":1,"actionID":1,"targetName":"aaa",
+        "p1MaxHP":1,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}
+        */
+        
+        //Get Data to send to other players to update
+
+
 
     }
 
@@ -162,34 +193,34 @@ public class ServerTalker : MonoBehaviour
         // P1HP 
         // P2HP 
         // P3HP 
-        // P4HP 
-        
+        // P4HP  
+
         form.AddField("Id", 1);
         form.AddField("Players", playersTotal);
         form.AddField("gameTurn", TakeTurn);
-        form.AddField("p1Name", "aaa");
-        form.AddField("p2Name", "bbb");
-        form.AddField("p3Name", "ccc");
-        form.AddField("p4Name", "itworkedmaybe");
-        form.AddField("P1mv", 1);
-        form.AddField("P2mv", 1);
-        form.AddField("P3mv", 1);
-        form.AddField("P4mv", 1);
-        form.AddField("P5fc", 1);
-        form.AddField("P6fc", 1);
-        form.AddField("P7fc", 1);
-        form.AddField("P8fc", 1);
-        form.AddField("Action", 1);
-        form.AddField("ActionID", 1);
-        form.AddField("TargetName", "aaa");
-        form.AddField("P1MaxHP", 1);
-        form.AddField("P2MaxHP", 1);
-        form.AddField("P3MaxHP", 1);
-        form.AddField("P4MaxHP", 1);
-        form.AddField("P1HP", 1);
-        form.AddField("P2HP", 1);
-        form.AddField("P3HP", 1);
-        form.AddField("P4HP", 1);
+        form.AddField("p1Name", tDp1Name);
+        form.AddField("p2Name", tDp2Name);
+        form.AddField("p3Name", tDp3Name);
+        form.AddField("p4Name", tDp4Name);
+        form.AddField("P1mv", tDP1mv);
+        form.AddField("P2mv", tDP2mv);
+        form.AddField("P3mv", tDP3mv);
+        form.AddField("P4mv", tDP4mv);
+        form.AddField("P5fc", tDP1fc);
+        form.AddField("P6fc", tDP2fc);
+        form.AddField("P7fc", tDP3fc);
+        form.AddField("P8fc", tDP4fc);
+        form.AddField("Action", tDAction);
+        form.AddField("ActionID", tDActionID);
+        form.AddField("TargetName", tDTargetName);
+        form.AddField("P1MaxHP", tDP1MaxHP);
+        form.AddField("P2MaxHP", tDP2MaxHP);
+        form.AddField("P3MaxHP", tDP3MaxHP);
+        form.AddField("P4MaxHP", tDP4MaxHP);
+        form.AddField("P1HP", tDP1HP);
+        form.AddField("P2HP", tDP2HP);
+        form.AddField("P3HP", tDP3HP);
+        form.AddField("P4HP", tDP4HP);
 
         byte[] rawData = form.data; 
         

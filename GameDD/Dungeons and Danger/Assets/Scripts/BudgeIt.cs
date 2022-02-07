@@ -83,6 +83,7 @@ public class BudgeIt : MonoBehaviour
         }
         ClearTargets();
         CheckTarget();
+        UpdateServer();
         moveClear = true;//reset
         }
     }
@@ -109,6 +110,7 @@ public class BudgeIt : MonoBehaviour
         }
         ClearTargets();
         CheckTarget();
+        UpdateServer();
         moveClear = true;//reset
         }
     }
@@ -135,6 +137,7 @@ public class BudgeIt : MonoBehaviour
         }
         ClearTargets();
         CheckTarget();
+        UpdateServer();
         moveClear = true;//reset
         }
     }
@@ -163,19 +166,20 @@ public class BudgeIt : MonoBehaviour
         
         ClearTargets();
         CheckTarget();
+        UpdateServer();
         moveClear = true;//reset
         }
     }
 
     //Just face direction, no move, used in conjunction with attacking
     void FaceRight()
-    {transform.localRotation = Quaternion.Euler(0, 180, 0);}
+    {transform.localRotation = Quaternion.Euler(0, 180, 0); UpdateServer();}
     void FaceLeft()
-    {transform.localRotation = Quaternion.Euler(0, 0, 0);}
+    {transform.localRotation = Quaternion.Euler(0, 0, 0); UpdateServer();}
     void FaceUp()
-    {transform.localRotation = Quaternion.Euler(0, 0, 270);}
+    {transform.localRotation = Quaternion.Euler(0, 0, 270); UpdateServer();}
     void FaceDown()
-    {transform.localRotation = Quaternion.Euler(0, 0, 90);}
+    {transform.localRotation = Quaternion.Euler(0, 0, 90); UpdateServer();}
 
     void ClearTargets()
     {
@@ -226,6 +230,11 @@ public class BudgeIt : MonoBehaviour
         canAttack = false; //This would be set to true here if game had combat
         //Servertalker.RecordGameTurn(callToTurn);
         ServerTalker.TakeTurn = callToTurn;
+        UpdateServer();
+    }
+
+    void UpdateServer()
+    {
         GameObject sTalk; sTalk = GameObject.Find("GOD");
         sTalk.GetComponent<ServerTalker>().ProcessPost();
     }
@@ -301,6 +310,7 @@ public class BudgeIt : MonoBehaviour
             if(plyr.GetComponent<BudgeIt>().myTurn == TurnController.Turn) 
             {
                 _getdmg = plyr.GetComponent<CharacterStats>().damage; plyr.GetComponent<BudgeIt>().canAttack = false;
+                UpdateServer();
                 //Have player face attacking direction
                 float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
                 if(ax < dx)
