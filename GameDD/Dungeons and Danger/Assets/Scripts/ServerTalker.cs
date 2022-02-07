@@ -29,14 +29,14 @@ public class ServerTalker : MonoBehaviour
     int tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
     int tDActionID = 0; //the Id for the action in a list
     string tDTargetName = "testA";//Who is being targeted this turn
-    float tDP1MaxHP = 10.0f; 
-    float tDP2MaxHP = 10.0f; 
-    float tDP3MaxHP = 10.0f; 
-    float tDP4MaxHP = 10.0f; 
-    float tDP1HP = 10.0f; 
-    float tDP2HP = 10.0f; 
-    float tDP3HP = 10.0f; 
-    float tDP4HP = 10.0f; 
+    int tDP1MaxHP = 10; 
+    int tDP2MaxHP = 10; 
+    int tDP3MaxHP = 10; 
+    int tDP4MaxHP = 10; 
+    int tDP1HP = 10; 
+    int tDP2HP = 10; 
+    int tDP3HP = 10; 
+    int tDP4HP = 10; 
 
 
 
