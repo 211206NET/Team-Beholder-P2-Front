@@ -11,6 +11,7 @@ public class ServerTalker : MonoBehaviour
     bool canInitialize = true; ///Tell server you joined once
     bool showDebug = false;
     static public int TakeTurn = 1;
+    GameObject[] playerObjs;
 
     //Data
     int playersTotal = 0;
@@ -127,9 +128,14 @@ public class ServerTalker : MonoBehaviour
         "p1mv":1,"p2mv":1,"p3mv":1,"p4mv":1,"p1fc":1,"p2fc":1,"p3fc":1,"p4fc":1,"action":1,"actionID":1,"targetName":"aaa",
         "p1MaxHP":1,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}
         */
-        
-        //Get Data to send to other players to update
 
+        //Get Data to send to other players to update
+        playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
+        foreach(GameObject plr in playerObjs) //Loop through each player and update with server data
+        {
+            if(node[p1mv]>0){if(plr.GetComponent<>){plr.BudgeRight();}}
+        }
+        //Reset vars...
 
 
     }
