@@ -10,8 +10,9 @@ public class CharacterStats : MonoBehaviour
     public float maxHp = 10.0f;
     public float damage = 1.0f;
 
-    //GUI
+    //GUI/Effects
     public HealthBar healthBar;
+    public GameObject bloodpf;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +23,14 @@ public class CharacterStats : MonoBehaviour
     }
 
     //what to do when character takes damage
-    public void TakeDamage()
+    public void TakeDamage(float dmg)
     {
-        //int hpInt = hp as int;
+        //Make Blood
+        Vector3 objectPOS = transform.position;
+        GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        //Effect stats
+        hp -= dmg;
+        //GUI
         int hpInt = Convert.ToInt32(hp);
         healthBar.SetHealth(hpInt);//Update health bar current value
     }

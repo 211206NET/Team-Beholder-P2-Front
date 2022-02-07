@@ -6,6 +6,7 @@ using System.Linq;
 public class BudgeIt : MonoBehaviour
 {
     public int myTurn;
+    public string myName;
     public int callToTurn = TurnController.Turn;
     bool canMove = true;
     bool moveClear = true; //If move is not blocked
@@ -35,7 +36,6 @@ public class BudgeIt : MonoBehaviour
     private Transform weaponArt2;
     private Transform weaponArt3;
     private Transform weaponArt4;
-    public GameObject bloodpf;
     bool amTarget = false; //If can be attacked currently
     bool eachTurn = true;
 
@@ -61,7 +61,7 @@ public class BudgeIt : MonoBehaviour
     }
 
     //Method to move square to determine a player moved something and it persisted to other players
-    void BudgeRight()
+    public void BudgeRight()
     {
         if(!Input.GetKey("left") && !Input.GetKey("up") && !Input.GetKey("down")){
         otherPlayer = GameObject.FindGameObjectsWithTag("CollideObj");
@@ -89,7 +89,7 @@ public class BudgeIt : MonoBehaviour
     }
 
     //Method to move square to determine a player moved something and it persisted to other players
-    void BudgeLeft()
+    public void BudgeLeft()
     {
         if(!Input.GetKey("right") && !Input.GetKey("up") && !Input.GetKey("down")){
         otherPlayer = GameObject.FindGameObjectsWithTag("CollideObj");
@@ -116,7 +116,7 @@ public class BudgeIt : MonoBehaviour
     }
 
     //Method to move square to determine a player moved something and it persisted to other players
-    void BudgeUp()
+    public void BudgeUp()
     {
         if(!Input.GetKey("left") && !Input.GetKey("right") && !Input.GetKey("down")){
         otherPlayer = GameObject.FindGameObjectsWithTag("CollideObj");
@@ -143,7 +143,7 @@ public class BudgeIt : MonoBehaviour
     }
 
     //Method to move square to determine a player moved something and it persisted to other players
-    void BudgeDown()
+    public void BudgeDown()
     {
         if(!Input.GetKey("left") && !Input.GetKey("up") && !Input.GetKey("right")){
         otherPlayer = GameObject.FindGameObjectsWithTag("CollideObj");
@@ -172,13 +172,13 @@ public class BudgeIt : MonoBehaviour
     }
 
     //Just face direction, no move, used in conjunction with attacking
-    void FaceRight()
+    public void FaceRight()
     {transform.localRotation = Quaternion.Euler(0, 180, 0); UpdateServer();}
-    void FaceLeft()
+    public void FaceLeft()
     {transform.localRotation = Quaternion.Euler(0, 0, 0); UpdateServer();}
-    void FaceUp()
+    public void FaceUp()
     {transform.localRotation = Quaternion.Euler(0, 0, 270); UpdateServer();}
-    void FaceDown()
+    public void FaceDown()
     {transform.localRotation = Quaternion.Euler(0, 0, 90); UpdateServer();}
 
     void ClearTargets()
@@ -310,7 +310,6 @@ public class BudgeIt : MonoBehaviour
             if(plyr.GetComponent<BudgeIt>().myTurn == TurnController.Turn) 
             {
                 _getdmg = plyr.GetComponent<CharacterStats>().damage; plyr.GetComponent<BudgeIt>().canAttack = false;
-                UpdateServer();
                 //Have player face attacking direction
                 float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
                 if(ax < dx)
@@ -342,14 +341,15 @@ public class BudgeIt : MonoBehaviour
 
         if(amTarget)
         {
-            //Make Blood
-            Vector3 objectPOS = transform.position;
-            GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
 
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-            charStatsScript.hp -= _getdmg; charStatsScript.TakeDamage();
+            charStatsScript.TakeDamage(_getdmg);
+            //charStatsScript.hp -= _getdmg; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
+
+            
+            UpdateServer();
         }
     } 
 }
