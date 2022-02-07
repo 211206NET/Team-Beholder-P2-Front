@@ -30,9 +30,9 @@ public class CharacterStats : MonoBehaviour
     void Start()
     {
         ClassStats classStatsScript = GetComponent<ClassStats>();
-        Random rand = new Random();
+        System.Random rand = new System.Random();
         int number = rand.Next(1, 6);
-        classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, con, AC);
+        //classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, con, AC);
     }
 
     //what to do when character takes damage
