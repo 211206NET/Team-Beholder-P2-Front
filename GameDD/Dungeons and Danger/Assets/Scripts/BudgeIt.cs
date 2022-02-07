@@ -287,12 +287,8 @@ public class BudgeIt : MonoBehaviour
     {
         //callToTurn = TurnController.Turn;
         //Movement
-<<<<<<< HEAD
         //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.ThisPlayerIs);
         Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);
-=======
-        //if(myTurn == 1){Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);}
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
         if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
         {
             if(eachTurn == true){

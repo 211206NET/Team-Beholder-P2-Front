@@ -10,6 +10,7 @@ public class CharacterStats : MonoBehaviour
     
 
     //Stats like this must be floating point internally but rounded up for the UI
+    public int classID;
     public float maxHp;
     public float hp;
     public int strength;
@@ -30,8 +31,8 @@ public class CharacterStats : MonoBehaviour
     {
         ClassStats classStatsScript = GetComponent<ClassStats>();
         Random rand = new Random();
-        int number = rand.Next(1, 100);
-        classStatsScript.SetClassBarbarian(maxHp, hp, str, con, AC);
+        int number = rand.Next(1, 6);
+        classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, con, AC);
     }
 
     //what to do when character takes damage
