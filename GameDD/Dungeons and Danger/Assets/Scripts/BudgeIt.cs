@@ -328,7 +328,7 @@ public class BudgeIt : MonoBehaviour
             //Check Player end turn conditions
             if(canMove == false && canAttack == false)
             {
-                EndTurn();
+                if(callToTurn == myTurn){EndTurn();}
             }
 
             _canMakeCollision = true;
