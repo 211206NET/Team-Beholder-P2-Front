@@ -16,7 +16,7 @@ public class CharacterStats : MonoBehaviour
     public float hp; //Final Value Stat
     public int str; //Final Value Stat
     public int AC;
-    public float dmg; //Calculated in take damage method
+    public int dmg; //Calculated in take damage method
 
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
