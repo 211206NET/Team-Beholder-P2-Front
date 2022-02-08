@@ -281,7 +281,7 @@ public class BudgeIt : MonoBehaviour
         findGOD.GetComponent<ServerTalker>().tDTargetName = "z"; //My name (target of attack)
         //Debug.Log("tDTargetName: " + findGOD.GetComponent<ServerTalker>().tDTargetName);
 
-        delayEndTurn = Time.time+3600;
+        delayEndTurn = Time.deltaTime+4.0f;
         endTurnMode = true;
 
         UpdateServer();
@@ -371,9 +371,9 @@ public class BudgeIt : MonoBehaviour
             {
                 GameObject sTalk; sTalk = GameObject.Find("GOD");
                 if(sTalk.GetComponent<ServerTalker>().tDAction == 0){
-                if(delayEndTurn > 0){delayEndTurn -= 1*Time.time;}
-                if(delayEndTurn<1){ServerTalker.TakeTurn = callToTurn; endTurnMode = false; }}
-                //Debug.Log("I firednow!");}}
+                if(delayEndTurn > 0){delayEndTurn -= 1*Time.deltaTime;}
+                if(delayEndTurn<1){ServerTalker.TakeTurn = callToTurn; endTurnMode = false; 
+                Debug.Log("I firednow!");}}
             }
 
         }//End Update

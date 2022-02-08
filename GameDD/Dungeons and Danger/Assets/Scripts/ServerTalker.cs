@@ -14,7 +14,7 @@ public class ServerTalker : MonoBehaviour
     GameObject[] playerObjs;
 
     public bool checkNow = false; //Run Get data from database
-    private float _checkGet = 30;
+    private float _checkGet = 30.0f;
     private int _getstr = 0;
     private int _getdice = 0;
     private int _getturn = 0;
@@ -455,12 +455,12 @@ public class ServerTalker : MonoBehaviour
         }
 
         //Get data every so often for all players
-        if(_checkGet < 30 && ThisPlayerIs != TakeTurn)
+        if(_checkGet < 30.0f && ThisPlayerIs != TakeTurn)
         {
             ProcessGet();
-            _checkGet = Time.time+2048;
+            _checkGet = Time.deltaTime*2.0f;
         }
-        if(_checkGet > 0){_checkGet -= Time.time*2;}
+        if(_checkGet > 0){_checkGet -= Time.deltaTime*1.0f;}
 
         //Cheat to control other player turns in multiplayer test
         if(Input.GetKeyDown("1")){ThisPlayerIs = 1;}
