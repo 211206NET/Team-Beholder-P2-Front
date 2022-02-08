@@ -177,7 +177,11 @@ GameObject:
   - component: {fileID: 2434368852863152480}
   - component: {fileID: 1218880770537984288}
   - component: {fileID: 5520025081283567987}
+<<<<<<< HEAD
   - component: {fileID: 6581108647087121259}
+=======
+  - component: {fileID: 4450820645996783921}
+>>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -295,6 +299,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af4e7e1d05914f42a6589e0d1e46c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
+=======
+  sendRoll: 6
+>>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
   classID: 0
   maxHp: 10
   hp: 10
@@ -329,7 +337,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+<<<<<<< HEAD
 --- !u!114 &6581108647087121259
+=======
+--- !u!114 &4450820645996783921
+>>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -338,9 +350,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2434368852863152487}
   m_Enabled: 1
   m_EditorHideFlags: 0
+<<<<<<< HEAD
   m_Script: {fileID: 11500000, guid: 29812a293b311b748acaa2255a218733, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+=======
+  m_Script: {fileID: 11500000, guid: a13d3a181ce55c84691c54bc6b954a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendBackStats: {fileID: 0}
+>>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
 --- !u!1 &4513047799570132144
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,11 @@ public class ServerTalker : MonoBehaviour
     public bool checkNow = false; //Run Get data from database
     private float _checkGet = 30;
     private int _getstr = 0;
+<<<<<<< HEAD
     private int _getRoll = 0;
+=======
+    private int _getdice = 0;
+>>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
     private int _getturn = 0;
     private string _gettarget = "";
 
@@ -87,7 +91,8 @@ public class ServerTalker : MonoBehaviour
 
     public void ProcessGet()
     {
-        StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
+        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
+        //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
     }
 
     void ProcessServerResponse( string rawResponse )
@@ -125,17 +130,17 @@ public class ServerTalker : MonoBehaviour
         // P3HP 
         // P4HP 
 
-        if(showDebug){
-        Debug.Log("Players: " + node["players"]);
-        Debug.Log("SQL Turn: " + node["gameTurn"]);
-        Debug.Log("P1MV: " + node["p1mv"]);
-        Debug.Log("P2MV: " + node["p2mv"]);
-        Debug.Log("P3MV: " + node["p3mv"]);
-        Debug.Log("P4MV: " + node["p4mv"]);
-        Debug.Log("P1FC: " + node["p1fc"]);
-        Debug.Log("P2FC: " + node["p2fc"]);
-        Debug.Log("P3FC: " + node["p3fc"]);
-        Debug.Log("P4FC: " + node["p4fc"]);}
+        // if(showDebug){
+        // Debug.Log("Players: " + node["players"]);
+        // Debug.Log("SQL Turn: " + node["gameTurn"]);
+        // Debug.Log("P1MV: " + node["p1mv"]);
+        // Debug.Log("P2MV: " + node["p2mv"]);
+        // Debug.Log("P3MV: " + node["p3mv"]);
+        // Debug.Log("P4MV: " + node["p4mv"]);
+        // Debug.Log("P1FC: " + node["p1fc"]);
+        // Debug.Log("P2FC: " + node["p2fc"]);
+        // Debug.Log("P3FC: " + node["p3fc"]);
+        // Debug.Log("P4FC: " + node["p4fc"]);}
 
 
         playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
@@ -181,7 +186,7 @@ public class ServerTalker : MonoBehaviour
         //Get Data to send to other players to update
         foreach(GameObject plr in playerObjs) //Loop through each player and update with server data
         {
-            if(ThisPlayerIs != TakeTurn){//For other players
+            if(plr.GetComponent<BudgeIt>().myTurn == ThisPlayerIs && ThisPlayerIs != TakeTurn){//For other players
             //All move character right
             if(node["p1mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<BudgeIt>().BudgeRight();}}
             if(node["p2mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<BudgeIt>().BudgeRight();}}
@@ -228,7 +233,11 @@ public class ServerTalker : MonoBehaviour
             // ******************************  check this ********************
             if(node["targetName"] != "" && plr.GetComponent<BudgeIt>().myTurn == TakeTurn){
                 _getstr = plr.GetComponent<CharacterStats>().str;
+<<<<<<< HEAD
                 _getRoll = plr.GetComponent<CharacterStats>().dmg;
+=======
+                _getdice = plr.GetComponent<CharacterStats>().sendRoll;
+>>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
             }
 
             
@@ -236,7 +245,13 @@ public class ServerTalker : MonoBehaviour
             //Make the attack
             if(node["action"] == 1){
             if(node["actionID"] == 1){
+<<<<<<< HEAD
                 if(node["targetName"] == plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getRoll, _getturn, _gettarget, false);}//Just to create attack effect
+=======
+                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName)
+                {plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getturn, _gettarget, false, _getdice); 
+                }//Just to create attack effect Debug.Log("No, it's me that's the problem in the ServerTalker");
+>>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
             }}
             }
 
@@ -248,18 +263,18 @@ public class ServerTalker : MonoBehaviour
 
            //Max HP...
         }
-        //Reset vars...
-        // node["tDP1mv"] = 0;
-        // node["tDP2mv"] = 0;
-        // node["tDP3mv"] = 0;
-        // node["tDP4mv"] = 0;
-        // node["tDP1fc"] = 0;
-        // node["tDP2fc"] = 0;
-        // node["tDP3fc"] = 0;
-        // node["tDP4fc"] = 0;
-        // node["action"] = 0;
-        // node["actionID"] = 0;
-        // node["targetName"] = "";
+        //Reset vars... But they still go once
+        tDP1mv = 0;
+        tDP2mv = 0;
+        tDP3mv = 0;
+        tDP4mv = 0;
+        tDP1fc = 0;
+        tDP2fc = 0;
+        tDP3fc = 0;
+        tDP4fc = 0;
+        tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+        tDActionID = 0; //the Id for the action in a list
+        tDTargetName = "z";//Who is being targeted this turn
 
         ProcessPost(); 
 
@@ -279,7 +294,8 @@ public class ServerTalker : MonoBehaviour
     public void ProcessPost()
     {
         //Debug.Log("ProcessPost fired at least");
-        StartCoroutine(Upload("https://localhost:7114/api/Game/", "1"));//, "1"
+        StartCoroutine( Upload("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
+        //StartCoroutine(Upload("https://localhost:7114/api/Game/", "1"));//, "1"
         //StartCoroutine(DeleteData("https://localhost:7114/api/Game/", "2"));
     }
 
@@ -451,12 +467,27 @@ public class ServerTalker : MonoBehaviour
         if(_checkGet < 30 && ThisPlayerIs != TakeTurn)
         {
             ProcessGet();
-            _checkGet = Time.time*2;
+            _checkGet = Time.time+2048;
         }
         if(_checkGet > 0){_checkGet -= Time.time*2;}
+
+        //Cheat to control other player turns in multiplayer test
+        if(Input.GetKeyDown("1")){ThisPlayerIs = 1;}
+        if(Input.GetKeyDown("2")){ThisPlayerIs = 2;}
+        if(Input.GetKeyDown("3")){ThisPlayerIs = 3;}
+        if(Input.GetKeyDown("4")){ThisPlayerIs = 4;}
     }
 
-    //Application.Quit()
+    public void ExitTheGame()
+    {
+        //Editor
+        UnityEditor.EditorApplication.isPlaying = false;
+        //WebGL
+        Application.OpenURL("about:blank");
+        //Stand Alone
+        Application.Quit();
+    }
+
 }
 
 
