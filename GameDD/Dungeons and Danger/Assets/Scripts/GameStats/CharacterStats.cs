@@ -16,7 +16,7 @@ public class CharacterStats : MonoBehaviour
     public float hp; //Final Value Stat
     public int str; //Final Value Stat
     public int AC;
-    public float dmg; //Calculated in take damage method
+    public int dmg; //Calculated in take damage method
 
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
@@ -59,7 +59,7 @@ public class CharacterStats : MonoBehaviour
     }
 
     //what to do when character takes damage
-    public void TakeDamage(float getStr, int turn, string name, bool local, int roll)
+    public void TakeDamage(int getStr, int turn, string name, bool local, int roll)
     {
         System.Random rand = new System.Random();
         //Debug.Log("Ow! My name is "+name);
@@ -67,7 +67,7 @@ public class CharacterStats : MonoBehaviour
         Vector3 objectPOS = transform.position;
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         //Effect stats
-        hp -= getStr + rand.Next(1, roll);
+        hp -= getStr + rand.Next(1, roll + 1);
         HPBar();
         //Send to server
         if(local == true){

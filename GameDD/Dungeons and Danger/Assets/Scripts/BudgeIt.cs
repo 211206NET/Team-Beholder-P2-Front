@@ -281,7 +281,7 @@ public class BudgeIt : MonoBehaviour
         findGOD.GetComponent<ServerTalker>().tDTargetName = "z"; //My name (target of attack)
         //Debug.Log("tDTargetName: " + findGOD.GetComponent<ServerTalker>().tDTargetName);
 
-        delayEndTurn = Time.deltaTime+4.0f;
+        delayEndTurn = Time.deltaTime+2.0f;
         endTurnMode = true;
 
         UpdateServer();
