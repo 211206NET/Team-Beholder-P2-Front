@@ -243,7 +243,8 @@ public class ServerTalker : MonoBehaviour
             }}
 
 
-            //Reset vars... But they still go once
+            //Reset vars... 
+            //But will reset for all
             // tDP1mv = 0;
             // tDP2mv = 0;
             // tDP3mv = 0;
@@ -267,7 +268,7 @@ public class ServerTalker : MonoBehaviour
            //Max HP...
         }
 
-        ProcessPost(); 
+        //ProcessPost(); 
 
     }
 
@@ -333,7 +334,7 @@ public class ServerTalker : MonoBehaviour
         // P3HP 
         // P4HP  
         //tDTargetName = "NOTFRICKINGA";
-        //Debug.Log("Name of target: " + tDTargetName + ", But I won't set it for no REASON!!");
+        //Debug.Log("P1mv: " + tDP1mv + ", But I won't set it for no REASON!!");
         form.AddField("Id", 1);
         form.AddField("Players", playersTotal);
         form.AddField("gameTurn", TakeTurn);

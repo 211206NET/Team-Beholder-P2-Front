@@ -282,7 +282,7 @@ public class BudgeIt : MonoBehaviour
         findGOD.GetComponent<ServerTalker>().tDTargetName = "z"; //My name (target of attack)
         //Debug.Log("tDTargetName: " + findGOD.GetComponent<ServerTalker>().tDTargetName);
 
-        delayEndTurn = Time.deltaTime+4.0f;
+        delayEndTurn = Time.deltaTime+2.0f;
         endTurnMode = true;
 
         UpdateServer();
@@ -429,7 +429,11 @@ public class BudgeIt : MonoBehaviour
             //Debug.Log("I'm running in the BudgeIt!");
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
+<<<<<<< HEAD
             charStatsScript.TakeDamage(_getstr, myTurn, myName, true, _getdmg);
+=======
+            charStatsScript.TakeDamage(_getstr, myTurn, myName, true, charStatsScript.sendRoll);
+>>>>>>> c0f03d6a75c9f25c9d92374a69a71e98c6597f47
             //charStatsScript.hp -= _getstr; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }
