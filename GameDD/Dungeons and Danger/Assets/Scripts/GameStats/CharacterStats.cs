@@ -58,14 +58,8 @@ public class CharacterStats : MonoBehaviour
         //healthBar.doonceish=true;
     }
 
-<<<<<<< HEAD
     public int GetRoll(int dmg) {
         int roll;
-=======
-    //what to do when character takes damage
-    public void TakeDamage(int getStr, int turn, string name, bool local, int roll)
-    {
->>>>>>> c0f03d6a75c9f25c9d92374a69a71e98c6597f47
         System.Random rand = new System.Random();
         roll = rand.Next(1, dmg + 1);
         return roll;
