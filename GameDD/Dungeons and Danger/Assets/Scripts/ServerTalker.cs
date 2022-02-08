@@ -161,6 +161,7 @@ public class ServerTalker : MonoBehaviour
                     {Debug.Log("I was named: " + node["p4Name"]); tDp4Name = node["p4Name"]; pl.GetComponent<BudgeIt>().myName = node["p4Name"];}
                 }
                 canInitialize = false;
+                ProcessPost();
             }
             else
             {
@@ -168,6 +169,8 @@ public class ServerTalker : MonoBehaviour
                 playersTotal = 1;
                 ThisPlayerIs = playersTotal;
                 canInitialize = false;
+                ProcessPost();
+                //CHANGE THIS
             }
         }
 
