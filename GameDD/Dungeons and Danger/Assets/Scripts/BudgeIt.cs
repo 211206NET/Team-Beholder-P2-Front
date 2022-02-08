@@ -189,6 +189,7 @@ public class BudgeIt : MonoBehaviour
         }
         
         if(myTurn == 1 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP1mv = 4;}
+        Debug.Log("move val: "+findGOD.GetComponent<ServerTalker>().tDP1mv);
         if(myTurn == 2 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP2mv = 4;}
         if(myTurn == 3 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP3mv = 4;}
         if(myTurn == 4 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP4mv = 4;}
@@ -234,7 +235,8 @@ public class BudgeIt : MonoBehaviour
         otherPlayerPref = GameObject.FindGameObjectsWithTag("Player");
         foreach(GameObject op in otherPlayerPref)
         {
-            op.GetComponent<BudgeIt>().amTarget=false; op.transform.GetChild(5).gameObject.SetActive(false);
+            op.GetComponent<BudgeIt>().amTarget=false; 
+            op.transform.GetChild(5).gameObject.SetActive(false);
         }
     }
 

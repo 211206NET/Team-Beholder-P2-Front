@@ -66,7 +66,7 @@ public class ServerTalker : MonoBehaviour
         tDP4fc = 0;
         tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
         tDActionID = 0; //the Id for the action in a list
-        tDTargetName = "z";//Who is being targeted this turn
+        tDTargetName = "goofy";//Who is being targeted this turn
         tDP1MaxHP = 0; 
         tDP2MaxHP = 0; 
         tDP3MaxHP = 0; 
@@ -137,7 +137,7 @@ public class ServerTalker : MonoBehaviour
         //Get Data to send to other players to update
         foreach(GameObject plr in playerObjs) //Loop through each player and update with server data
         {
-            Debug.Log("I should see Player 1 moving!!! Var is set to: " + node["p1mv"]);
+            Debug.Log("!!!!!!!!!HEEYYYY!!!!!!!I should see Player 1 moving!!! Var is set to: " + node["p1mv"]);
             if(plr.GetComponent<BudgeIt>().myTurn == ThisPlayerIs && ThisPlayerIs != TakeTurn){//For other players
             //All move character right
             if(node["p1mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<BudgeIt>().BudgeRight();}}
