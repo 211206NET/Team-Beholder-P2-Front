@@ -46,6 +46,7 @@ public class BudgeIt : MonoBehaviour
     //External values
     private int _getstr = 0; //Get character strength
     private int _getdmg = 0; //Get incomming damage
+    private int _getattackroll; //Get incoming attack roll
 
     void Awake()
     {
@@ -274,7 +275,7 @@ public class BudgeIt : MonoBehaviour
         if(myTurn < 4){TurnController.Turn += 1;}else{TurnController.Turn = 1;}
         callToTurn = TurnController.Turn;
         canMove = true; movePoints = 3;
-        canAttack = false; //This would be set to true here if game had combat
+        canAttack = true;
         
         GameObject findGOD; findGOD = GameObject.Find("GOD");
         findGOD.GetComponent<ServerTalker>().tDAction = 0; //What kind of attack was used on me; 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell 
@@ -381,7 +382,8 @@ public class BudgeIt : MonoBehaviour
 
 
     void OnMouseDown(){
-        if(!dead){
+        if(!dead && canAttack){
+            canAttack = false;
         //Debug.Log("On Mouse Down Worked");
         // this object was clicked - do something
         //Get Damage
@@ -394,6 +396,7 @@ public class BudgeIt : MonoBehaviour
             {
                 _getstr = plyr.GetComponent<CharacterStats>().str;
                 _getdmg = plyr.GetComponent<CharacterStats>().dmg;
+                _getattackroll = plyr.GetComponent<CharacterStats>().attackRoll;
                 plyr.GetComponent<BudgeIt>().canAttack = false;
                 //Have player face attacking direction
                 float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
@@ -429,7 +432,13 @@ public class BudgeIt : MonoBehaviour
             //Debug.Log("I'm running in the BudgeIt!");
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-            charStatsScript.TakeDamage(_getstr, myTurn, myName, true, _getdmg);
+            int myTurnAC = charStatsScript.AC;
+            System.Random rand = new System.Random();
+            if ((rand.Next(1, _getattackroll) + 2) >= myTurnAC) {
+                charStatsScript.TakeDamage(_getstr, myTurn, myName, true, _getdmg);
+            } else {
+                charStatsScript.Miss();
+            }
             //charStatsScript.hp -= _getstr; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }
