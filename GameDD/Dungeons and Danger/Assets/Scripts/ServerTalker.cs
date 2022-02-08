@@ -240,7 +240,22 @@ public class ServerTalker : MonoBehaviour
                 {plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getturn, _gettarget, false, _getdice); 
                 }//Just to create attack effect Debug.Log("No, it's me that's the problem in the ServerTalker");
             }}
-            }
+
+
+            //Reset vars... But they still go once
+            tDP1mv = 0;
+            tDP2mv = 0;
+            tDP3mv = 0;
+            tDP4mv = 0;
+            tDP1fc = 0;
+            tDP2fc = 0;
+            tDP3fc = 0;
+            tDP4fc = 0;
+            tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+            tDActionID = 0; //the Id for the action in a list
+            tDTargetName = "z";//Who is being targeted this turn
+
+            }//Not current player check
 
             //Set Current HPs
             // if(node["p1HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<CharacterStats>().hp=node["p1HP"];}}
@@ -250,18 +265,6 @@ public class ServerTalker : MonoBehaviour
 
            //Max HP...
         }
-        //Reset vars... But they still go once
-        tDP1mv = 0;
-        tDP2mv = 0;
-        tDP3mv = 0;
-        tDP4mv = 0;
-        tDP1fc = 0;
-        tDP2fc = 0;
-        tDP3fc = 0;
-        tDP4fc = 0;
-        tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-        tDActionID = 0; //the Id for the action in a list
-        tDTargetName = "z";//Who is being targeted this turn
 
         ProcessPost(); 
 
