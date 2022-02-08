@@ -50,7 +50,7 @@ public class CharacterStats : MonoBehaviour
                 healthBar.SetMaxHealth(maxHpInt);
                 break;
             case 3:
-                //classStatsScript.SetClassPaladin(classID, maxHp, hp, str, AC, dmg);
+                classStatsScript.SetClassPaladin(classID, maxHp, hp, str, AC, dmg);
                 //int maxHpInt = maxHp as int;
                 maxHpInt = Convert.ToInt32(maxHp);
                 //This will need to be placed anywhere max health gets altered
