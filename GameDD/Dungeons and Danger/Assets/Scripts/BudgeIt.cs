@@ -427,7 +427,7 @@ public class BudgeIt : MonoBehaviour
             //Debug.Log("I'm running in the BudgeIt!");
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-            charStatsScript.TakeDamage(_getstr, myTurn, myName, true, charStatsScript.sendRoll);
+            charStatsScript.TakeDamage(_getstr, myTurn, myName, true, charStatsScript.dmg);
             //charStatsScript.hp -= _getstr; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }

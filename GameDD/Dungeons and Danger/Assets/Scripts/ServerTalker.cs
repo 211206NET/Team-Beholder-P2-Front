@@ -244,17 +244,17 @@ public class ServerTalker : MonoBehaviour
 
 
             //Reset vars... But they still go once
-            tDP1mv = 0;
-            tDP2mv = 0;
-            tDP3mv = 0;
-            tDP4mv = 0;
-            tDP1fc = 0;
-            tDP2fc = 0;
-            tDP3fc = 0;
-            tDP4fc = 0;
-            tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-            tDActionID = 0; //the Id for the action in a list
-            tDTargetName = "z";//Who is being targeted this turn
+            // tDP1mv = 0;
+            // tDP2mv = 0;
+            // tDP3mv = 0;
+            // tDP4mv = 0;
+            // tDP1fc = 0;
+            // tDP2fc = 0;
+            // tDP3fc = 0;
+            // tDP4fc = 0;
+            // tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+            // tDActionID = 0; //the Id for the action in a list
+            // tDTargetName = "z";//Who is being targeted this turn
 
             }//Not current player check
 

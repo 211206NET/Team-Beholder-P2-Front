@@ -67,7 +67,7 @@ public class CharacterStats : MonoBehaviour
         Vector3 objectPOS = transform.position;
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         //Effect stats
-        hp -= getStr + rand.Next(1, roll);
+        hp -= getStr + rand.Next(1, roll + 1);
         HPBar();
         //Send to server
         if(local == true){
