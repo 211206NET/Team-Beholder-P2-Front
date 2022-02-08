@@ -16,11 +16,7 @@ public class ServerTalker : MonoBehaviour
     public bool checkNow = false; //Run Get data from database
     private float _checkGet = 30;
     private int _getstr = 0;
-<<<<<<< HEAD
-    private int _getRoll = 0;
-=======
     private int _getdice = 0;
->>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
     private int _getturn = 0;
     private string _gettarget = "";
 
@@ -230,14 +226,9 @@ public class ServerTalker : MonoBehaviour
             if(node["p4fc"]==4){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 4 && ThisPlayerIs != 4){plr.GetComponent<BudgeIt>().FaceDown();}}
             
             //Get the dmg
-            // ******************************  check this ********************
             if(node["targetName"] != "" && plr.GetComponent<BudgeIt>().myTurn == TakeTurn){
                 _getstr = plr.GetComponent<CharacterStats>().str;
-<<<<<<< HEAD
-                _getRoll = plr.GetComponent<CharacterStats>().dmg;
-=======
                 _getdice = plr.GetComponent<CharacterStats>().sendRoll;
->>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
             }
 
             
@@ -245,13 +236,9 @@ public class ServerTalker : MonoBehaviour
             //Make the attack
             if(node["action"] == 1){
             if(node["actionID"] == 1){
-<<<<<<< HEAD
-                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getRoll, _getturn, _gettarget, false);}//Just to create attack effect
-=======
                 if(node["targetName"] == plr.GetComponent<BudgeIt>().myName)
                 {plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getturn, _gettarget, false, _getdice); 
                 }//Just to create attack effect Debug.Log("No, it's me that's the problem in the ServerTalker");
->>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
             }}
             }
 

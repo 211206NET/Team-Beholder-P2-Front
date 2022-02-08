@@ -44,12 +44,7 @@ public class BudgeIt : MonoBehaviour
     bool eachTurn = true;
 
     //External values
-<<<<<<< HEAD
-    private int _getRoll; //Get dice roll for damage
-    private int _getstr; //Get incomming damage
-=======
     private int _getstr = 0; //Get incomming damage
->>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
 
     void Awake()
     {
@@ -397,10 +392,6 @@ public class BudgeIt : MonoBehaviour
             if(plyr.GetComponent<BudgeIt>().myTurn == TurnController.Turn) 
             {
                 _getstr = plyr.GetComponent<CharacterStats>().str;
-<<<<<<< HEAD
-                _getRoll = plyr.GetComponent<CharacterStats>().dmg;
-=======
->>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
                 plyr.GetComponent<BudgeIt>().canAttack = false;
                 //Have player face attacking direction
                 float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
@@ -436,11 +427,7 @@ public class BudgeIt : MonoBehaviour
             //Debug.Log("I'm running in the BudgeIt!");
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-<<<<<<< HEAD
-            charStatsScript.TakeDamage(_getstr, _getRoll, myTurn, myName, true);
-=======
             charStatsScript.TakeDamage(_getstr, myTurn, myName, true, charStatsScript.sendRoll);
->>>>>>> 191d71d3ae59e95bc38a703be84d0b50e2b6c414
             //charStatsScript.hp -= _getstr; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }
