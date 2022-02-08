@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 
 
-
 public class CharacterStats : MonoBehaviour
 {
     
@@ -56,7 +55,7 @@ public class CharacterStats : MonoBehaviour
         }
 
         HPBar();
-        healthBar.doonceish=true;
+        //healthBar.doonceish=true;
     }
 
     //what to do when character takes damage
@@ -78,7 +77,7 @@ public class CharacterStats : MonoBehaviour
         findGOD.GetComponent<ServerTalker>().tDTargetName = name; //My name (target of attack)
         UpdateServer();
         }
-        //Debug.Log("Server Update Sent!");}
+        //Debug.Log("Server Update Sent!");
     }
 
     //Update HPBar

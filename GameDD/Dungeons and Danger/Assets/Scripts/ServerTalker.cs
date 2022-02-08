@@ -182,7 +182,7 @@ public class ServerTalker : MonoBehaviour
         //Get Data to send to other players to update
         foreach(GameObject plr in playerObjs) //Loop through each player and update with server data
         {
-            if(ThisPlayerIs != TakeTurn){//For other players
+            if(plr.GetComponent<BudgeIt>().myTurn == ThisPlayerIs && ThisPlayerIs != TakeTurn){//For other players
             //All move character right
             if(node["p1mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<BudgeIt>().BudgeRight();}}
             if(node["p2mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<BudgeIt>().BudgeRight();}}
@@ -236,7 +236,9 @@ public class ServerTalker : MonoBehaviour
             //Make the attack
             if(node["action"] == 1){
             if(node["actionID"] == 1){
-                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getturn, _gettarget, false, _getdice);}//Just to create attack effect
+                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName)
+                {plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getturn, _gettarget, false, _getdice); 
+                }//Just to create attack effect Debug.Log("No, it's me that's the problem in the ServerTalker");
             }}
             }
 
@@ -248,18 +250,18 @@ public class ServerTalker : MonoBehaviour
 
            //Max HP...
         }
-        //Reset vars...
-        // node["tDP1mv"] = 0;
-        // node["tDP2mv"] = 0;
-        // node["tDP3mv"] = 0;
-        // node["tDP4mv"] = 0;
-        // node["tDP1fc"] = 0;
-        // node["tDP2fc"] = 0;
-        // node["tDP3fc"] = 0;
-        // node["tDP4fc"] = 0;
-        // node["action"] = 0;
-        // node["actionID"] = 0;
-        // node["targetName"] = "";
+        //Reset vars... But they still go once
+        tDP1mv = 0;
+        tDP2mv = 0;
+        tDP3mv = 0;
+        tDP4mv = 0;
+        tDP1fc = 0;
+        tDP2fc = 0;
+        tDP3fc = 0;
+        tDP4fc = 0;
+        tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+        tDActionID = 0; //the Id for the action in a list
+        tDTargetName = "z";//Who is being targeted this turn
 
         ProcessPost(); 
 
@@ -452,7 +454,7 @@ public class ServerTalker : MonoBehaviour
         if(_checkGet < 30 && ThisPlayerIs != TakeTurn)
         {
             ProcessGet();
-            _checkGet = Time.time*2;
+            _checkGet = Time.time+2048;
         }
         if(_checkGet > 0){_checkGet -= Time.time*2;}
 
