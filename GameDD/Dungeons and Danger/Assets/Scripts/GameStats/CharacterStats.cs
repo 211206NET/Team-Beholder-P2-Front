@@ -6,8 +6,6 @@ using System;
 
 public class CharacterStats : MonoBehaviour
 {
-    
-
     //Stats like this must be floating point internally but rounded up for the UI
     public int sendRoll = 6;//Assume one six sided dice for now
 
@@ -67,19 +65,27 @@ public class CharacterStats : MonoBehaviour
     }
 
     //what to do when character takes damage
-    public void TakeDamage(float getStr, int turn, string name, bool local, int dmg)
+    public void TakeDamage(int getStr, int turn, string name, bool local, int dmg)
     {
         //Debug.Log("Ow! My name is "+name);
         //Make Blood
         Vector3 objectPOS = transform.position;
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         //Effect stats
+<<<<<<< HEAD
         hp -= getStr + GetRoll(dmg);
         Debug.Log("You hit for " + );
+=======
+        int storeDmg; //To hold value for us
+        storeDmg = getStr + GetRoll(dmg); //Store temp value from random roll
+        GameObject findGOD; findGOD = GameObject.Find("GOD"); //Get GOD object
+        findGOD.GetComponent<ServerTalker>().tDFinalDamage = storeDmg; //Set God's var for damage
+        findGOD.GetComponent<ServerTalker>().ProcessPost(); //Update server to have damage
+        hp -= storeDmg;
+>>>>>>> 7142702ab19c0805fd7fc1ba48551b914cc8e9b6
         HPBar();
         //Send to server
         if(local == true){
-        GameObject findGOD; findGOD = GameObject.Find("GOD");
         findGOD.GetComponent<ServerTalker>().tDAction = 1; //What kind of attack was used on me; 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell 
         findGOD.GetComponent<ServerTalker>().tDActionID = 1; //The Id for the action in a list
         findGOD.GetComponent<ServerTalker>().tDTargetName = name; //My name (target of attack)
