@@ -15,7 +15,8 @@ public class ServerTalker : MonoBehaviour
 
     public bool checkNow = false; //Run Get data from database
     private float _checkGet = 30;
-    private float _getdmg = 0.0f;
+    private int _getstr = 0;
+    private int _getdice = 0;
     private int _getturn = 0;
     private string _gettarget = "";
 
@@ -86,7 +87,8 @@ public class ServerTalker : MonoBehaviour
 
     public void ProcessGet()
     {
-        StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
+        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
+        //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
     }
 
     void ProcessServerResponse( string rawResponse )
@@ -124,17 +126,17 @@ public class ServerTalker : MonoBehaviour
         // P3HP 
         // P4HP 
 
-        if(showDebug){
-        Debug.Log("Players: " + node["players"]);
-        Debug.Log("SQL Turn: " + node["gameTurn"]);
-        Debug.Log("P1MV: " + node["p1mv"]);
-        Debug.Log("P2MV: " + node["p2mv"]);
-        Debug.Log("P3MV: " + node["p3mv"]);
-        Debug.Log("P4MV: " + node["p4mv"]);
-        Debug.Log("P1FC: " + node["p1fc"]);
-        Debug.Log("P2FC: " + node["p2fc"]);
-        Debug.Log("P3FC: " + node["p3fc"]);
-        Debug.Log("P4FC: " + node["p4fc"]);}
+        // if(showDebug){
+        // Debug.Log("Players: " + node["players"]);
+        // Debug.Log("SQL Turn: " + node["gameTurn"]);
+        // Debug.Log("P1MV: " + node["p1mv"]);
+        // Debug.Log("P2MV: " + node["p2mv"]);
+        // Debug.Log("P3MV: " + node["p3mv"]);
+        // Debug.Log("P4MV: " + node["p4mv"]);
+        // Debug.Log("P1FC: " + node["p1fc"]);
+        // Debug.Log("P2FC: " + node["p2fc"]);
+        // Debug.Log("P3FC: " + node["p3fc"]);
+        // Debug.Log("P4FC: " + node["p4fc"]);}
 
 
         playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
@@ -225,7 +227,8 @@ public class ServerTalker : MonoBehaviour
             
             //Get the dmg
             if(node["targetName"] != "" && plr.GetComponent<BudgeIt>().myTurn == TakeTurn){
-                _getdmg = plr.GetComponent<CharacterStats>().damage;
+                _getstr = plr.GetComponent<CharacterStats>().str;
+                _getdice = plr.GetComponent<CharacterStats>().sendRoll;
             }
 
             
@@ -233,7 +236,7 @@ public class ServerTalker : MonoBehaviour
             //Make the attack
             if(node["action"] == 1){
             if(node["actionID"] == 1){
-                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getdmg, _getturn, _gettarget, false);}//Just to create attack effect
+                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getturn, _gettarget, false, _getdice);}//Just to create attack effect
             }}
             }
 
@@ -276,7 +279,8 @@ public class ServerTalker : MonoBehaviour
     public void ProcessPost()
     {
         //Debug.Log("ProcessPost fired at least");
-        StartCoroutine(Upload("https://localhost:7114/api/Game/", "1"));//, "1"
+        StartCoroutine( Upload("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
+        //StartCoroutine(Upload("https://localhost:7114/api/Game/", "1"));//, "1"
         //StartCoroutine(DeleteData("https://localhost:7114/api/Game/", "2"));
     }
 
@@ -451,6 +455,12 @@ public class ServerTalker : MonoBehaviour
             _checkGet = Time.time*2;
         }
         if(_checkGet > 0){_checkGet -= Time.time*2;}
+
+        //Cheat to control other player turns in multiplayer test
+        if(Input.GetKeyDown("1")){ThisPlayerIs = 1;}
+        if(Input.GetKeyDown("2")){ThisPlayerIs = 2;}
+        if(Input.GetKeyDown("3")){ThisPlayerIs = 3;}
+        if(Input.GetKeyDown("4")){ThisPlayerIs = 4;}
     }
 
     //Application.Quit()
