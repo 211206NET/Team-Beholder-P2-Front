@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fdaedf3d7d470489ec115363cfd081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkNow: 0
 --- !u!4 &122940760
 Transform:
   m_ObjectHideFlags: 0
@@ -1859,6 +1860,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1780794746}
+    - target: {fileID: 2331490080262159632, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2434368852863152480, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
       propertyPath: myTurn
       value: 2
@@ -1935,6 +1940,10 @@ PrefabInstance:
       propertyPath: slider
       value: 
       objectReference: {fileID: 104923703}
+    - target: {fileID: 7782376641343742737, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7782376641343742737, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
