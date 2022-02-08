@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 2434368852863152480}
   - component: {fileID: 1218880770537984288}
   - component: {fileID: 5520025081283567987}
+  - component: {fileID: 6581108647087121259}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -271,6 +272,7 @@ MonoBehaviour:
   myTurn: 1
   myName: 
   callToTurn: 1
+  findGOD: {fileID: 0}
   movePoints: 3
   dead: 0
   topBlock: {fileID: 0}
@@ -293,9 +295,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af4e7e1d05914f42a6589e0d1e46c5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
+  classID: 0
   maxHp: 10
-  damage: 1
+  hp: 10
+  str: 0
+  AC: 0
+  dmg: 0
   healthBar: {fileID: 4108244155418031746}
   bloodpf: {fileID: 1248622831651091097, guid: 62c3186dff3f3484baa0a72dadc5ed0a, type: 3}
 --- !u!61 &5520025081283567987
@@ -324,6 +329,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.64, y: 0.64}
   m_EdgeRadius: 0
+--- !u!114 &6581108647087121259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2434368852863152487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29812a293b311b748acaa2255a218733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4513047799570132144
 GameObject:
   m_ObjectHideFlags: 0
