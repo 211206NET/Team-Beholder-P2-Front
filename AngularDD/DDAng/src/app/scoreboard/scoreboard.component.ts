@@ -20,8 +20,4 @@ export class ScoreboardComponent implements OnInit {
     })
   }
 
-  getAllScores()
-  {
-    this.apiService.getAllScores();
-  }
 }
