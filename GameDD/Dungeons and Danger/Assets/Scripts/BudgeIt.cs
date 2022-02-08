@@ -41,7 +41,7 @@ public class BudgeIt : MonoBehaviour
     bool eachTurn = true;
 
     //External values
-    private float _getdmg = 0.0f; //Get incomming damage
+    private int _getstr = 0; //Get incomming damage
 
     void Awake()
     {
@@ -271,7 +271,12 @@ public class BudgeIt : MonoBehaviour
         callToTurn = TurnController.Turn;
         canMove = true; movePoints = 3;
         canAttack = false; //This would be set to true here if game had combat
-        //ServerTalker.RecordGameTurn(callToTurn);
+        
+        GameObject findGOD; findGOD = GameObject.Find("GOD");
+        findGOD.GetComponent<ServerTalker>().tDAction = 0; //What kind of attack was used on me; 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell 
+        findGOD.GetComponent<ServerTalker>().tDActionID = 0; //The Id for the action in a list
+        findGOD.GetComponent<ServerTalker>().tDTargetName = "z"; //My name (target of attack)
+
         ServerTalker.TakeTurn = callToTurn;
         UpdateServer();
     }
@@ -285,9 +290,9 @@ public class BudgeIt : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!dead){
         //callToTurn = TurnController.Turn;
         //Movement
-        //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.ThisPlayerIs);
         //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);
         if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
         {
@@ -342,9 +347,15 @@ public class BudgeIt : MonoBehaviour
                 makeCol.GetComponent<PlayerCollision>().myParentId = myTurn;
             }
         } 
+        }//end check dead
+        else
+        {
+            EndTurn();
+        }
     }
 
     void OnMouseDown(){
+        if(!dead){
         //Debug.Log("On Mouse Down Worked");
         // this object was clicked - do something
         //Get Damage
@@ -355,7 +366,7 @@ public class BudgeIt : MonoBehaviour
             //This will need to be overhauled for multiple skills and spells
             if(plyr.GetComponent<BudgeIt>().myTurn == TurnController.Turn) 
             {
-                _getdmg = plyr.GetComponent<CharacterStats>().damage;
+                _getstr = plyr.GetComponent<CharacterStats>().str;
                 plyr.GetComponent<BudgeIt>().canAttack = false;
                 //Have player face attacking direction
                 float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
@@ -391,12 +402,10 @@ public class BudgeIt : MonoBehaviour
 
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-            charStatsScript.TakeDamage(_getdmg, myTurn, myName, true);
-            //charStatsScript.hp -= _getdmg; 
+            charStatsScript.TakeDamage(_getstr, myTurn, myName, true, charStatsScript.sendRoll);
+            //charStatsScript.hp -= _getstr; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
-
-            
-            
         }
+        }//end dead check
     } 
 }
