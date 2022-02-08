@@ -14,7 +14,7 @@ public class ServerTalker : MonoBehaviour
     GameObject[] playerObjs;
 
     public bool checkNow = false; //Run Get data from database
-    private float _checkGet = 30;
+    private float _checkGet = 30.0f;
     private int _getstr = 0;
     private int _getdice = 0;
     private int _getturn = 0;
@@ -244,17 +244,17 @@ public class ServerTalker : MonoBehaviour
 
 
             //Reset vars... But they still go once
-            tDP1mv = 0;
-            tDP2mv = 0;
-            tDP3mv = 0;
-            tDP4mv = 0;
-            tDP1fc = 0;
-            tDP2fc = 0;
-            tDP3fc = 0;
-            tDP4fc = 0;
-            tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-            tDActionID = 0; //the Id for the action in a list
-            tDTargetName = "z";//Who is being targeted this turn
+            // tDP1mv = 0;
+            // tDP2mv = 0;
+            // tDP3mv = 0;
+            // tDP4mv = 0;
+            // tDP1fc = 0;
+            // tDP2fc = 0;
+            // tDP3fc = 0;
+            // tDP4fc = 0;
+            // tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+            // tDActionID = 0; //the Id for the action in a list
+            // tDTargetName = "z";//Who is being targeted this turn
 
             }//Not current player check
 
@@ -455,12 +455,12 @@ public class ServerTalker : MonoBehaviour
         }
 
         //Get data every so often for all players
-        if(_checkGet < 30 && ThisPlayerIs != TakeTurn)
+        if(_checkGet < 30.0f && ThisPlayerIs != TakeTurn)
         {
             ProcessGet();
-            _checkGet = Time.time+2048;
+            _checkGet = Time.deltaTime*2.0f;
         }
-        if(_checkGet > 0){_checkGet -= Time.time*2;}
+        if(_checkGet > 0){_checkGet -= Time.deltaTime*1.0f;}
 
         //Cheat to control other player turns in multiplayer test
         if(Input.GetKeyDown("1")){ThisPlayerIs = 1;}
