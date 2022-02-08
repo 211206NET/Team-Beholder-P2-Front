@@ -11,6 +11,6 @@ export class DdApiService {
 
   getAllScores() : Promise<Scoreboard[]>
   {
-    return firstValueFrom(this.http.get<Scoreboard[]>("http:"))
+    return firstValueFrom(this.http.get<Scoreboard[]>("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/scoreboard"))
   }
 }
