@@ -17,6 +17,7 @@ public class CharacterStats : MonoBehaviour
     public int str; //Final Value Stat
     public int AC;
     public int dmg; //Calculated in take damage method
+    public int attackRoll = 20;
 
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
@@ -74,6 +75,7 @@ public class CharacterStats : MonoBehaviour
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         //Effect stats
         hp -= getStr + GetRoll(dmg);
+        Debug.Log("You hit for " + );
         HPBar();
         //Send to server
         if(local == true){
@@ -84,6 +86,10 @@ public class CharacterStats : MonoBehaviour
         UpdateServer();
         }
         //Debug.Log("Server Update Sent!");
+    }
+
+    public void Miss() {
+        Debug.Log("You missed!!!");
     }
 
     //Update HPBar
