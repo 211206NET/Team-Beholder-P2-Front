@@ -182,6 +182,7 @@ public class ServerTalker : MonoBehaviour
         //Get Data to send to other players to update
         foreach(GameObject plr in playerObjs) //Loop through each player and update with server data
         {
+            Debug.Log("I should see Player 1 moving!!!");
             if(plr.GetComponent<BudgeIt>().myTurn == ThisPlayerIs && ThisPlayerIs != TakeTurn){//For other players
             //All move character right
             if(node["p1mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<BudgeIt>().BudgeRight();}}
@@ -303,7 +304,7 @@ public class ServerTalker : MonoBehaviour
         //[{"id":1,"players":4,"gameTurn":4,"p1Name":"a","p2Name":"s","p3Name":"d","p4Name":"g","p1x":1,"p1y":2,"p2x":2,"p2y":2,"p3x":2,"p3y":2,"p4x":2,"p4y":2,"action":2,"actionID":2,"targetName":"dff","p1MaxHP":2,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}]
         //UnityWebRequest www = UnityWebRequest.Put(URL_01, "{\"name\":\"user_01\",\"address\":{\"raw\":\"MountFiji\"}}");
         //www.SetRequestHeader ("Content-Type", "application/json");
-
+        Debug.Log("uPLOADfIRED!!");
         WWWForm form = new WWWForm();        
         // Id
         // Players 
