@@ -323,7 +323,7 @@ public class ServerTalker : MonoBehaviour
         // P3HP 
         // P4HP  
         //tDTargetName = "NOTFRICKINGA";
-        Debug.Log("Name of target: " + tDTargetName + ", But I won't set it for no REASON!!");
+        //Debug.Log("Name of target: " + tDTargetName + ", But I won't set it for no REASON!!");
         form.AddField("Id", 1);
         form.AddField("Players", playersTotal);
         form.AddField("gameTurn", TakeTurn);
@@ -445,12 +445,12 @@ public class ServerTalker : MonoBehaviour
         }
 
         //Get data every so often for all players
-        // if(_checkGet < 30)
-        // {
-        //     ProcessGet();
-        //     _checkGet = Time.time*1;
-        // }
-        // if(_checkGet > 0){_checkGet -= Time.time*1;}
+        if(_checkGet < 30 && ThisPlayerIs != TakeTurn)
+        {
+            ProcessGet();
+            _checkGet = Time.time*2;
+        }
+        if(_checkGet > 0){_checkGet -= Time.time*2;}
     }
 
     //Application.Quit()
