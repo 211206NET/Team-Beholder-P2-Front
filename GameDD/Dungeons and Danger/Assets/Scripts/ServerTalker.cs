@@ -308,39 +308,9 @@ public class ServerTalker : MonoBehaviour
     //Put   
     public IEnumerator Upload( string address, string myId )//, string myId
     {
-        //[{"id":1,"players":4,"gameTurn":4,"p1Name":"a","p2Name":"s","p3Name":"d","p4Name":"g","p1x":1,"p1y":2,"p2x":2,"p2y":2,"p3x":2,"p3y":2,"p4x":2,"p4y":2,"action":2,"actionID":2,"targetName":"dff","p1MaxHP":2,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}]
-        //UnityWebRequest www = UnityWebRequest.Put(URL_01, "{\"name\":\"user_01\",\"address\":{\"raw\":\"MountFiji\"}}");
-        //www.SetRequestHeader ("Content-Type", "application/json");
-        Debug.Log("uPLOADfIRED!!");
+
+        //Debug.Log("uPLOADfIRED!!");
         WWWForm form = new WWWForm();        
-        // Id
-        // Players 
-        // GameTurn 
-        // p1Name
-        // p2Name
-        // p3Name
-        // p4Name
-        // P1mv
-        // P2mv
-        // P3mv
-        // P4mv
-        // P1fc
-        // P2fc
-        // P3fc
-        // P4fc
-        // Action //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-        // ActionID //the Id for the action in a list
-        // TargetName//Who is being targeted this turn
-        // P1MaxHP 
-        // P2MaxHP 
-        // P3MaxHP 
-        // P4MaxHP 
-        // P1HP 
-        // P2HP 
-        // P3HP 
-        // P4HP  
-        //tDTargetName = "NOTFRICKINGA";
-        //Debug.Log("P1mv: " + tDP1mv + ", But I won't set it for no REASON!!");
         form.AddField("id", 1);
         form.AddField("players", playersTotal);
         form.AddField("gameTurn", TakeTurn);
@@ -390,6 +360,7 @@ public class ServerTalker : MonoBehaviour
         //ProcessGet(); //Now make sure results are read and distributed to all players
     }
 
+    //Not Used yet
     public IEnumerator PostNew( string address )//, string myId
     {
         WWWForm form = new WWWForm();
