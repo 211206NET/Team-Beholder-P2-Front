@@ -1,0 +1,41 @@
+<div class="container">
+    <h1>Dungeons&Danger</h1>
+</div>
+<div class="container">
+    <table id="scoreboard-table" class="table" *ngIf="allScores.length>0 else noScores">
+        <thead class="table-header">
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Games Played
+                </th>
+                <th>
+                    Games Won
+                </th>
+                <th>
+                    Total Kills
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let score of allScores" >
+                <td>{{score.username}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <ng-template #noScores>
+        <p>
+            No Scores Available :(
+        </p>
+
+    </ng-template>
+</div>
