@@ -291,8 +291,9 @@ public class BudgeIt : MonoBehaviour
 
     void UpdateServer()
     {
+        if(myTurn == TurnController.Turn){
         GameObject sTalk; sTalk = GameObject.Find("GOD");
-        sTalk.GetComponent<ServerTalker>().ProcessPost();
+        sTalk.GetComponent<ServerTalker>().ProcessPost();}
     }
 
     // Update is called once per frame

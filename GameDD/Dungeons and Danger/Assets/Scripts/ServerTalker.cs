@@ -78,13 +78,7 @@ public class ServerTalker : MonoBehaviour
         tDFinalDamage = 0;
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
         ProcessGet();
-        
-        //Debug.Log("Name of target at start: "+tDTargetName);
-        
-        // StartCoroutine(checkInternetConnection((isConnected)=>{
-        //     // handle connection status here
-        //     Debug.Log("Player " + myTurn + " connected.");
-        // }));
+
     }
 
     public void ProcessGet()
@@ -96,51 +90,6 @@ public class ServerTalker : MonoBehaviour
     void ProcessServerResponse( string rawResponse )
     {
         JSONNode node = JSON.Parse( rawResponse );
-
-        //Debug.Log("Username: " + node["username"]);
-        //Debug.Log("Misc Data: " + node["someArray"][1]["name"] + " = " + node["someArray"][1]["value"]);
-
-        //e.g.
-        // Id
-        // Players 
-        // GameTurn 
-        // p1Name
-        // p2Name
-        // p3Name
-        // p4Name
-        // P1mv
-        // P2mv
-        // P3mv
-        // P4mv
-        // P1fc
-        // P2fc
-        // P3fc
-        // P4fc
-        // Action //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-        // ActionID //the Id for the action in a list
-        // TargetName//Who is being targeted this turn
-        // P1MaxHP 
-        // P2MaxHP 
-        // P3MaxHP 
-        // P4MaxHP 
-        // P1HP 
-        // P2HP 
-        // P3HP 
-        // P4HP 
-        // FinalDamage
-
-        // if(showDebug){
-        // Debug.Log("Players: " + node["players"]);
-        // Debug.Log("SQL Turn: " + node["gameTurn"]);
-        // Debug.Log("P1MV: " + node["p1mv"]);
-        // Debug.Log("P2MV: " + node["p2mv"]);
-        // Debug.Log("P3MV: " + node["p3mv"]);
-        // Debug.Log("P4MV: " + node["p4mv"]);
-        // Debug.Log("P1FC: " + node["p1fc"]);
-        // Debug.Log("P2FC: " + node["p2fc"]);
-        // Debug.Log("P3FC: " + node["p3fc"]);
-        // Debug.Log("P4FC: " + node["p4fc"]);}
-
 
         playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
 
@@ -188,7 +137,7 @@ public class ServerTalker : MonoBehaviour
         //Get Data to send to other players to update
         foreach(GameObject plr in playerObjs) //Loop through each player and update with server data
         {
-            Debug.Log("I should see Player 1 moving!!!");
+            Debug.Log("I should see Player 1 moving!!! Var is set to: " + node["p1mv"]);
             if(plr.GetComponent<BudgeIt>().myTurn == ThisPlayerIs && ThisPlayerIs != TakeTurn){//For other players
             //All move character right
             if(node["p1mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<BudgeIt>().BudgeRight();}}
