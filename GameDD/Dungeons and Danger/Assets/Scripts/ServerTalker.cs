@@ -465,7 +465,16 @@ public class ServerTalker : MonoBehaviour
         if(Input.GetKeyDown("4")){ThisPlayerIs = 4;}
     }
 
-    //Application.Quit()
+    public void ExitTheGame()
+    {
+        //Editor
+        UnityEditor.EditorApplication.isPlaying = false;
+        //WebGL
+        Application.OpenURL("about:blank");
+        //Stand Alone
+        Application.Quit();
+    }
+
 }
 
 
