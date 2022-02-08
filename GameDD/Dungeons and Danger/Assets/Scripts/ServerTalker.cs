@@ -45,6 +45,7 @@ public class ServerTalker : MonoBehaviour
     public int tDP2HP { get; set; } 
     public int tDP3HP { get; set; } 
     public int tDP4HP { get; set; } 
+    public int tDFinalDamage { get; set; }
 
 
 
@@ -74,6 +75,7 @@ public class ServerTalker : MonoBehaviour
         tDP2HP = 0; 
         tDP3HP = 0; 
         tDP4HP = 0; 
+        tDFinalDamage = 0;
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
         ProcessGet();
         
@@ -125,6 +127,7 @@ public class ServerTalker : MonoBehaviour
         // P2HP 
         // P3HP 
         // P4HP 
+        // FinalDamage
 
         // if(showDebug){
         // Debug.Log("Players: " + node["players"]);
@@ -161,6 +164,7 @@ public class ServerTalker : MonoBehaviour
                     {Debug.Log("I was named: " + node["p4Name"]); tDp4Name = node["p4Name"]; pl.GetComponent<BudgeIt>().myName = node["p4Name"];}
                 }
                 canInitialize = false;
+                ProcessPost();
             }
             else
             {
@@ -168,6 +172,8 @@ public class ServerTalker : MonoBehaviour
                 playersTotal = 1;
                 ThisPlayerIs = playersTotal;
                 canInitialize = false;
+                ProcessPost();
+                //CHANGE THIS
             }
         }
 
@@ -335,32 +341,33 @@ public class ServerTalker : MonoBehaviour
         // P4HP  
         //tDTargetName = "NOTFRICKINGA";
         //Debug.Log("P1mv: " + tDP1mv + ", But I won't set it for no REASON!!");
-        form.AddField("Id", 1);
-        form.AddField("Players", playersTotal);
+        form.AddField("id", 1);
+        form.AddField("players", playersTotal);
         form.AddField("gameTurn", TakeTurn);
         form.AddField("p1Name", tDp1Name);
         form.AddField("p2Name", tDp2Name);
         form.AddField("p3Name", tDp3Name);
         form.AddField("p4Name", tDp4Name);
-        form.AddField("P1mv", tDP1mv);
-        form.AddField("P2mv", tDP2mv);
-        form.AddField("P3mv", tDP3mv);
-        form.AddField("P4mv", tDP4mv);
-        form.AddField("P5fc", tDP1fc);
-        form.AddField("P6fc", tDP2fc);
-        form.AddField("P7fc", tDP3fc);
-        form.AddField("P8fc", tDP4fc);
-        form.AddField("Action", tDAction);
-        form.AddField("ActionID", tDActionID);
-        form.AddField("TargetName", tDTargetName);
-        form.AddField("P1MaxHP", tDP1MaxHP);
-        form.AddField("P2MaxHP", tDP2MaxHP);
-        form.AddField("P3MaxHP", tDP3MaxHP);
-        form.AddField("P4MaxHP", tDP4MaxHP);
-        form.AddField("P1HP", tDP1HP);
-        form.AddField("P2HP", tDP2HP);
-        form.AddField("P3HP", tDP3HP);
-        form.AddField("P4HP", tDP4HP);
+        form.AddField("p1mv", tDP1mv);
+        form.AddField("p2mv", tDP2mv);
+        form.AddField("p3mv", tDP3mv);
+        form.AddField("p4mv", tDP4mv);
+        form.AddField("p5fc", tDP1fc);
+        form.AddField("p6fc", tDP2fc);
+        form.AddField("p7fc", tDP3fc);
+        form.AddField("p8fc", tDP4fc);
+        form.AddField("action", tDAction);
+        form.AddField("actionID", tDActionID);
+        form.AddField("targetName", tDTargetName);
+        form.AddField("p1MaxHP", tDP1MaxHP);
+        form.AddField("p2MaxHP", tDP2MaxHP);
+        form.AddField("p3MaxHP", tDP3MaxHP);
+        form.AddField("p4MaxHP", tDP4MaxHP);
+        form.AddField("p1HP", tDP1HP);
+        form.AddField("p2HP", tDP2HP);
+        form.AddField("p3HP", tDP3HP);
+        form.AddField("p4HP", tDP4HP);
+        form.AddField("finalDamage", tDFinalDamage);
 
         byte[] rawData = form.data; 
         
@@ -473,11 +480,11 @@ public class ServerTalker : MonoBehaviour
     public void ExitTheGame()
     {
         //Editor
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
         //WebGL
         Application.OpenURL("about:blank");
         //Stand Alone
-        Application.Quit();
+        //Application.Quit();
     }
 
 }
