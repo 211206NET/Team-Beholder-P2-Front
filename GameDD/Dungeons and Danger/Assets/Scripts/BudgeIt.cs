@@ -44,7 +44,8 @@ public class BudgeIt : MonoBehaviour
     bool eachTurn = true;
 
     //External values
-    private int _getstr = 0; //Get incomming damage
+    private int _getstr = 0; //Get character strength
+    private int _getdmg = 0; //Get incomming damage
 
     void Awake()
     {
@@ -392,6 +393,7 @@ public class BudgeIt : MonoBehaviour
             if(plyr.GetComponent<BudgeIt>().myTurn == TurnController.Turn) 
             {
                 _getstr = plyr.GetComponent<CharacterStats>().str;
+                _getdmg = plyr.GetComponent<CharacterStats>().dmg;
                 plyr.GetComponent<BudgeIt>().canAttack = false;
                 //Have player face attacking direction
                 float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
@@ -427,7 +429,7 @@ public class BudgeIt : MonoBehaviour
             //Debug.Log("I'm running in the BudgeIt!");
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-            charStatsScript.TakeDamage(_getstr, myTurn, myName, true, charStatsScript.dmg);
+            charStatsScript.TakeDamage(_getstr, myTurn, myName, true, _getdmg);
             //charStatsScript.hp -= _getstr; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }

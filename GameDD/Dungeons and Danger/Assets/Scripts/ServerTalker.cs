@@ -229,7 +229,7 @@ public class ServerTalker : MonoBehaviour
             //Get the dmg
             if(node["targetName"] != "" && plr.GetComponent<BudgeIt>().myTurn == TakeTurn){
                 _getstr = plr.GetComponent<CharacterStats>().str;
-                _getdice = plr.GetComponent<CharacterStats>().sendRoll;
+                _getdice = plr.GetComponent<CharacterStats>().dmg;
             }
 
             

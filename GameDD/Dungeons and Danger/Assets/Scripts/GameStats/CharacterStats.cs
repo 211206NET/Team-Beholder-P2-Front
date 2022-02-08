@@ -58,16 +58,22 @@ public class CharacterStats : MonoBehaviour
         //healthBar.doonceish=true;
     }
 
-    //what to do when character takes damage
-    public void TakeDamage(float getStr, int turn, string name, bool local, int roll)
-    {
+    public int GetRoll(int dmg) {
+        int roll;
         System.Random rand = new System.Random();
+        roll = rand.Next(1, dmg + 1);
+        return roll;
+    }
+
+    //what to do when character takes damage
+    public void TakeDamage(float getStr, int turn, string name, bool local, int dmg)
+    {
         //Debug.Log("Ow! My name is "+name);
         //Make Blood
         Vector3 objectPOS = transform.position;
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         //Effect stats
-        hp -= getStr + rand.Next(1, roll + 1);
+        hp -= getStr + GetRoll(dmg);
         HPBar();
         //Send to server
         if(local == true){
