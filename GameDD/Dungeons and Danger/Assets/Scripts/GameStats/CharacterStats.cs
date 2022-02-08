@@ -61,6 +61,7 @@ public class CharacterStats : MonoBehaviour
         int roll;
         System.Random rand = new System.Random();
         roll = rand.Next(1, dmg + 1);
+        Debug.Log("Roll is: " + roll);
         return roll;
     }
 
@@ -72,17 +73,13 @@ public class CharacterStats : MonoBehaviour
         Vector3 objectPOS = transform.position;
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         //Effect stats
-<<<<<<< HEAD
-        hp -= getStr + GetRoll(dmg);
-        Debug.Log("You hit for " + );
-=======
         int storeDmg; //To hold value for us
         storeDmg = getStr + GetRoll(dmg); //Store temp value from random roll
         GameObject findGOD; findGOD = GameObject.Find("GOD"); //Get GOD object
         findGOD.GetComponent<ServerTalker>().tDFinalDamage = storeDmg; //Set God's var for damage
         findGOD.GetComponent<ServerTalker>().ProcessPost(); //Update server to have damage
         hp -= storeDmg;
->>>>>>> 7142702ab19c0805fd7fc1ba48551b914cc8e9b6
+        Debug.Log("You hit for " + storeDmg);
         HPBar();
         //Send to server
         if(local == true){
