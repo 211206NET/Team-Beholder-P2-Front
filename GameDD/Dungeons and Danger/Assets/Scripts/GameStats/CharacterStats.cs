@@ -59,7 +59,7 @@ public class CharacterStats : MonoBehaviour
     }
 
     //what to do when character takes damage
-    public void TakeDamage(float getStr, int turn, string name, bool local, int roll)
+    public void TakeDamage(int getStr, int turn, string name, bool local, int roll)
     {
         System.Random rand = new System.Random();
         //Debug.Log("Ow! My name is "+name);
