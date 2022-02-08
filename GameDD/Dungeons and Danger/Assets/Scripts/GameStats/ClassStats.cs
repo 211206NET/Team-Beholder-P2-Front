@@ -16,6 +16,7 @@ public class ClassStats : MonoBehaviour
             AC = 15;
     }
 
+
     public void SetClassCleric(int classID, float maxHp, float hp, int str, int con, int AC)
         {
             classID = 2;

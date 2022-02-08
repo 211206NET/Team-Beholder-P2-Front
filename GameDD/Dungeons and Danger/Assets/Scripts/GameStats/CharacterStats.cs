@@ -73,7 +73,6 @@ public class CharacterStats : MonoBehaviour
             default:
                 break;
         }
-
     }
 
     //what to do when character takes damage
