@@ -14,9 +14,8 @@ public class CharacterStats : MonoBehaviour
     public float maxHp;
     public float hp;
     public int str;
-    public int con;
     public int AC;
-    public float damage;
+    public int dmg;
 
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
@@ -32,39 +31,40 @@ public class CharacterStats : MonoBehaviour
         ClassStats classStatsScript = GetComponent<ClassStats>();
         int maxHpInt;
         System.Random rand = new System.Random();
-        int number = rand.Next(1, 6);
+        //int number = rand.Next(1, 6);
+        int number = 3;
         switch (number) 
         {
             case 1:
-                classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, con, AC);
+                classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, AC, dmg);
                 //int maxHpInt = maxHp as int;
                 maxHpInt = Convert.ToInt32(maxHp);
                 //This will need to be placed anywhere max health gets altered
                 healthBar.SetMaxHealth(maxHpInt);
                 break;
             case 2:
-                classStatsScript.SetClassCleric(classID, maxHp, hp, str, con, AC);
+                classStatsScript.SetClassCleric(classID, maxHp, hp, str, AC, dmg);
                 //int maxHpInt = maxHp as int;
                 maxHpInt = Convert.ToInt32(maxHp);
                 //This will need to be placed anywhere max health gets altered
                 healthBar.SetMaxHealth(maxHpInt);
                 break;
             case 3:
-                classStatsScript.SetClassPaladin(classID, maxHp, hp, str, con, AC);
+                //classStatsScript.SetClassPaladin(classID, maxHp, hp, str, AC, dmg);
                 //int maxHpInt = maxHp as int;
                 maxHpInt = Convert.ToInt32(maxHp);
                 //This will need to be placed anywhere max health gets altered
                 healthBar.SetMaxHealth(maxHpInt);
                 break;
             case 4:
-                classStatsScript.SetClassRanger(classID, maxHp, hp, str, con, AC);
+                classStatsScript.SetClassRanger(classID, maxHp, hp, str, AC, dmg);
                 //int maxHpInt = maxHp as int;
                 maxHpInt = Convert.ToInt32(maxHp);
                 //This will need to be placed anywhere max health gets altered
                 healthBar.SetMaxHealth(maxHpInt);
                 break;
             case 5:
-                classStatsScript.SetClassWizard(classID, maxHp, hp, str, con, AC);
+                classStatsScript.SetClassWizard(classID, maxHp, hp, str, AC, dmg);
                 //int maxHpInt = maxHp as int;
                 maxHpInt = Convert.ToInt32(maxHp);
                 //This will need to be placed anywhere max health gets altered
@@ -76,14 +76,16 @@ public class CharacterStats : MonoBehaviour
     }
 
     //what to do when character takes damage
-    public void TakeDamage(float dmg, int turn, string name, bool local)
+    public void TakeDamage(int str, int roll, int turn, string name, bool local)
     {
+        System.Random rand = new System.Random();
+        int damage = str + rand.Next(1, roll);
         Debug.Log("Ow! My name is "+name);
         //Make Blood
         Vector3 objectPOS = transform.position;
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         //Effect stats
-        hp -= dmg;
+        hp -= damage;
         //GUI
         int hpInt = Convert.ToInt32(hp);
         healthBar.SetHealth(hpInt);//Update health bar current value

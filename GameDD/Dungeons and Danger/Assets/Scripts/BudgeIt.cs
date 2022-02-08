@@ -41,7 +41,8 @@ public class BudgeIt : MonoBehaviour
     bool eachTurn = true;
 
     //External values
-    private float _getdmg = 0.0f; //Get incomming damage
+    private int _getRoll; //Get dice roll for damage
+    private int _getstr; //Get incomming damage
 
     void Awake()
     {
@@ -355,7 +356,8 @@ public class BudgeIt : MonoBehaviour
             //This will need to be overhauled for multiple skills and spells
             if(plyr.GetComponent<BudgeIt>().myTurn == TurnController.Turn) 
             {
-                _getdmg = plyr.GetComponent<CharacterStats>().damage;
+                _getstr = plyr.GetComponent<CharacterStats>().str;
+                _getRoll = plyr.GetComponent<CharacterStats>().dmg;
                 plyr.GetComponent<BudgeIt>().canAttack = false;
                 //Have player face attacking direction
                 float ax = plyr.transform.position.x; float ay = plyr.transform.position.y; float dx = transform.position.x; float dy = transform.position.y;
@@ -391,8 +393,8 @@ public class BudgeIt : MonoBehaviour
 
             //Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             CharacterStats charStatsScript = GetComponent<CharacterStats>();
-            charStatsScript.TakeDamage(_getdmg, myTurn, myName, true);
-            //charStatsScript.hp -= _getdmg; 
+            charStatsScript.TakeDamage(_getstr, _getRoll, myTurn, myName, true);
+            //charStatsScript.hp -= _getstr; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
 
             

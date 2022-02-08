@@ -15,7 +15,8 @@ public class ServerTalker : MonoBehaviour
 
     public bool checkNow = false; //Run Get data from database
     private float _checkGet = 30;
-    private float _getdmg = 0.0f;
+    private int _getstr = 0;
+    private int _getRoll = 0;
     private int _getturn = 0;
     private string _gettarget = "";
 
@@ -224,8 +225,10 @@ public class ServerTalker : MonoBehaviour
             if(node["p4fc"]==4){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 4 && ThisPlayerIs != 4){plr.GetComponent<BudgeIt>().FaceDown();}}
             
             //Get the dmg
+            // ******************************  check this ********************
             if(node["targetName"] != "" && plr.GetComponent<BudgeIt>().myTurn == TakeTurn){
-                _getdmg = plr.GetComponent<CharacterStats>().damage;
+                _getstr = plr.GetComponent<CharacterStats>().str;
+                _getRoll = plr.GetComponent<CharacterStats>().dmg;
             }
 
             
@@ -233,7 +236,7 @@ public class ServerTalker : MonoBehaviour
             //Make the attack
             if(node["action"] == 1){
             if(node["actionID"] == 1){
-                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getdmg, _getturn, _gettarget, false);}//Just to create attack effect
+                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getRoll, _getturn, _gettarget, false);}//Just to create attack effect
             }}
             }
 
