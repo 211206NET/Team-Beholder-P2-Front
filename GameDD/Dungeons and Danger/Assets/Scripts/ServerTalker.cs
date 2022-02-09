@@ -13,42 +13,52 @@ public class ServerTalker : MonoBehaviour
     //public string highscoreURL = "http://localhost/unity_test/display.php";
 =======
     public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
-    public static bool SinglePlayerMode = false;
+    public static bool SinglePlayerMode = true;
     bool canInitialize = true; ///Tell server you joined once
     bool showDebug = false;
     static public int TakeTurn = 1;
     GameObject[] playerObjs;
 
-    private float _checkGet = 30;
-    private float _getdmg = 0.0f;
+    public bool checkNow = false; //Run Get data from database
+    private float _waitonquit = 0.0f;
+    private float _checkGet = 30.0f;
+    private int _getstr = 0;
+    private int _getdice = 0;
     private int _getturn = 0;
     private string _gettarget = "";
 
     //Data
-    public static int playersTotal = 0;
-    public string tDp1Name = "Name1";
-    public string tDp2Name = "testB";
-    public string tDp3Name = "testC";
-    public string tDp4Name = "testD";
-    public int tDP1mv = 0;
-    public int tDP2mv = 0;
-    public int tDP3mv = 0;
-    public int tDP4mv = 0;
-    public int tDP1fc = 0;
-    public int tDP2fc = 0;
-    public int tDP3fc = 0;
-    public int tDP4fc = 0;
-    public int tDAction = 5; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-    public int tDActionID = 5; //the Id for the action in a list
-    public string tDTargetName = "NOTA";//Who is being targeted this turn
-    public int tDP1MaxHP = 10; 
-    public int tDP2MaxHP = 10; 
-    public int tDP3MaxHP = 10; 
-    public int tDP4MaxHP = 10; 
-    public int tDP1HP = 10; 
-    public int tDP2HP = 10; 
-    public int tDP3HP = 10; 
-    public int tDP4HP = 10; 
+    //Data-Score
+    public int tDGamesPlayed { get; set; }
+    public int tDGamesWon { get; set; }
+    public int tDTotalKills { get; set; }
+
+    //Data-Stats
+    public static int playersTotal { get; set; }
+    public string tDp1Name { get; set; }
+    public string tDp2Name { get; set; }
+    public string tDp3Name { get; set; }
+    public string tDp4Name { get; set; }
+    public int tDP1mv { get; set; }
+    public int tDP2mv { get; set; }
+    public int tDP3mv { get; set; }
+    public int tDP4mv { get; set; }
+    public int tDP1fc { get; set; }
+    public int tDP2fc { get; set; }
+    public int tDP3fc { get; set; }
+    public int tDP4fc { get; set; }
+    public int tDAction { get; set; } //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+    public int tDActionID { get; set; } //the Id for the action in a list
+    public string tDTargetName { get; set; }//Who is being targeted this turn
+    public int tDP1MaxHP { get; set; }
+    public int tDP2MaxHP { get; set; }
+    public int tDP3MaxHP { get; set; } 
+    public int tDP4MaxHP { get; set; } 
+    public int tDP1HP { get; set; } 
+    public int tDP2HP { get; set; } 
+    public int tDP3HP { get; set; } 
+    public int tDP4HP { get; set; } 
+    public int tDFinalDamage { get; set; }
 
 
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
@@ -57,27 +67,55 @@ public class ServerTalker : MonoBehaviour
     void Start() //http://localhost:8000/user/
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+        tDp1Name = "z";
+        tDp2Name = "z";
+        tDp3Name = "z";
+        tDp4Name = "z";
+        tDP1mv = 0;
+        tDP2mv = 0;
+        tDP3mv = 0;
+        tDP4mv = 0;
+        tDP1fc = 0;
+        tDP2fc = 0;
+        tDP3fc = 0;
+        tDP4fc = 0;
+        tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+        tDActionID = 0; //the Id for the action in a list
+        tDTargetName = "goofy";//Who is being targeted this turn
+        tDP1MaxHP = 0; 
+        tDP2MaxHP = 0; 
+        tDP3MaxHP = 0; 
+        tDP4MaxHP = 0; 
+        tDP1HP = 0; 
+        tDP2HP = 0; 
+        tDP3HP = 0; 
+        tDP4HP = 0; 
+        tDFinalDamage = 0;
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
         ProcessGet();
-        
-        
-        // StartCoroutine(checkInternetConnection((isConnected)=>{
-        //     // handle connection status here
-        //     Debug.Log("Player " + myTurn + " connected.");
-        // }));
+
     }
 
     public void ProcessGet()
     {
+<<<<<<< HEAD
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
         StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
+=======
+        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
+        //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
     }
 
     void ProcessServerResponse( string rawResponse )
     {
         JSONNode node = JSON.Parse( rawResponse );
 
+<<<<<<< HEAD
         //Debug.Log("Username: " + node["username"]);
         //Debug.Log("Misc Data: " + node["someArray"][1]["name"] + " = " + node["someArray"][1]["value"]);
 
@@ -138,6 +176,8 @@ public class ServerTalker : MonoBehaviour
         Debug.Log("P4FC: " + node["p4fc"]);}
 
 
+=======
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
         playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
 
         //Initialize Once
@@ -160,6 +200,7 @@ public class ServerTalker : MonoBehaviour
                     {Debug.Log("I was named: " + node["p4Name"]); tDp4Name = node["p4Name"]; pl.GetComponent<BudgeIt>().myName = node["p4Name"];}
                 }
                 canInitialize = false;
+                ProcessPost();
             }
             else
             {
@@ -167,6 +208,8 @@ public class ServerTalker : MonoBehaviour
                 playersTotal = 1;
                 ThisPlayerIs = playersTotal;
                 canInitialize = false;
+                ProcessPost();
+                //CHANGE THIS
             }
         }
 
@@ -181,6 +224,8 @@ public class ServerTalker : MonoBehaviour
         //Get Data to send to other players to update
         foreach(GameObject plr in playerObjs) //Loop through each player and update with server data
         {
+            //Debug.Log("!!!!!!!!!HEEYYYY!!!!!!!I should see Player 1 moving!!! Var is set to: " + node["p1mv"]);
+            if(plr.GetComponent<BudgeIt>().myTurn == ThisPlayerIs && ThisPlayerIs != TakeTurn){//For other players
             //All move character right
             if(node["p1mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<BudgeIt>().BudgeRight();}}
             if(node["p2mv"]==1){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 2 && ThisPlayerIs != 2){plr.GetComponent<BudgeIt>().BudgeRight();}}
@@ -225,16 +270,36 @@ public class ServerTalker : MonoBehaviour
             
             //Get the dmg
             if(node["targetName"] != "" && plr.GetComponent<BudgeIt>().myTurn == TakeTurn){
-                _getdmg = plr.GetComponent<CharacterStats>().damage;
+                _getstr = plr.GetComponent<CharacterStats>().str;
+                _getdice = plr.GetComponent<CharacterStats>().dmg;
             }
 
             
             _getturn = TakeTurn; _gettarget = node["targetName"]; 
             //Make the attack
-            if(node["action"]==1){
-            if(node["actionID"]==1){
-                if(node["targetName"]==plr.GetComponent<BudgeIt>().myName){plr.GetComponent<CharacterStats>().TakeDamage(_getdmg, _getturn, _gettarget, false);}//Just to create attack effect
+            if(node["action"] == 1){
+            if(node["actionID"] == 1){
+                if(node["targetName"] == plr.GetComponent<BudgeIt>().myName)
+                {plr.GetComponent<CharacterStats>().TakeDamage(_getstr, _getturn, _gettarget, false, _getdice); 
+                }//Just to create attack effect Debug.Log("No, it's me that's the problem in the ServerTalker");
             }}
+
+
+            //Reset vars... 
+            //But will reset for all
+            // tDP1mv = 0;
+            // tDP2mv = 0;
+            // tDP3mv = 0;
+            // tDP4mv = 0;
+            // tDP1fc = 0;
+            // tDP2fc = 0;
+            // tDP3fc = 0;
+            // tDP4fc = 0;
+            // tDAction = 0; //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
+            // tDActionID = 0; //the Id for the action in a list
+            // tDTargetName = "z";//Who is being targeted this turn
+
+            }//Not current player check
 
             //Set Current HPs
             // if(node["p1HP"]!=0){if(plr.GetComponent<BudgeIt>().myTurn == TakeTurn && TakeTurn == 1 && ThisPlayerIs != 1){plr.GetComponent<CharacterStats>().hp=node["p1HP"];}}
@@ -244,20 +309,8 @@ public class ServerTalker : MonoBehaviour
 
            //Max HP...
         }
-        //Reset vars...
-        // node["tDP1mv"] = 0;
-        // node["tDP2mv"] = 0;
-        // node["tDP3mv"] = 0;
-        // node["tDP4mv"] = 0;
-        // node["tDP1fc"] = 0;
-        // node["tDP2fc"] = 0;
-        // node["tDP3fc"] = 0;
-        // node["tDP4fc"] = 0;
-        // node["action"] = 0;
-        // node["actionID"] = 0;
-        // node["targetName"] = "";
 
-        ProcessPost(); 
+        //ProcessPost(); 
 
     }
 
@@ -275,6 +328,7 @@ public class ServerTalker : MonoBehaviour
 
     public void ProcessPost()
     {
+<<<<<<< HEAD
         //Debug.Log("ProcessPost fired at least");
 <<<<<<< HEAD
         StartCoroutine(Upload("https://localhost:7114/api/Game"));//, "1"
@@ -282,6 +336,14 @@ public class ServerTalker : MonoBehaviour
         StartCoroutine(Upload("https://localhost:7114/api/Game/", "1"));//, "1"
         //StartCoroutine(DeleteData("https://localhost:7114/api/Game/", "2"));
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
+=======
+        //StartCoroutine( Upload("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
+    }
+
+    public void ProcessFinalPost()
+    {
+        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scores", "1"));
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
     }
 
     //public static string Serialize (object? value, Type inputType, System.Text.Json.JsonSerializerOptions? options = default);
@@ -318,64 +380,36 @@ public class ServerTalker : MonoBehaviour
     //Put   
     public IEnumerator Upload( string address, string myId )//, string myId
     {
-        //[{"id":1,"players":4,"gameTurn":4,"p1Name":"a","p2Name":"s","p3Name":"d","p4Name":"g","p1x":1,"p1y":2,"p2x":2,"p2y":2,"p3x":2,"p3y":2,"p4x":2,"p4y":2,"action":2,"actionID":2,"targetName":"dff","p1MaxHP":2,"p2MaxHP":1,"p3MaxHP":1,"p4MaxHP":1,"p1HP":1,"p2HP":1,"p3HP":1,"p4HP":1}]
-        //UnityWebRequest www = UnityWebRequest.Put(URL_01, "{\"name\":\"user_01\",\"address\":{\"raw\":\"MountFiji\"}}");
-        //www.SetRequestHeader ("Content-Type", "application/json");
 
+        //Debug.Log("Right before sending to database: tDP1mv: "+tDP1mv);
         WWWForm form = new WWWForm();        
-        // Id
-        // Players 
-        // GameTurn 
-        // p1Name
-        // p2Name
-        // p3Name
-        // p4Name
-        // P1mv
-        // P2mv
-        // P3mv
-        // P4mv
-        // P1fc
-        // P2fc
-        // P3fc
-        // P4fc
-        // Action //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-        // ActionID //the Id for the action in a list
-        // TargetName//Who is being targeted this turn
-        // P1MaxHP 
-        // P2MaxHP 
-        // P3MaxHP 
-        // P4MaxHP 
-        // P1HP 
-        // P2HP 
-        // P3HP 
-        // P4HP  
-
-        form.AddField("Id", 1);
-        form.AddField("Players", playersTotal);
+        form.AddField("id", 1);
+        form.AddField("players", playersTotal);
         form.AddField("gameTurn", TakeTurn);
         form.AddField("p1Name", tDp1Name);
         form.AddField("p2Name", tDp2Name);
         form.AddField("p3Name", tDp3Name);
         form.AddField("p4Name", tDp4Name);
-        form.AddField("P1mv", tDP1mv);
-        form.AddField("P2mv", tDP2mv);
-        form.AddField("P3mv", tDP3mv);
-        form.AddField("P4mv", tDP4mv);
-        form.AddField("P5fc", tDP1fc);
-        form.AddField("P6fc", tDP2fc);
-        form.AddField("P7fc", tDP3fc);
-        form.AddField("P8fc", tDP4fc);
-        form.AddField("Action", tDAction);
-        form.AddField("ActionID", tDActionID);
-        form.AddField("TargetName", tDTargetName);
-        form.AddField("P1MaxHP", tDP1MaxHP);
-        form.AddField("P2MaxHP", tDP2MaxHP);
-        form.AddField("P3MaxHP", tDP3MaxHP);
-        form.AddField("P4MaxHP", tDP4MaxHP);
-        form.AddField("P1HP", tDP1HP);
-        form.AddField("P2HP", tDP2HP);
-        form.AddField("P3HP", tDP3HP);
-        form.AddField("P4HP", tDP4HP);
+        form.AddField("p1mv", tDP1mv);
+        form.AddField("p2mv", tDP2mv);
+        form.AddField("p3mv", tDP3mv);
+        form.AddField("p4mv", tDP4mv);
+        form.AddField("p5fc", tDP1fc);
+        form.AddField("p6fc", tDP2fc);
+        form.AddField("p7fc", tDP3fc);
+        form.AddField("p8fc", tDP4fc);
+        form.AddField("action", tDAction);
+        form.AddField("actionID", tDActionID);
+        form.AddField("targetName", tDTargetName);
+        form.AddField("p1MaxHP", tDP1MaxHP);
+        form.AddField("p2MaxHP", tDP2MaxHP);
+        form.AddField("p3MaxHP", tDP3MaxHP);
+        form.AddField("p4MaxHP", tDP4MaxHP);
+        form.AddField("p1HP", tDP1HP);
+        form.AddField("p2HP", tDP2HP);
+        form.AddField("p3HP", tDP3HP);
+        form.AddField("p4HP", tDP4HP);
+        form.AddField("finalDamage", tDFinalDamage);
 
         byte[] rawData = form.data; 
         
@@ -398,10 +432,52 @@ public class ServerTalker : MonoBehaviour
         //ProcessGet(); //Now make sure results are read and distributed to all players
     }
 
-    public IEnumerator PostNew( string address )//, string myId
+    public IEnumerator UploadScore( string addressS, string myId )//, string myId
+    {
+
+        //Debug.Log("Right before sending to database: tDP1mv: "+tDP1mv);
+        WWWForm form = new WWWForm();        
+        form.AddField("id", 1);
+        form.AddField("userFirst", ""); 
+        form.AddField("userSecond", ""); 
+        form.AddField("userThird", "");
+        form.AddField("username", tDp1Name);
+        form.AddField("gamesPlayed", tDGamesPlayed);
+        form.AddField("gamesWon", tDGamesWon);
+        form.AddField("totalKills", tDTotalKills);
+
+        byte[] rawData = form.data; 
+        
+        //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
+        string url = addressS;//+myId;
+        var uwr = new UnityWebRequest(url, "PUT");
+        uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(rawData);
+        uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        uwr.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //'application/x-www-form-urlencoded'  ,"application/json"
+        yield return uwr.SendWebRequest(); 
+        if (uwr.result != UnityWebRequest.Result.Success) 
+        {
+            if(showDebug){Debug.Log("Turn: " + TakeTurn + ", Something went wrong send score: " + uwr.error);}
+        }
+        else
+        {
+            if(showDebug){Debug.Log("Form upload complete!" + TakeTurn);}
+        }
+
+        //ProcessGet(); //Now make sure results are read and distributed to all players
+    }
+
+    //Not Used yet
+    public IEnumerator PostScore( string address )//, string myId
     {
         WWWForm form = new WWWForm();
-        form.AddField("gameTurn", TakeTurn);
+        // form.AddField("userFirst", ""); //Nevermind
+        // form.AddField("userSecond", ""); 
+        // form.AddField("userThird", "");
+        // form.AddField("username", tDp1Name);
+        // form.AddField("gamesPlayed", tDp1Name);
+        // form.AddField("gamesWon", tDp1Name);
+        // form.AddField("totalKills", tDp1Name);
 
         using (UnityWebRequest www = UnityWebRequest.Post(address, form))
         {
@@ -465,22 +541,57 @@ public class ServerTalker : MonoBehaviour
     void Update()
     {
         //Toggle single player mode for testing
-        if(Input.GetKeyDown("m"))
+        // if(Input.GetKeyDown("m"))
+        // {
+            //playersTotal = 0; ProcessPost();
+            // if(SinglePlayerMode == true){SinglePlayerMode = false;}
+            // else{if(SinglePlayerMode == false){SinglePlayerMode = true;}}
+        // }
+
+        //Run a get data
+        if(checkNow == true)
         {
-            if(SinglePlayerMode == true){SinglePlayerMode = false;}
-            else{if(SinglePlayerMode == false){SinglePlayerMode = true;}}
+            ProcessGet();
+            checkNow = false;
         }
 
         //Get data every so often for all players
-        if(_checkGet < 30)
+        // if(_checkGet < 30.0f && ThisPlayerIs != TakeTurn)
+        // {
+        //     ProcessGet();
+        //     _checkGet = Time.deltaTime*1.0f;
+        // }
+        // if(_checkGet > 0){_checkGet -= Time.deltaTime*1.0f;}
+
+        //Cheat to control other player turns in multiplayer test
+        if(Input.GetKeyDown("1")){ThisPlayerIs = 1;}
+        if(Input.GetKeyDown("2")){ThisPlayerIs = 2;}
+        if(Input.GetKeyDown("3")){ThisPlayerIs = 3;}
+        if(Input.GetKeyDown("4")){ThisPlayerIs = 4;}
+
+        //Wait on Quit
+        if(_waitonquit > 0)
         {
-            ProcessGet();
-            _checkGet = Time.time*1;
+            _waitonquit -= 1.0f*Time.deltaTime;
+            if(_waitonquit < 1)
+            {
+                if (Application.isEditor)
+                    {UnityEditor.EditorApplication.isPlaying = false;}
+                    Application.OpenURL("about:blank"); //WebGL
+            }
         }
-        if(_checkGet > 0){_checkGet -= Time.time*1;}
     }
 
-    //Application.Quit()
+    public void ExitTheGame()
+    {
+        //Editor
+        ProcessFinalPost();
+        _waitonquit = 3.0f*Time.deltaTime; 
+        
+        //Stand Alone
+        //Application.Quit();
+    }
+
 }
 
 
