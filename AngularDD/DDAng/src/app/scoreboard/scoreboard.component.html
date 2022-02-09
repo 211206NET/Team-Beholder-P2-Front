@@ -8,7 +8,7 @@
                 <th>
                     GameID
                 </th>
-                <th>
+                <!-- <th>
                     1st Place
                 </th>
                 <th>
@@ -16,11 +16,11 @@
                 </th>
                 <th>
                     3th Place
-                </th>
-                <!-- <th>
-                    Username
                 </th> -->
-                <!-- <th>
+                <th>
+                    Username
+                </th> 
+                <th>
                     Games Played
                 </th>
                 <th>
@@ -28,19 +28,19 @@
                 </th>
                 <th>
                     Total Kills
-                </th> -->
+                </th> 
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let score of allScores">
                 <td>{{score.id}}</td>
-                <td>{{score.userFirst}}</td>
+                <!-- <td>{{score.userFirst}}</td>
                 <td>{{score.userSecond}}</td>
-                <td>{{score.userThird}}</td>
-                <!-- <td>{{score.username}}</td> -->
-                <!-- <td>{{score.gamesPlayed}}</td>
+                <td>{{score.userThird}}</td> -->
+                <td>{{score.username}}</td> 
+                <td>{{score.gamesPlayed}}</td>
                 <td>{{score.gamesWon}}</td>
-                <td>{{score.totalKills}}</td> -->
+                <td>{{score.totalKills}}</td> 
             </tr>
         </tbody>
     </table>
