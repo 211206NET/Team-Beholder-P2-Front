@@ -1,5 +1,6 @@
 <div class="container">
     <h1>Scoreboard</h1>
+    <button routerLink="/vip1">VIP</button>
 </div>
 <div class="container">
     <table id="scoreboard-table" class="table" *ngIf="allScores.length>0 else noScores">
@@ -8,15 +9,6 @@
                 <th>
                     GameID
                 </th>
-                <!-- <th>
-                    1st Place
-                </th>
-                <th>
-                    2nd Place
-                </th>
-                <th>
-                    3th Place
-                </th> -->
                 <th>
                     Username
                 </th> 
@@ -34,9 +26,6 @@
         <tbody>
             <tr *ngFor="let score of allScores">
                 <td>{{score.id}}</td>
-                <!-- <td>{{score.userFirst}}</td>
-                <td>{{score.userSecond}}</td>
-                <td>{{score.userThird}}</td> -->
                 <td>{{score.username}}</td> 
                 <td>{{score.gamesPlayed}}</td>
                 <td>{{score.gamesWon}}</td>
