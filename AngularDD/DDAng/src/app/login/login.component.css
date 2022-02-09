@@ -42,17 +42,28 @@ body > ol > li > a {
     font-size: large;
 
     color: black;
-
-    border-style: double;
 }
 
 .ch > h2 {
-    text-align: center;
+    text-align: left;
     font-size: 50px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     filter: drop-shadow(0 0 0.75rem blue);
+    padding-left: 25px;
 
 }
+
+.ch > h3 {
+    text-align: left;
+    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    filter: drop-shadow(0 0 0.75rem red);
+    padding-left: 25px;
+
+}
+
+
+
 
 #test {
     width: auto;
