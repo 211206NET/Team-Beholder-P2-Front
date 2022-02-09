@@ -8,6 +8,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { VIP1Component } from './vip1/vip1.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { FormsModule } from '@angular/forms';
     ScoreboardComponent,
     NavbarComponent,
     HomePageComponent,
+    LoginComponent,
+    VIP1Component,
   ],
   imports: [
     BrowserModule,
