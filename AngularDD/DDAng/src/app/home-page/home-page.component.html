@@ -1,0 +1,15 @@
+<div>
+    <h1>Dungeons&Dangers</h1>
+</div>
+<div class="container col-md-6">
+    <form (ngSubmit)="proccessForm(userForm)" #userForm="ngForm">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control" type="text" id="username" name="username">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-success" >Submit</button>
+            <!-- (click)="proccessForm()" -->
+        </div>
+    </form>
+</div>
