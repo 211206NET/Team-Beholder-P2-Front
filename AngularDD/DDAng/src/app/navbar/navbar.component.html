@@ -17,14 +17,15 @@
         <!-- <li class="nav-item">
             <app-login></app-login>
         </li> -->
-        <li class="userinfo" *ngIf="user">
-            Welcome {{user.nickname}}
         <li>
             <a class="nav-link" href="https://mattcwiese.github.io/DungeonsAndDanger/">Play</a>
         </li>
-        <li>
-            <a class="nav-link" routerLink="/login">Logout</a>
-        </li>
+        <li id="1" class="userinfo" *ngIf="user">
+            Welcome {{user.nickname}}
+        <li> 
         </ul>
     </div>
+
+
+
 </nav>

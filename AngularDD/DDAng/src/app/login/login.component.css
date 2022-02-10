@@ -83,7 +83,9 @@ body > ol > li > a {
     color: black;
 }
 
-
+.container {
+    max-width: 2320px;
+}
 
 
 #test {
