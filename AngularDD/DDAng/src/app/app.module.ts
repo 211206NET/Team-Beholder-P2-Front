@@ -9,7 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-
+import { AuthModule } from '@auth0/auth0-angular';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,10 @@ import { LoginComponent } from './login/login.component';
     LoginComponent
   ],
   imports: [
+    AuthModule.forRoot({
+      domain: environment.authDomain,
+      clientId: environment.authClientId
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
