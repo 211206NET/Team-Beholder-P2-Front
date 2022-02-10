@@ -13,7 +13,7 @@ public class ServerTalker : MonoBehaviour
     static public int TakeTurn = 1;
     GameObject[] playerObjs;
 
-    public bool checkNow = false; //Run Get data from database
+    public bool checkNow = true; //Run Get data from database
     private float _waitonquit = 0.0f;
     // private float _checkGet = 30.0f;
     // private int _getstr = 0;
@@ -101,16 +101,30 @@ public class ServerTalker : MonoBehaviour
 
     void ProcessUserResponse( string rawResponse )
     {
-
         JSONNode node = JSON.Parse( rawResponse );
 
         playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
+
+        string originalName = node["username"];
+        string enemyName1 = "Kor"+originalName+"aborkor";
+
+        string enemyName2 = "Li"+originalName+"ious";
+
+        string enemyName3 = "Shadow "+originalName;
+
+
         //Initialize Once
         if(canInitialize){
         foreach(GameObject pl in playerObjs)
         {
         if(pl.GetComponent<BudgeIt>().myTurn == 1)
-        {Debug.Log("I was named: " + node["p1Name"]); tDp1Name = node["p1Name"]; pl.GetComponent<BudgeIt>().myName = node["p1Name"];}
+        {Debug.Log("I was named: " + node["username"]); pl.GetComponent<BudgeIt>().myName = node["username"]; pl.GetComponent<CharacterStats>().name = node["username"];}
+        if(pl.GetComponent<BudgeIt>().myTurn == 2)
+        {Debug.Log("I was named: " + enemyName1);  pl.GetComponent<BudgeIt>().myName = enemyName1;  pl.GetComponent<CharacterStats>().name = enemyName1;}
+        if(pl.GetComponent<BudgeIt>().myTurn == 3)
+        {Debug.Log("I was named: " + enemyName2);  pl.GetComponent<BudgeIt>().myName = enemyName2;  pl.GetComponent<CharacterStats>().name = enemyName2;}
+        if(pl.GetComponent<BudgeIt>().myTurn == 4)
+        {Debug.Log("I was named: " + enemyName3);  pl.GetComponent<BudgeIt>().myName = enemyName3;  pl.GetComponent<CharacterStats>().name = enemyName3;}
         }canInitialize=false;}           
     }
 
@@ -462,10 +476,13 @@ public class ServerTalker : MonoBehaviour
             // else{if(SinglePlayerMode == false){SinglePlayerMode = true;}}
         // }
 
+            
         //Run a get data
         if(checkNow == true)
         {
+            //Debug.Log("This first part even fired");
             ProcessGet();
+            ProcessGetUser();
             checkNow = false;
         }
 

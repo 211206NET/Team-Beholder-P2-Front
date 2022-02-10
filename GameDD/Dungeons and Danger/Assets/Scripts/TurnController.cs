@@ -7,6 +7,7 @@ public class TurnController : MonoBehaviour
 
     public static int Turn = 1; //1 to 4 
     public static int TotalPhases = 1;
+
     // Update is called once per frame
     void Update()
     {
