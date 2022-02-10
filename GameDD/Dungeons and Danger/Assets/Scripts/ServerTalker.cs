@@ -120,7 +120,9 @@ public class ServerTalker : MonoBehaviour
         foreach(GameObject pl in playerObjs)
         {
         if(pl.GetComponent<BudgeIt>().myTurn == 1)
+
         {Debug.Log("I was named: " + node["username"]); tDp1Name = node["username"]; pl.GetComponent<BudgeIt>().myName = node["username"]; pl.GetComponent<CharacterStats>().name = node["username"];}
+
         if(pl.GetComponent<BudgeIt>().myTurn == 2)
         {Debug.Log("I was named: " + enemyName1);  pl.GetComponent<BudgeIt>().myName = enemyName1;  pl.GetComponent<CharacterStats>().name = enemyName1;}
         if(pl.GetComponent<BudgeIt>().myTurn == 3)
@@ -132,6 +134,7 @@ public class ServerTalker : MonoBehaviour
 
     void ProcessServerResponse( string rawResponse )
     {
+
         Debug.Log("Wooooooorrrkk???");
         Debug.Log("ProcessServerResponse even fired");
         JSONNode node = JSON.Parse( rawResponse );
@@ -147,6 +150,7 @@ public class ServerTalker : MonoBehaviour
             Debug.Log("games played in server: "+tDGamesPlayed+", Id: "+node["gamesPlayed"]);
             canInitScore= false;
         }
+
 
         // //Initialize Once
         // if(canInitialize)
@@ -451,7 +455,9 @@ public class ServerTalker : MonoBehaviour
 
     IEnumerator GetUserData( string address, string myId )//, int theTurn 
     {
+
         
+
         UnityWebRequest www = UnityWebRequest.Get(address + myId);
         yield return www.SendWebRequest();
 
@@ -462,6 +468,7 @@ public class ServerTalker : MonoBehaviour
         else
         {
             //Debug.LogError(www.downloadHandler.text);//success
+
             ProcessUserResponse(www.downloadHandler.text);
         }
     }
