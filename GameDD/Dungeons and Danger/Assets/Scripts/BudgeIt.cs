@@ -1,11 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+<<<<<<< HEAD
+=======
 using System.Linq;
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 
 public class BudgeIt : MonoBehaviour
 {
     public int myTurn;
+<<<<<<< HEAD
+    public int callToTurn = TurnController.Turn;
+    bool canMove = true;
+    bool canAttack = false; //Deactivated for now
+    public int movePoints = 3;
+
+    //Method to move square to determine a player moved something and it persisted to other players
+    void BudgeRight()
+    {
+        transform.position = new Vector3(transform.position.x + 0.307f, transform.position.y);
+        movePoints -= 1;
+        if(movePoints < 1){canMove = false;}
+    }
+
+    //Method to move square to determine a player moved something and it persisted to other players
+    void BudgeLeft()
+    {
+        transform.position = new Vector3(transform.position.x - 0.307f, transform.position.y);
+        movePoints -= 1;
+        if(movePoints < 1){canMove = false;}
+    }
+
+    //Method to move square to determine a player moved something and it persisted to other players
+    void BudgeUp()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y + 0.307f);
+        movePoints -= 1;
+        if(movePoints < 1){canMove = false;}
+    }
+
+    //Method to move square to determine a player moved something and it persisted to other players
+    void BudgeDown()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y - 0.307f);
+        movePoints -= 1;
+        if(movePoints < 1){canMove = false;}
+=======
     public string myName;
     public int callToTurn = TurnController.Turn;
     public GameObject findGOD;
@@ -277,6 +317,7 @@ public class BudgeIt : MonoBehaviour
         if(foundTarget == false && canMove == false){canAttack = false;}
         Debug.Log("myturn: "+ myTurn + ", canAttack? "+canAttack);
         foundTarget = false;
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
     }
 
     //Player moved and Attacked, end their turn
@@ -285,6 +326,15 @@ public class BudgeIt : MonoBehaviour
         if(myTurn < 4){TurnController.Turn += 1;}else{TurnController.Turn = 1;}
         callToTurn = TurnController.Turn;
         canMove = true; movePoints = 3;
+<<<<<<< HEAD
+        canAttack = false; //This would be set to true here if game had combat
+<<<<<<< HEAD
+        //Servertalker.RecordGameTurn(callToTurn);
+        ServerTalker.TakeTurn = callToTurn;
+=======
+        //ServerTalker.RecordGameTurn(callToTurn);
+        ServerTalker.TakeTurn = callToTurn;
+=======
         canAttack = true;
         
         Debug.Log("callToTurn: " + callToTurn);
@@ -292,12 +342,17 @@ public class BudgeIt : MonoBehaviour
         delayEndTurn = Time.deltaTime+5.0f+_waitafterturn;
         endTurnMode = true;
 
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
         UpdateServer();
     }
 
     void UpdateServer()
     {
+<<<<<<< HEAD
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
+=======
         if(myTurn == TurnController.Turn){
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
         GameObject sTalk; sTalk = GameObject.Find("GOD");
         sTalk.GetComponent<ServerTalker>().ProcessPost();}
     }
@@ -308,8 +363,34 @@ public class BudgeIt : MonoBehaviour
         if(!dead){
         //callToTurn = TurnController.Turn;
         //Movement
+<<<<<<< HEAD
+<<<<<<< HEAD
+        if(callToTurn == myTurn)
+        {
+            //Player Input
+            if (Input.GetKeyDown("right"))
+            {
+                BudgeRight();
+            }
+            if (Input.GetKeyDown("left"))
+            {
+                BudgeLeft();
+            }
+            if (Input.GetKeyDown("up"))
+            {
+                BudgeUp();
+            }
+            if (Input.GetKeyDown("down"))
+            {
+                BudgeDown();
+            }
+=======
+        //if(myTurn == 1){Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);}
+        if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
+=======
         //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs + ", ThisPlayerIs: "+ServerTalker.ThisPlayerIs);
         if(TurnController.Turn == myTurn)// && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
         {
             Debug.Log("TurnController.Turn: "+TurnController.Turn+", myTurn:"+myTurn);
 
@@ -365,9 +446,19 @@ public class BudgeIt : MonoBehaviour
                     Debug.Log("px: "+px+", px: "+py+",,, px: "+mx+", px: "+px);
                 }
             }
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 
             if(!eachTurn)
             {
+<<<<<<< HEAD
+                EndTurn();
+            }
+<<<<<<< HEAD
+        }
+        else{callToTurn = TurnController.Turn;}
+    }
+=======
+=======
                 //if(myTurn==2){Debug.Log("I was cleared!");}
                 //Player Input
                 if(canMove == true)
@@ -389,6 +480,7 @@ public class BudgeIt : MonoBehaviour
                         BudgeDown();
                     }
                 }
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
 
                 
                 //Check Player end turn conditions
@@ -531,4 +623,5 @@ public class BudgeIt : MonoBehaviour
             _processend = false;
         }
     } 
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 }

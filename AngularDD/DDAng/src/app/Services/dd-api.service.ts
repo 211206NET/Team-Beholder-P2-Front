@@ -17,7 +17,8 @@ export class DdApiService {
   getUserByUsername(id : string) :Promise<any>
   {
     console.log(id);
-    return firstValueFrom(this.http.get<any>(`http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/scoreboard/${id}`))
+    return firstValueFrom(this.http.get<any>(`http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/user/1`))
+    
   }
 
 
