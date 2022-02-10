@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class MissScript : MonoBehaviour
 {
-
-    private float _dietimer = 20.0f;
+    private float _dietimer = 3.0f;
     public Text _Text;
     string msg = "Miss!";
     // Update is called once per frame

@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using SimpleJSON;
+using UnityEngine.SceneManagement;
 
 public class ServerTalker : MonoBehaviour
 {
+    string userID = "0";
     private float _webglbuffer = 20.0f;
     public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
     public static bool SinglePlayerMode = true;
@@ -87,7 +89,7 @@ public class ServerTalker : MonoBehaviour
         tDFinalDamage = 0;
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
         //ProcessGet();
-
+            //Run a get data
     }
     
 
@@ -98,19 +100,53 @@ public class ServerTalker : MonoBehaviour
 
     public void ProcessFinalPost()
     {
-        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", "1"));
+        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", userID));
     }
 
     public void ProcessGet()
     {
-        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", "1"));
-        //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
+        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", userID));
     }
 
     public void ProcessGetUser()
     {
-        StartCoroutine( GetUserData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/User/", "1"));
-        //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
+        StartCoroutine( GetUserData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/User/", userID));
+    }
+
+    public void ProcessGetAllUsers()
+    {
+        StartCoroutine( GetUserAllData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/User/"));
+    }
+
+
+    void ProcessAllUserResponse( string rawResponse )
+    {
+        JSONNode node = JSON.Parse( rawResponse );
+
+        GameObject singletonObj;
+        //singletonObj = GameObject.FindGameObjectsWithTag("Single"); //Return list of all Players
+        singletonObj = GameObject.Find("Singleton"); //Return list of all Players
+
+        //string sentName = singletonObj.GetComponent<SendUser>().UserName;
+        string sentName = SendUser.UserName;
+        Debug.Log("sentName: "+sentName);
+
+        Debug.Log(node[0][1]);
+        Debug.Log("node length "+node.Count);
+        for(int i = 0; i < node.Count; i++)
+        {
+            if(node[i][1] == sentName)
+            {
+                userID = node[i][0].ToString(); //Find Id of the logged in user
+            }
+        }
+        if(userID == "0"){Debug.Log("You are not a user");}
+        else
+        {
+            ProcessGet();
+            ProcessGetUser();
+        }
+
     }
 
     void ProcessUserResponse( string rawResponse )
@@ -147,8 +183,6 @@ public class ServerTalker : MonoBehaviour
     void ProcessServerResponse( string rawResponse )
     {
 
-        Debug.Log("Wooooooorrrkk???");
-        Debug.Log("ProcessServerResponse even fired");
         JSONNode node = JSON.Parse( rawResponse );
 
         //playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
@@ -455,11 +489,25 @@ public class ServerTalker : MonoBehaviour
         }
     }
 
+    IEnumerator GetUserAllData( string address)//, int theTurn 
+    {
+        UnityWebRequest www = UnityWebRequest.Get(address);
+        yield return www.SendWebRequest();
+
+        if(www.result != UnityWebRequest.Result.Success)
+        {
+            if(showDebug){Debug.LogError("Something went wrong user get all user: " + www.error);}
+        }
+        else
+        {
+            //Debug.LogError(www.downloadHandler.text);//success
+
+            ProcessAllUserResponse(www.downloadHandler.text);
+        }
+    }
+
     IEnumerator GetUserData( string address, string myId )//, int theTurn 
     {
-
-        
-
         UnityWebRequest www = UnityWebRequest.Get(address + myId);
         yield return www.SendWebRequest();
 
@@ -474,6 +522,11 @@ public class ServerTalker : MonoBehaviour
             ProcessUserResponse(www.downloadHandler.text);
         }
     }
+    
+    
+
+    //
+
     
     //Delete
     IEnumerator DeleteData( string address, string myId )//, int theTurn 
@@ -494,6 +547,18 @@ public class ServerTalker : MonoBehaviour
     //Continuous loop
     void Update()
     {
+
+        
+        if(checkNow == true)
+        {
+            //Debug.Log("This first part even fired");
+            // ProcessGet();
+            // ProcessGetUser();
+            ProcessGetAllUsers();
+            checkNow = false;
+        }
+
+
         //Toggle single player mode for testing
         // if(Input.GetKeyDown("m"))
         // {
@@ -503,14 +568,6 @@ public class ServerTalker : MonoBehaviour
         // }
 
             
-        //Run a get data
-        if(checkNow == true)
-        {
-            //Debug.Log("This first part even fired");
-            ProcessGet();
-            ProcessGetUser();
-            checkNow = false;
-        }
 
         //Get data every so often for all players
         // if(_checkGet < 30.0f && ThisPlayerIs != TakeTurn)
@@ -534,17 +591,40 @@ public class ServerTalker : MonoBehaviour
             {
                 // if(Application.isEditor)
                 // {UnityEditor.EditorApplication.isPlaying = false;}
-                if(!Application.isEditor){Application.OpenURL("about:blank");} //WebGL
+                
+                //if(!Application.isEditor){Application.OpenURL("about:blank");} //WebGL  just opens another page
+
+                //Yeah um ...maybe?
+                #if (UNITY_EDITOR || DEVELOPMENT_BUILD)
+                    Debug.Log(this.name+" : "+this.GetType()+" : "+System.Reflection.MethodBase.GetCurrentMethod().Name); 
+                #endif
+                #if (UNITY_EDITOR)
+                    UnityEditor.EditorApplication.isPlaying = false;
+                #elif (UNITY_STANDALONE) 
+                    Application.Quit();
+                #elif (UNITY_WEBGL)
+                    //Application.OpenURL("about:blank");
+                    SceneManager.LoadScene(sceneName:"Login");
+                #endif
+                
+                //SceneManager.LoadScene(sceneName:"GameBoard");
+  
             }
         }
     }
 
-    public void ExitTheGame()
+    public void ExitTheGame(string res)
     {
         //Editor
         ProcessFinalPost();
         _waitonquit = 6.0f; 
         
+        //Show result of game
+        GameObject endGame;
+        endGame = GameObject.Find("EndGame");
+        endGame.GetComponent<ShowEnd>().BeVis();
+        ShowEnd.GetRes = res;
+
         //Stand Alone
         //Application.Quit();
     }
