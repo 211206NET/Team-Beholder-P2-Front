@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67fdaedf3d7d470489ec115363cfd081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkNow: 0
+  checkNow: 1
 --- !u!4 &122940760
 Transform:
   m_ObjectHideFlags: 0
