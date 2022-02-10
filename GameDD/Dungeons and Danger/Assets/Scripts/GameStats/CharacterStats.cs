@@ -19,6 +19,8 @@ public class CharacterStats : MonoBehaviour
 
     public string name = "";
 
+    //Inventory
+    public int hpPotions = 3;
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
 
@@ -98,6 +100,15 @@ public class CharacterStats : MonoBehaviour
         Debug.Log("You missed!!!");
     }
 
+    //Heal with potion
+    public void HealPotion()
+    {
+        System.Random rand = new System.Random();
+        hp += rand.Next(24, 48);
+        if(hp > maxHp){hp = maxHp;}
+        HPBar();
+    }
+
     //Update HPBar
     public void HPBar()
     {
@@ -116,19 +127,34 @@ public class CharacterStats : MonoBehaviour
     {
         BudgeIt budgescript = GetComponent<BudgeIt>();
         budgescript.dead = true;
-        UpdateServer();
+        TurnController.PlayerDead = true;
+        //UpdateServer();
     }
 
     //Update the server with information
     void UpdateServer()
     {
         GameObject sTalk; sTalk = GameObject.Find("GOD");
-        sTalk.GetComponent<ServerTalker>().ProcessPost();
+        sTalk.GetComponent<ServerTalker>().ProcessFinalPost();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //Drink potion
+        if(hpPotions > 0)
+        {
+            if(Input.GetKeyDown("h"))
+            {
+                BudgeIt budgescript = GetComponent<BudgeIt>();
+                if(budgescript.myTurn == TurnController.Turn){
+                hpPotions -= 1;
+                HealPotion();}
+            }
+        }
+
+        //Die
         if(hp <= 0)
         {
             Die();

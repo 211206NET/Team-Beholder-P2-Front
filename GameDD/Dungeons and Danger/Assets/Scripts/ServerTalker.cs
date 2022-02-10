@@ -6,9 +6,11 @@ using SimpleJSON;
 
 public class ServerTalker : MonoBehaviour
 {
+    private float _webglbuffer = 20.0f;
     public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
     public static bool SinglePlayerMode = true;
     bool canInitialize = true; ///Tell server you joined once
+    bool canInitScore = true;
     bool showDebug = false;
     static public int TakeTurn = 1;
     GameObject[] playerObjs;
@@ -84,12 +86,12 @@ public class ServerTalker : MonoBehaviour
         tDP4HP = 0; 
         tDFinalDamage = 0;
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
-        ProcessGet();
+        //ProcessGet();
 
     }
     public void ProcessGet()
     {
-        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
+        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/1?username=KindOfExcellent", "1"));
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
     }
 
@@ -118,7 +120,7 @@ public class ServerTalker : MonoBehaviour
         foreach(GameObject pl in playerObjs)
         {
         if(pl.GetComponent<BudgeIt>().myTurn == 1)
-        {Debug.Log("I was named: " + node["username"]); pl.GetComponent<BudgeIt>().myName = node["username"]; pl.GetComponent<CharacterStats>().name = node["username"];}
+        {Debug.Log("I was named: " + node["username"]); tDp1Name = node["username"]; pl.GetComponent<BudgeIt>().myName = node["username"]; pl.GetComponent<CharacterStats>().name = node["username"];}
         if(pl.GetComponent<BudgeIt>().myTurn == 2)
         {Debug.Log("I was named: " + enemyName1);  pl.GetComponent<BudgeIt>().myName = enemyName1;  pl.GetComponent<CharacterStats>().name = enemyName1;}
         if(pl.GetComponent<BudgeIt>().myTurn == 3)
@@ -130,9 +132,21 @@ public class ServerTalker : MonoBehaviour
 
     void ProcessServerResponse( string rawResponse )
     {
-        // JSONNode node = JSON.Parse( rawResponse );
+        Debug.Log("Wooooooorrrkk???");
+        Debug.Log("ProcessServerResponse even fired");
+        JSONNode node = JSON.Parse( rawResponse );
 
-        // playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
+        //playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
+
+        //Initialize Once
+        if(canInitScore)
+        {
+            tDGamesPlayed = node["gamesPlayed"];
+            tDGamesWon = node["gamesWon"];
+            tDTotalKills = node["totalKills"];
+            Debug.Log("games played in server: "+tDGamesPlayed+", Id: "+node["gamesPlayed"]);
+            canInitScore= false;
+        }
 
         // //Initialize Once
         // if(canInitialize)
@@ -286,7 +300,7 @@ public class ServerTalker : MonoBehaviour
 
     public void ProcessFinalPost()
     {
-        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scores", "1"));
+        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/1?username=KindOfExcellent", "1"));
     }
 
     //public static string Serialize (object? value, Type inputType, System.Text.Json.JsonSerializerOptions? options = default);
@@ -355,12 +369,9 @@ public class ServerTalker : MonoBehaviour
     public IEnumerator UploadScore( string addressS, string myId )//, string myId
     {
 
-        //Debug.Log("Right before sending to database: tDP1mv: "+tDP1mv);
+        Debug.Log("Right before sending to database: tDGamesPlayed: "+tDGamesPlayed);
         WWWForm form = new WWWForm();        
         form.AddField("id", 1);
-        form.AddField("userFirst", ""); 
-        form.AddField("userSecond", ""); 
-        form.AddField("userThird", "");
         form.AddField("username", tDp1Name);
         form.AddField("gamesPlayed", tDGamesPlayed);
         form.AddField("gamesWon", tDGamesWon);
@@ -369,7 +380,7 @@ public class ServerTalker : MonoBehaviour
         byte[] rawData = form.data; 
         
         //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
-        string url = addressS;//+myId;
+        string url = addressS+myId;
         var uwr = new UnityWebRequest(url, "PUT");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(rawData);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -377,11 +388,15 @@ public class ServerTalker : MonoBehaviour
         yield return uwr.SendWebRequest(); 
         if (uwr.result != UnityWebRequest.Result.Success) 
         {
-            if(showDebug){Debug.Log("Turn: " + TakeTurn + ", Something went wrong send score: " + uwr.error);}
+            //if(showDebug){
+                Debug.Log("Turn: " + TakeTurn + ", Something went wrong send score: " + uwr.error);
+            //    }
         }
         else
         {
-            if(showDebug){Debug.Log("Form upload complete!" + TakeTurn);}
+            //if(showDebug){
+                Debug.Log("Form upload complete!" + TakeTurn);
+            //    }
         }
 
         //ProcessGet(); //Now make sure results are read and distributed to all players
@@ -417,23 +432,26 @@ public class ServerTalker : MonoBehaviour
 
     IEnumerator GetWebData( string address, string myId )//, int theTurn 
     {
-        UnityWebRequest www = UnityWebRequest.Get(address + myId);
+        UnityWebRequest www = UnityWebRequest.Get(address);// + myId);
         yield return www.SendWebRequest();
 
         if(www.result != UnityWebRequest.Result.Success)
         {
+            //Debug.LogError("NO!");//success
+            Debug.LogError("Something went wrong dude: " + www.error);
             if(showDebug){Debug.LogError("Something went wrong dude: " + www.error);}
         }
         else
         {
             //Debug.LogError(www.downloadHandler.text);//success
-
+            
             ProcessServerResponse(www.downloadHandler.text);
         }
     }
 
     IEnumerator GetUserData( string address, string myId )//, int theTurn 
     {
+        
         UnityWebRequest www = UnityWebRequest.Get(address + myId);
         yield return www.SendWebRequest();
 
@@ -444,7 +462,6 @@ public class ServerTalker : MonoBehaviour
         else
         {
             //Debug.LogError(www.downloadHandler.text);//success
-
             ProcessUserResponse(www.downloadHandler.text);
         }
     }
@@ -503,12 +520,12 @@ public class ServerTalker : MonoBehaviour
         //Wait on Quit
         if(_waitonquit > 0)
         {
-            _waitonquit -= 1.0f*Time.deltaTime;
+            _waitonquit -= Time.deltaTime;
             if(_waitonquit < 1)
             {
-                if (Application.isEditor)
-                    {UnityEditor.EditorApplication.isPlaying = false;}
-                    Application.OpenURL("about:blank"); //WebGL
+                // if(Application.isEditor)
+                // {UnityEditor.EditorApplication.isPlaying = false;}
+                Application.OpenURL("about:blank"); //WebGL
             }
         }
     }
@@ -517,7 +534,7 @@ public class ServerTalker : MonoBehaviour
     {
         //Editor
         ProcessFinalPost();
-        _waitonquit = 3.0f*Time.deltaTime; 
+        _waitonquit = 6.0f; 
         
         //Stand Alone
         //Application.Quit();
