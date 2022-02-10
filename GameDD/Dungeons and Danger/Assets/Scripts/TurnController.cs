@@ -8,7 +8,9 @@ public class TurnController : MonoBehaviour
     public static int Turn = 1; //1 to 4 
     public static int TotalPhases = 1;
 
+
     public static bool PlayerDead = false;
+
 
     // Update is called once per frame
     void Update()

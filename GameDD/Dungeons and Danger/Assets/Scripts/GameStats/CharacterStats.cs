@@ -19,6 +19,7 @@ public class CharacterStats : MonoBehaviour
 
     public string name = "";
 
+
     //Inventory
     public int hpPotions = 20;
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 

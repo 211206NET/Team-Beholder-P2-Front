@@ -104,7 +104,9 @@ public void BudgeRight()
         //Debug.Log("Distance to other player: " + (op.transform.position.x - transform.position.x) + ", Abs x: " + Mathf.Abs(op.transform.position.y - transform.position.y));
         if((transform.position.x < op.transform.position.x && op.transform.position.x - transform.position.x < 0.35f && Mathf.Abs(op.transform.position.y - transform.position.y)<0.24f) ||
         rightBlock.transform.position.x - transform.position.x < 0.35f)
+
         {moveClear = false; if(myTurn>1){ _blockright = true;}}
+
     }
 
     if(moveClear){
@@ -121,7 +123,9 @@ public void BudgeRight()
     ClearTargets();
     CheckTarget();
     //UpdateServer();
+
     _delayStep = _delaySpeed+_webglbuffer;
+
     moveClear = true;//reset
     }
 }
@@ -144,7 +148,9 @@ public void BudgeLeft()
 
         if((op.transform.position.x < transform.position.x && transform.position.x - op.transform.position.x < 0.35f && 
         Mathf.Abs(op.transform.position.y - transform.position.y)<0.24f) || transform.position.x - leftBlock.transform.position.x < 0.35f)
+
         {moveClear = false; if(myTurn>1){ _blockleft = true;}}
+
     }
     // if(myTurn==2 && TurnController.TotalPhases == 2){
     //     Debug.Log("Player is not left of me, moveClear: "+moveClear+",_deadend: "+_deadend);}
@@ -162,7 +168,10 @@ public void BudgeLeft()
     ClearTargets();
     CheckTarget();
     //UpdateServer();
+
     _delayStep = _delaySpeed+_webglbuffer;
+
+
     moveClear = true;//reset
     }
 }
@@ -181,7 +190,9 @@ public void BudgeUp()
         //Debug.Log("Distance to other player: " + (op.transform.position.y - transform.position.y) + ", Abs x: " + Mathf.Abs(op.transform.position.x - transform.position.x));
         if((transform.position.y < op.transform.position.y && op.transform.position.y - transform.position.y < 0.35f && Mathf.Abs(op.transform.position.x - transform.position.x)<0.24f) ||
         topBlock.transform.position.y - transform.position.y < 0.35f)
+
         {moveClear = false; if(myTurn>1){ _blockup = true;}}
+
     }
 
     if(moveClear){
@@ -198,7 +209,9 @@ public void BudgeUp()
     ClearTargets();
     CheckTarget();
     //UpdateServer();
+
     _delayStep = _delaySpeed+_webglbuffer;
+
     moveClear = true;//reset
     }
 }
@@ -218,7 +231,9 @@ public void BudgeDown()
         //Debug.Log("Distance to other player: " + (transform.position.y - op.transform.position.y) + ", Abs x: " + Mathf.Abs(op.transform.position.x - transform.position.x));
         if((op.transform.position.y < transform.position.y && transform.position.y - op.transform.position.y < 0.35f && Mathf.Abs(op.transform.position.x - transform.position.x)<0.24f) ||
         transform.position.y - bottomBlock.transform.position.y < 0.35f)
+
         {moveClear = false; if(myTurn>1){_blockdown = true;}}
+
     }
 
     if(moveClear){
@@ -235,7 +250,9 @@ public void BudgeDown()
     ClearTargets();
     CheckTarget();
     //UpdateServer();
+
     _delayStep = _delaySpeed+_webglbuffer;
+
     moveClear = true;//reset
     }
 }
@@ -251,7 +268,9 @@ if(myTurn == 2 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<Serv
 if(myTurn == 3 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP3fc = 1;}
 if(myTurn == 4 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP4fc = 1;}
 //UpdateServer();
+
 _delayStep = _delaySpeed+_webglbuffer;}
+
 public void FaceLeft()
 {transform.localRotation = Quaternion.Euler(0, 0, 0); 
 if(myTurn == 1 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP1fc = 2;}
@@ -259,7 +278,9 @@ if(myTurn == 2 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<Serv
 if(myTurn == 3 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP3fc = 2;}
 if(myTurn == 4 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP4fc = 2;}
 //UpdateServer();
+
 _delayStep = _delaySpeed+_webglbuffer;}
+
 public void FaceUp()
 {transform.localRotation = Quaternion.Euler(0, 0, 270); 
 if(myTurn == 1 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP1fc = 3;}
@@ -267,7 +288,9 @@ if(myTurn == 2 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<Serv
 if(myTurn == 3 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP3fc = 3;}
 if(myTurn == 4 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP4fc = 3;}
 //UpdateServer();
+
 _delayStep = _delaySpeed+_webglbuffer;}
+
 public void FaceDown()
 {transform.localRotation = Quaternion.Euler(0, 0, 90); 
 if(myTurn == 1 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP1fc = 4;}
@@ -275,7 +298,9 @@ if(myTurn == 2 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<Serv
 if(myTurn == 3 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP3fc = 4;}
 if(myTurn == 4 && myTurn == ServerTalker.ThisPlayerIs){findGOD.GetComponent<ServerTalker>().tDP4fc = 4;}
 //UpdateServer();
+
 _delayStep = _delaySpeed+_webglbuffer;}
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------\\
 //                                                         TARGET                                                                    \\
@@ -346,7 +371,9 @@ void CheckTarget()
     {
         //CheckTarget();//Causes stack overflow
         //eachTurn = true;
+
         _checkCollide = 1.0f+_webglbuffer;
+
         //Debug.Log("No targets"+delayStart);
     }
 }
@@ -360,7 +387,9 @@ void EndTurn()
     {
         if(op.GetComponent<PlayerCollision>().myParentId == myTurn){op.GetComponent<PlayerCollision>().Die();}
     }
+
     delayEndTurn = 1.0f+_waitafterturn+_webglbuffer; //Time.deltaTime+
+
     //Debug.Log("I'm "+myTurn+" and I'm going to end turn after: "+delayEndTurn);
     endTurnMode = true;
 }
@@ -379,8 +408,10 @@ void UpdateServer()
 //-----------------------------------------------------------------------------------------------------------------------------------\\
 void Update()
 {
+
     //Debug.Log("_delayStep: " + _delayStep);
     if(_delayStep < 1)
+
     {
         if(!dead && !_deadend)
         {
@@ -392,6 +423,7 @@ void Update()
                 //Debug.Log("TurnController.Turn: "+TurnController.Turn+", myTurn:"+myTurn);
 
                 if(eachTurn == true && delayStart < 1.0f)
+
                 {
                     //Standard stuff to do at the start of turn
                     //Debug.Log("Dead? " + dead); //Test
@@ -414,6 +446,7 @@ void Update()
                     //AI start of turn, find what direction player is
                     if(myTurn > 1)
                     {
+
                         //_waitafterturn = 2.0f;
                         float px=0; float py=0;     //Check if any enemy is in range
                         float mx=0; float my=0;     //Check if any enemy is in range
@@ -454,12 +487,14 @@ void Update()
                         if(px > mx && Mathf.Abs(px-mx)>=0.36f){_nearTargetDir = 1;}
                         }
                         //Debug.Log("px: "+px+", px: "+py+",,, px: "+mx+", px: "+px);
+
                         //if(myTurn==3){Debug.Log("Me move " + _nearTargetDir);}
                         if(_nearTargetDir == 0 || TurnController.PlayerDead == true){_deadend = true;}//Can't move too bad
                         Debug.Log("_nearTargetDir: "+_nearTargetDir+", _deadend: "+_deadend+", TurnController.PlayerDead: "+TurnController.PlayerDead);
                     }
 
                     if(_deadend == false){
+
                     if ((_nearTargetDir == 1 || (myTurn==1&&Input.GetKeyDown("right"))) && !Input.GetKey("left") && !Input.GetKey("up") && !Input.GetKey("down"))
                     {
                         BudgeRight();
@@ -637,6 +672,7 @@ void Update()
         if(_checkCollide < 1){CheckTarget();}
     }
 
+
 }//End Update
 
 //-----------------------------------------------------------------------------------------------------------------------------------\\
@@ -724,10 +760,12 @@ void Attack()
             else 
             {
                 charStatsScript.Miss();
+
             }
             //charStatsScript.hp -= _getstr; 
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }
     }//end dead check
+
 } //End Attack
 }//End Class
