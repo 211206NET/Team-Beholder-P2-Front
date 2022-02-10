@@ -11,9 +11,13 @@
         <li>
             <a class="nav-link" routerLink="/scoreboard">Scoardboard</a>
         </li>
-        <li>
-            <a class="nav-link" routerLink="/login">Logout</a>
+        <li class="nav-item">
+            <app-login></app-login>
         </li>
-        </ul>
+        <li class="userinfo" *ngIf="user">
+            Welcome {{user.nickname}}
+        </li>
+        
+    </ul>
     </div>
 </nav>
