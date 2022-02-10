@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { VIP1Component } from './vip1/vip1.component';
 
+
 const routes: Routes = [
   // {
   //   path: "game/:id",
@@ -30,6 +31,7 @@ const routes: Routes = [
     path: 'vip1',
     component: VIP1Component
   },
+
 
   {
     path: '',

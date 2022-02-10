@@ -13,6 +13,7 @@ import { VIP1Component } from './vip1/vip1.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
 
+
 @NgModule({
   declarations: [
     AppComponent,

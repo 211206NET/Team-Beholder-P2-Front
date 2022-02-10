@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { DdApiService } from '../Services/dd-api.service';
 import { Scoreboard } from '../Models/scoreboard';
-import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
+
 
 @Component({
   selector: 'app-home-page',
@@ -16,23 +15,27 @@ export class HomePageComponent implements OnInit {
   }
   constructor(private _apiService : DdApiService) { }
 
-  proccessForm(userForm:NgForm)
-  {
-    console.log('form has been submitted')
-    console.log(userForm.value);
-    this._apiService.getUserByUsername(userForm.value)
+
+  userGameInfo : Scoreboard={
+    id : 0,
+    username : "",
+    gamesPlayed : 0,
+    gamesWon : 0,
+    totalKills : 0
   }
 
-  userGameInfo: Scoreboard[]= [];
-  clickme(username:string) {
-    console.log(username);
+  clickme(id:string) {
+    console.log(id);
     
-    this._apiService.getUserByUsername(username)
-    // this._apiService.getUserByUsername(username).then((scoreToArray) =>
-    // {
-    //   console.log(scoreToArray)
-    //   this.userGameInfo = scoreToArray;
-    // })
+    this._apiService.getUserById(id).then((player)=>
+    {
+      this.userGameInfo.id = player.id
+      this.userGameInfo.username = player.username
+      this.userGameInfo.gamesPlayed = player.gamesPlayed
+      this.userGameInfo.gamesWon = player.gamesWon
+      this.userGameInfo.totalKills = player.totalKills
+    })
+    
   }
 
 
