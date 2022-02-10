@@ -1,25 +1,17 @@
 <div class="container">
-    <h1>Dungeons&Danger</h1>
+    <h1>Scoreboard</h1>
+    <button routerLink="/vip1">VIP</button>
 </div>
 <div class="container">
     <table id="scoreboard-table" class="table" *ngIf="allScores.length>0 else noScores">
         <thead class="table-header">
             <tr>
                 <th>
-                    Id
-                </th>
-                <th>
-                    1st Place
-                </th>
-                <th>
-                    2nd Place
-                </th>
-                <th>
-                    3th Place
+                    GameID
                 </th>
                 <th>
                     Username
-                </th>
+                </th> 
                 <th>
                     Games Played
                 </th>
@@ -28,16 +20,16 @@
                 </th>
                 <th>
                     Total Kills
-                </th>
+                </th> 
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let score of allScores" >
-                <td>{{score.username}}</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr *ngFor="let score of allScores">
+                <td>{{score.id}}</td>
+                <td>{{score.username}}</td> 
+                <td>{{score.gamesPlayed}}</td>
+                <td>{{score.gamesWon}}</td>
+                <td>{{score.totalKills}}</td> 
             </tr>
         </tbody>
     </table>

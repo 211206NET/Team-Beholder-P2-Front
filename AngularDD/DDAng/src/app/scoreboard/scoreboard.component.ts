@@ -16,6 +16,7 @@ export class ScoreboardComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.getAllScores().then((scoreToArray) =>
     {
+      console.log(scoreToArray)
       this.allScores = scoreToArray;
     })
   }
