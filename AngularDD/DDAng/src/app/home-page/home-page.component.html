@@ -12,3 +12,16 @@
         </div>
     </form>
 </div>
+
+<p><input type="text" id="username" name="username" #username></p>
+<button type="button" (click)="clickme(username.value)">Clickme</button>
+
+<!-- <tbody>
+    <tr userGameInfo>
+        <td>{{userGameInfo.id}}</td>
+        <td>{{userGameInfo.username}}</td> 
+        <td>{{userGameInfo.gamesPlayed}}</td>
+        <td>{{userGameInfo.gamesWon}}</td>
+        <td>{{userGameInfo.totalKills}}</td> 
+    </tr>
+</tbody> -->
