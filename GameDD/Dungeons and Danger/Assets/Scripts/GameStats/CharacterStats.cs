@@ -10,8 +10,8 @@ public class CharacterStats : MonoBehaviour
     public int sendRoll = 6;//Assume one six sided dice for now
 
     public int classID;
-    public float maxHp; //Final Value Stat
-    public float hp; //Final Value Stat
+    public float maxHp = 1000; //Final Value Stat
+    public float hp = 1000; //Final Value Stat
     public int str; //Final Value Stat
     public int AC;
     public int dmg; //Calculated in take damage method
