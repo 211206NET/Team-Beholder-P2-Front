@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
-import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { LoginComponent } from './login/login.component';
+import { ScoreboardComponent } from './scoreboard/scoreboard.component';
 import { AuthGuard } from '@auth0/auth0-angular';
+import { VIP1Component } from './vip1/vip1.component';
+
 
 const routes: Routes = [
   // {
@@ -25,6 +27,12 @@ const routes: Routes = [
     component : LoginComponent,
     canActivate: [AuthGuard]
   },
+
+  {
+    path: 'vip1',
+    component: VIP1Component
+  },
+
 
   {
     path: '',

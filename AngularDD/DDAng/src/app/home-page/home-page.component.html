@@ -1,15 +1,26 @@
 <div>
     <h1>Dungeons&Dangers</h1>
 </div>
-<div class="container col-md-6">
+<!-- <div class="container col-md-6">
     <form (ngSubmit)="proccessForm(userForm)" #userForm="ngForm">
         <div class="form-group">
-            <label for="username">Username</label>
-            <input class="form-control" type="text" id="username" name="username">
+            <label for="username">Get Stats</label>
+            <input class="form-control" type="text" id="username" name="username" [placeholder]="placeholder.username" ngModel >
         </div>
         <div class="form-group">
-            <button class="btn btn-success" >Submit</button>
-            <!-- (click)="proccessForm()" -->
+            <input type="submit" value="Create" class="btn btn-success">
         </div>
     </form>
+</div> -->
+<div class="clickme">
+<p><input type="text" id="username" name="username" #username></p>
+<button type="button" (click)="clickme(username.value)">Clickme</button>
 </div>
+
+<ul>
+    <li>{{userGameInfo.id}}</li>
+    <li>{{userGameInfo.username }}</li>
+    <li>{{userGameInfo.gamesPlayed}}</li>
+    <li>{{userGameInfo.gamesWon}}</li>
+    <li>{{userGameInfo.totalKills}}</li>
+</ul>

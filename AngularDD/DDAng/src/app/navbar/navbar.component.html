@@ -19,8 +19,12 @@
         </li> -->
         <li class="userinfo" *ngIf="user">
             Welcome {{user.nickname}}
+        <li>
+            <a class="nav-link" href="https://mattcwiese.github.io/DungeonsAndDanger/">Play</a>
         </li>
-        
-    </ul>
+        <li>
+            <a class="nav-link" routerLink="/login">Logout</a>
+        </li>
+        </ul>
     </div>
 </nav>

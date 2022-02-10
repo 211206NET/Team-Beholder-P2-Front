@@ -9,8 +9,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { VIP1Component } from './vip1/vip1.component';
 import { AuthModule } from '@auth0/auth0-angular';
 import { environment } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { environment } from 'src/environments/environment';
     ScoreboardComponent,
     NavbarComponent,
     HomePageComponent,
+    LoginComponent,
+    VIP1Component,
     LoginComponent
   ],
   imports: [
