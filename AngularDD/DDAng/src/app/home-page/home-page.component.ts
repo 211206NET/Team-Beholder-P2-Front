@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
+// import { Scoreboard } from '../Models/scoreboard';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
