@@ -10,8 +10,8 @@ public class CharacterStats : MonoBehaviour
     public int sendRoll = 6;//Assume one six sided dice for now
 
     public int classID;
-    public float maxHp; //Final Value Stat
-    public float hp; //Final Value Stat
+    public float maxHp = 1000; //Final Value Stat
+    public float hp = 1000; //Final Value Stat
     public int str; //Final Value Stat
     public int AC;
     public int dmg; //Calculated in take damage method
@@ -19,51 +19,73 @@ public class CharacterStats : MonoBehaviour
 
     public string name = "";
 
+
+    //Inventory
+    public int hpPotions = 20;
+    public int wepType = 1; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
 
+    //Player Blessing
+    private bool _canBless = true;
 
     //GUI/Effects
     public HealthBar healthBar;
     public GameObject bloodpf;
+    public GameObject missTextObj;
 
     // Start is called before the first frame update
     void Start()
     {
+        hpPotions = 20;
         //Set stats
         ClassStats classStatsScript = GetComponent<ClassStats>();
-        System.Random rand = new System.Random();
-        int number = rand.Next(1, 6);
+        //System.Random rand = new System.Random();
+        int number = UnityEngine.Random.Range(1, 6);//rand.Next(1, 6);
         switch (number) 
         {
             case 1:
-                classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, AC, dmg);
+                classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, AC, dmg, wepType);
                 break;
             case 2:
-                classStatsScript.SetClassCleric(classID, maxHp, hp, str, AC, dmg);
+                classStatsScript.SetClassCleric(classID, maxHp, hp, str, AC, dmg, wepType);
                 break;
             case 3:
-                classStatsScript.SetClassPaladin(classID, maxHp, hp, str, AC, dmg);
+                classStatsScript.SetClassPaladin(classID, maxHp, hp, str, AC, dmg, wepType);
                 break;
             case 4:
-                classStatsScript.SetClassRanger(classID, maxHp, hp, str, AC, dmg);
+                classStatsScript.SetClassRanger(classID, maxHp, hp, str, AC, dmg, wepType);
                 break;
             case 5:
-                classStatsScript.SetClassWizard(classID, maxHp, hp, str, AC, dmg);
+                classStatsScript.SetClassWizard(classID, maxHp, hp, str, AC, dmg, wepType);
                 break;
             default:
                 //More classes in the future!
                 break;
         }
 
+        //Set Weapon in main script
+        SetWeapon(wepType);
+
         HPBar();
+        //Fix for init hp bar not showing full
+        HealPotion();
+        HealPotion();
         //healthBar.doonceish=true;
+
+    }
+
+    void SetWeapon(int wt)
+    {
+        BudgeIt budgescript = GetComponent<BudgeIt>();
+        budgescript.weaponType = wt;
+        budgescript.SetWeaponArt();
     }
 
     public int GetRoll(int dmg) {
         int roll;
-        System.Random rand = new System.Random();
-        roll = rand.Next(1, dmg + 1);
+        //System.Random rand = new System.Random();
+        roll = UnityEngine.Random.Range(1, dmg+1);//rand.Next(1, dmg + 1);
         Debug.Log("Roll is: " + roll);
         return roll;
     }
@@ -96,6 +118,18 @@ public class CharacterStats : MonoBehaviour
 
     public void Miss() {
         Debug.Log("You missed!!!");
+        float randpos = -0.20f;
+        randpos = UnityEngine.Random.Range(-0.10f, 0.10f);
+        Instantiate(missTextObj, new Vector2(transform.position.x+randpos, transform.position.y+0.24f+randpos), Quaternion.identity);
+    }
+
+    //Heal with potion
+    public void HealPotion()
+    {
+        //System.Random rand = new System.Random();
+        hp += UnityEngine.Random.Range(24, 48);//rand.Next(24, 48);
+        if(hp > maxHp){hp = maxHp;}
+        HPBar();
     }
 
     //Update HPBar
@@ -116,19 +150,50 @@ public class CharacterStats : MonoBehaviour
     {
         BudgeIt budgescript = GetComponent<BudgeIt>();
         budgescript.dead = true;
-        UpdateServer();
+        if(budgescript.myTurn == 1){
+        TurnController.PlayerDead = true;}
+        //UpdateServer();
     }
 
     //Update the server with information
     void UpdateServer()
     {
         GameObject sTalk; sTalk = GameObject.Find("GOD");
-        sTalk.GetComponent<ServerTalker>().ProcessPost();
+        sTalk.GetComponent<ServerTalker>().ProcessFinalPost();
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        //Drink potion
+        // if(hpPotions > 0)
+        // {
+        //     if(Input.GetKeyDown("h"))
+        //     {
+        //         BudgeIt budgescript = GetComponent<BudgeIt>();
+        //         if(budgescript.myTurn == TurnController.Turn){
+        //         hpPotions -= 1;
+        //         HealPotion();}
+        //     }
+        // }
+
+        
+        //Cheat for player, blessing of life
+        if(_canBless == true ){
+        BudgeIt budgescript = GetComponent<BudgeIt>();
+        if(budgescript.myTurn == 1)
+        {
+            maxHp += 100;
+            //Debug.Log("maxHP: " +maxHp);
+            hp = maxHp;
+            //Debug.Log("hp: " +hp);
+            HealPotion();
+            HealPotion();
+        }_canBless = false;} 
+
+
+        //Die
         if(hp <= 0)
         {
             Die();

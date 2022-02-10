@@ -8,15 +8,11 @@ public class TurnController : MonoBehaviour
     public static int Turn = 1; //1 to 4 
     public static int TotalPhases = 1;
 
-<<<<<<< HEAD
-    //Run On Awake
-    void Awake()
-    {
 
-    }
 
-=======
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
+    public static bool PlayerDead = false;
+
+
     // Update is called once per frame
     void Update()
     {
