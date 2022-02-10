@@ -7,7 +7,7 @@ body > ol > li > a {
 }
 
 .mainbody {
-    border: 25px solid green;
+    border: 25px solid black;
     font-size: 30px;
     padding: 40px;
 }
@@ -19,7 +19,8 @@ body > ol > li > a {
 }
 
 .intro1 > h1 {
-    background-color: olive;
+    background-color: red;
+    color: white;
     text-align: center;
     filter: drop-shadow(0 0 0.75rem crimson);
 }
@@ -37,15 +38,14 @@ body > ol > li > a {
 
 }
 
-.ch > ul >li {
-    text-align: left;
-    font-size: large;
+.ch{
 
-    color: black;
 }
 
 .ch > h2 {
-    text-align: left;
+    display: inline;
+    float: left;
+    text-decoration-line: underline;
     font-size: 50px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     filter: drop-shadow(0 0 0.75rem blue);
@@ -53,13 +53,34 @@ body > ol > li > a {
 
 }
 
+
 .ch > h3 {
-    text-align: left;
+    display: inline;
+    float: right;
+    text-decoration-line: underline;
     font-size: 50px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     filter: drop-shadow(0 0 0.75rem red);
-    padding-left: 25px;
+    padding-right: 25px;
 
+}
+
+#dot {
+    display: inline;
+}
+
+.rule {
+    float: left;
+    padding-top: 125px;
+    font-size: 25px;
+    color: black;
+}
+
+.upcoming {
+    float: right;
+    padding-top: 125px;
+    font-size: 25px;
+    color: black;
 }
 
 
