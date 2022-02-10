@@ -14,6 +14,9 @@
         <li class="nav-item">
             <app-login></app-login>
         </li>
+        <li class="userinfo" *ngIf="user">
+            Welcome {{user.nickname}}
+        </li>
         
     </ul>
     </div>
