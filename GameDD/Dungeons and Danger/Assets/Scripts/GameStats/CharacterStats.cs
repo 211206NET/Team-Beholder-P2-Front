@@ -17,6 +17,8 @@ public class CharacterStats : MonoBehaviour
     public int dmg; //Calculated in take damage method
     public int attackRoll = 20;
 
+    public string name = "";
+
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
 
@@ -28,25 +30,26 @@ public class CharacterStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Set stats
         ClassStats classStatsScript = GetComponent<ClassStats>();
         System.Random rand = new System.Random();
         int number = rand.Next(1, 6);
         switch (number) 
         {
             case 1:
-                classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, AC);
+                classStatsScript.SetClassBarbarian(classID, maxHp, hp, str, AC, dmg);
                 break;
             case 2:
-                classStatsScript.SetClassCleric(classID, maxHp, hp, str, AC);
+                classStatsScript.SetClassCleric(classID, maxHp, hp, str, AC, dmg);
                 break;
             case 3:
-                classStatsScript.SetClassPaladin(classID, maxHp, hp, str, AC);
+                classStatsScript.SetClassPaladin(classID, maxHp, hp, str, AC, dmg);
                 break;
             case 4:
-                classStatsScript.SetClassRanger(classID, maxHp, hp, str, AC);
+                classStatsScript.SetClassRanger(classID, maxHp, hp, str, AC, dmg);
                 break;
             case 5:
-                classStatsScript.SetClassWizard(classID, maxHp, hp, str, AC);
+                classStatsScript.SetClassWizard(classID, maxHp, hp, str, AC, dmg);
                 break;
             default:
                 //More classes in the future!
@@ -66,9 +69,9 @@ public class CharacterStats : MonoBehaviour
     }
 
     //what to do when character takes damage
-    public void TakeDamage(int getStr, int turn, string name, bool local, int dmg)
+    public void TakeDamage(int getStr, int turn, string namer, bool local, int dmg)
     {
-        //Debug.Log("Ow! My name is "+name);
+        Debug.Log("Ow! My name is "+namer);
         //Make Blood
         Vector3 objectPOS = transform.position;
         GameObject newBlood = Instantiate(bloodpf, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
@@ -82,12 +85,12 @@ public class CharacterStats : MonoBehaviour
         Debug.Log("You hit for " + storeDmg);
         HPBar();
         //Send to server
-        if(local == true){
-        findGOD.GetComponent<ServerTalker>().tDAction = 1; //What kind of attack was used on me; 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell 
-        findGOD.GetComponent<ServerTalker>().tDActionID = 1; //The Id for the action in a list
-        findGOD.GetComponent<ServerTalker>().tDTargetName = name; //My name (target of attack)
-        UpdateServer();
-        }
+        // if(local == true){
+        // findGOD.GetComponent<ServerTalker>().tDAction = 1; //What kind of attack was used on me; 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell 
+        // findGOD.GetComponent<ServerTalker>().tDActionID = 1; //The Id for the action in a list
+        // findGOD.GetComponent<ServerTalker>().tDTargetName = namer; //My name (target of attack)
+        // UpdateServer();
+        // }
         //Debug.Log("Server Update Sent!");
     }
 
@@ -105,7 +108,7 @@ public class CharacterStats : MonoBehaviour
         int maxHpInt = Convert.ToInt32(maxHp);
         healthBar.SetMaxHealth(maxHpInt);
 
-        Debug.Log("My HP is: "+hp+"/"+maxHp+"!");
+        Debug.Log(name+"'s HP is: "+hp+"/"+maxHp+"!");
     }
 
     //This player is defeated
