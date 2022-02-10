@@ -123,8 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<< HEAD
-=======
 --- !u!1 &84642054
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 --- !u!1 &122940758
 GameObject:
   m_ObjectHideFlags: 0

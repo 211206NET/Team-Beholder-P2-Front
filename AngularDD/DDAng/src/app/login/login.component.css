@@ -7,11 +7,7 @@ body > ol > li > a {
 }
 
 .mainbody {
-<<<<<<< HEAD
-    border: 25px solid green;
-=======
     border: 25px solid black;
->>>>>>> 3c3e267c31066b09c7c93649da29b16bce3c1288
     font-size: 30px;
     padding: 40px;
 }
@@ -23,12 +19,8 @@ body > ol > li > a {
 }
 
 .intro1 > h1 {
-<<<<<<< HEAD
-    background-color: olive;
-=======
     background-color: red;
     color: white;
->>>>>>> 3c3e267c31066b09c7c93649da29b16bce3c1288
     text-align: center;
     filter: drop-shadow(0 0 0.75rem crimson);
 }
@@ -46,26 +38,12 @@ body > ol > li > a {
 
 }
 
-<<<<<<< HEAD
-.ch > ul >li {
-    text-align: left;
-    font-size: large;
 
-    color: black;
-}
-
-.ch > h2 {
-    text-align: left;
-=======
-.ch{
-
-}
 
 .ch > h2 {
     display: inline;
     float: left;
     text-decoration-line: underline;
->>>>>>> 3c3e267c31066b09c7c93649da29b16bce3c1288
     font-size: 50px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     filter: drop-shadow(0 0 0.75rem blue);
@@ -73,17 +51,6 @@ body > ol > li > a {
 
 }
 
-<<<<<<< HEAD
-.ch > h3 {
-    text-align: left;
-    font-size: 50px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    filter: drop-shadow(0 0 0.75rem red);
-    padding-left: 25px;
-
-}
-
-=======
 
 .ch > h3 {
     display: inline;
@@ -114,7 +81,6 @@ body > ol > li > a {
     color: black;
 }
 
->>>>>>> 3c3e267c31066b09c7c93649da29b16bce3c1288
 
 
 
