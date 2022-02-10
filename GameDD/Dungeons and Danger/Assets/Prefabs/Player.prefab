@@ -245,7 +245,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: cbf2e5bcd47b65d499c302d1b4acd4e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -269,12 +269,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f6857331acb6644c8ae99153f6b218d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myTurn: 1
+  myTurn: 0
   myName: 
   callToTurn: 1
   findGOD: {fileID: 0}
   movePoints: 3
   dead: 0
+  kills: 0
+  bloodSpatter: {fileID: 5564727942762107490, guid: e3cffe85b304ba141b50699540f99b2d, type: 3}
   topBlock: {fileID: 0}
   bottomBlock: {fileID: 0}
   leftBlock: {fileID: 0}
@@ -302,8 +304,12 @@ MonoBehaviour:
   str: 0
   AC: 0
   dmg: 0
+  attackRoll: 20
+  name: 
+  hpPotions: 20
   healthBar: {fileID: 4108244155418031746}
   bloodpf: {fileID: 1248622831651091097, guid: 62c3186dff3f3484baa0a72dadc5ed0a, type: 3}
+  missTextObj: {fileID: 4015866094317842932, guid: 9541ce223857656458a610dd90ef4b14, type: 3}
 --- !u!61 &5520025081283567987
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -342,7 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a13d3a181ce55c84691c54bc6b954a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sendBackStats: {fileID: 0}
 --- !u!1 &4513047799570132144
 GameObject:
   m_ObjectHideFlags: 0

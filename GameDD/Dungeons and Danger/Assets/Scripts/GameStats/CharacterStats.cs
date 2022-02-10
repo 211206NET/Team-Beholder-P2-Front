@@ -20,18 +20,22 @@ public class CharacterStats : MonoBehaviour
     public string name = "";
 
     //Inventory
-    public int hpPotions = 3;
+    public int hpPotions = 20;
     //SetClassBarbarian(maxHp, hp, strength, constitution, armorClass); 
     //Core stats
 
+    //Player Blessing
+    private bool _canBless = true;
 
     //GUI/Effects
     public HealthBar healthBar;
     public GameObject bloodpf;
+    public GameObject missTextObj;
 
     // Start is called before the first frame update
     void Start()
     {
+        hpPotions = 20;
         //Set stats
         ClassStats classStatsScript = GetComponent<ClassStats>();
         System.Random rand = new System.Random();
@@ -60,6 +64,7 @@ public class CharacterStats : MonoBehaviour
 
         HPBar();
         //healthBar.doonceish=true;
+
     }
 
     public int GetRoll(int dmg) {
@@ -98,6 +103,9 @@ public class CharacterStats : MonoBehaviour
 
     public void Miss() {
         Debug.Log("You missed!!!");
+        float randpos = -0.20f;
+        randpos = UnityEngine.Random.Range(-0.10f, 0.10f);
+        Instantiate(missTextObj, new Vector2(transform.position.x+randpos, transform.position.y+0.24f+randpos), Quaternion.identity);
     }
 
     //Heal with potion
@@ -127,7 +135,8 @@ public class CharacterStats : MonoBehaviour
     {
         BudgeIt budgescript = GetComponent<BudgeIt>();
         budgescript.dead = true;
-        TurnController.PlayerDead = true;
+        if(budgescript.myTurn == 1){
+        TurnController.PlayerDead = true;}
         //UpdateServer();
     }
 
@@ -143,16 +152,31 @@ public class CharacterStats : MonoBehaviour
     {
 
         //Drink potion
-        if(hpPotions > 0)
+        // if(hpPotions > 0)
+        // {
+        //     if(Input.GetKeyDown("h"))
+        //     {
+        //         BudgeIt budgescript = GetComponent<BudgeIt>();
+        //         if(budgescript.myTurn == TurnController.Turn){
+        //         hpPotions -= 1;
+        //         HealPotion();}
+        //     }
+        // }
+
+        
+        //Cheat for player, blessing of life
+        if(_canBless == true ){
+        BudgeIt budgescript = GetComponent<BudgeIt>();
+        if(budgescript.myTurn == 1)
         {
-            if(Input.GetKeyDown("h"))
-            {
-                BudgeIt budgescript = GetComponent<BudgeIt>();
-                if(budgescript.myTurn == TurnController.Turn){
-                hpPotions -= 1;
-                HealPotion();}
-            }
-        }
+            maxHp += 100;
+            //Debug.Log("maxHP: " +maxHp);
+            hp = maxHp;
+            //Debug.Log("hp: " +hp);
+            HealPotion();
+            HealPotion();
+        }_canBless = false;} 
+
 
         //Die
         if(hp <= 0)

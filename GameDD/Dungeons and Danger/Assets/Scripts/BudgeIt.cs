@@ -5,7 +5,7 @@ using System.Linq;
 
 public class BudgeIt : MonoBehaviour
 {
-private float _webglbuffer = 0.0f;
+private float _webglbuffer = 20.0f;
 public int myTurn;
 public string myName;
 public int callToTurn = TurnController.Turn;
@@ -16,15 +16,16 @@ bool canAttack = true; //Deactivated for now
 private bool _attackonce = true;
 public int movePoints = 3;
 public bool dead = false;
-private int _kills = 0;
 private bool _processend = true; //can process
 float delayEndTurn = 0.0f;
 private float _delayStep = 0.0f;
 private float _delaySpeed = 0.2f;
 bool endTurnMode = false;
+public int kills = 0;
 
 private Transform selectUI;
 private Transform targetUI;
+public GameObject bloodSpatter;
 
 //Collision Code
 public GameObject topBlock;
@@ -381,7 +382,7 @@ void Update()
     //Debug.Log("_delayStep: " + _delayStep);
     if(_delayStep < 1)
     {
-        if(!dead)
+        if(!dead && !_deadend)
         {
             //callToTurn = TurnController.Turn;
             //Movement
@@ -455,6 +456,7 @@ void Update()
                         //Debug.Log("px: "+px+", px: "+py+",,, px: "+mx+", px: "+px);
                         //if(myTurn==3){Debug.Log("Me move " + _nearTargetDir);}
                         if(_nearTargetDir == 0 || TurnController.PlayerDead == true){_deadend = true;}//Can't move too bad
+                        Debug.Log("_nearTargetDir: "+_nearTargetDir+", _deadend: "+_deadend+", TurnController.PlayerDead: "+TurnController.PlayerDead);
                     }
 
                     if(_deadend == false){
@@ -505,7 +507,7 @@ void Update()
         }//end check dead
         else
         {
-            EndTurn();
+            if(TurnController.Turn == myTurn){EndTurn();}
         }
                 
         // int delayEndTurn = 0;
@@ -559,25 +561,65 @@ void Update()
     //Tally score
     if(dead && _processend == true)
     {
+        
+        //Delete own collider
+        otherPlayer = GameObject.FindGameObjectsWithTag("CollideObj");
+        foreach(GameObject op in otherPlayer) //Cycle through all CollideObjs as they are only on enemy Players
+        {
+            if(op.GetComponent<PlayerCollision>().myParentId == myTurn){op.GetComponent<PlayerCollision>().Die();}
+        }
+        //Disappear
+        Renderer rend;
+        rend = GetComponent<Renderer>();
+        rend.enabled = false;
+
+        //bloodSpatter
+        Instantiate(bloodSpatter, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+
+        //Move out of way
+        transform.position = new Vector3(transform.position.x+10, transform.position.y);
+
         GameObject findGOD; findGOD = GameObject.Find("GOD");
         if(myTurn > 1)//Enemy died give score to player 1
         {
+            //Killing
             findGOD.GetComponent<ServerTalker>().tDTotalKills += 1;
-            _kills += 1;
+            Debug.Log("I died: "+findGOD.GetComponent<ServerTalker>().tDTotalKills);
+            
+            //Find player and add a kill
+            otherPlayerPref = GameObject.FindGameObjectsWithTag("Player");
+            foreach(GameObject op in otherPlayerPref)
+            {
+                if(op.GetComponent<BudgeIt>().myTurn==1) 
+                {
+                    op.GetComponent<BudgeIt>().kills+=1;
+                    
+                    //Winning
+                    if(op.GetComponent<BudgeIt>().kills == 3)
+                    {
+                        findGOD.GetComponent<ServerTalker>().tDGamesPlayed += 1; //Process win
+                        findGOD.GetComponent<ServerTalker>().tDGamesWon += 1; //Process win
+                        findGOD.GetComponent<ServerTalker>().ExitTheGame();
+                    }
+                }
+            }
         }
-        Debug.Log("tDGamesPlayed: "+findGOD.GetComponent<ServerTalker>().tDGamesPlayed);
-        if(_kills == 3)
-        { 
-            findGOD.GetComponent<ServerTalker>().tDGamesPlayed += 1; //Process win
-            findGOD.GetComponent<ServerTalker>().tDGamesWon += 1; //Process win
-            findGOD.GetComponent<ServerTalker>().ExitTheGame();
-        }
-        
         else
         {
+            //Losing
             findGOD.GetComponent<ServerTalker>().tDGamesPlayed += 1; //Process loss
-            findGOD.GetComponent<ServerTalker>().ExitTheGame();
+            findGOD.GetComponent<ServerTalker>().ExitTheGame();   
         }
+        
+        //Winning
+        // if(findGOD.GetComponent<ServerTalker>().tDTotalKills == 3)
+        // { 
+        //     findGOD.GetComponent<ServerTalker>().tDGamesPlayed += 1; //Process win
+        //     findGOD.GetComponent<ServerTalker>().tDGamesWon += 1; //Process win
+        //     findGOD.GetComponent<ServerTalker>().ExitTheGame();
+        // }
+        Debug.Log("tDGamesPlayed: "+findGOD.GetComponent<ServerTalker>().tDGamesPlayed +
+        ", tDGamesWon: "+findGOD.GetComponent<ServerTalker>().tDGamesWon);
         _processend = false;
     }//End tally
 

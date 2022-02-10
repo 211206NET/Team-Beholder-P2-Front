@@ -89,9 +89,21 @@ public class ServerTalker : MonoBehaviour
         //ProcessGet();
 
     }
+    
+
+    public void ProcessPost()
+    {
+        //StartCoroutine( Upload("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
+    }
+
+    public void ProcessFinalPost()
+    {
+        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", "1"));
+    }
+
     public void ProcessGet()
     {
-        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/1?username=KindOfExcellent", "1"));
+        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", "1"));
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
     }
 
@@ -293,16 +305,6 @@ public class ServerTalker : MonoBehaviour
     //     Debug.Log("Game Turn: " + node["gameTurn"]);
     // }
 
-    public void ProcessPost()
-    {
-        //StartCoroutine( Upload("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
-    }
-
-    public void ProcessFinalPost()
-    {
-        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/1?username=KindOfExcellent", "1"));
-    }
-
     //public static string Serialize (object? value, Type inputType, System.Text.Json.JsonSerializerOptions? options = default);
 
     // DELETE FROM "public"."Games" WHERE "Id" > 1
@@ -369,7 +371,7 @@ public class ServerTalker : MonoBehaviour
     public IEnumerator UploadScore( string addressS, string myId )//, string myId
     {
 
-        Debug.Log("Right before sending to database: tDGamesPlayed: "+tDGamesPlayed);
+        Debug.Log("Right before sending to database: "+addressS+myId);
         WWWForm form = new WWWForm();        
         form.AddField("id", 1);
         form.AddField("username", tDp1Name);
@@ -380,7 +382,7 @@ public class ServerTalker : MonoBehaviour
         byte[] rawData = form.data; 
         
         //Without Id added, error goes from 409 conflict to 405 Method Not Allowed
-        string url = addressS+myId;
+        string url = addressS;//+myId;
         var uwr = new UnityWebRequest(url, "PUT");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(rawData);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -403,7 +405,7 @@ public class ServerTalker : MonoBehaviour
     }
 
     //Not Used yet
-    public IEnumerator PostScore( string address )//, string myId
+    public IEnumerator PostScore( string address  )//, string myId
     {
         WWWForm form = new WWWForm();
         // form.AddField("userFirst", ""); //Nevermind
@@ -432,7 +434,7 @@ public class ServerTalker : MonoBehaviour
 
     IEnumerator GetWebData( string address, string myId )//, int theTurn 
     {
-        UnityWebRequest www = UnityWebRequest.Get(address);// + myId);
+        UnityWebRequest www = UnityWebRequest.Get(address + myId);
         yield return www.SendWebRequest();
 
         if(www.result != UnityWebRequest.Result.Success)
@@ -525,7 +527,7 @@ public class ServerTalker : MonoBehaviour
             {
                 // if(Application.isEditor)
                 // {UnityEditor.EditorApplication.isPlaying = false;}
-                Application.OpenURL("about:blank"); //WebGL
+                if(!Application.isEditor){Application.OpenURL("about:blank");} //WebGL
             }
         }
     }
