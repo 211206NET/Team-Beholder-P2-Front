@@ -151,6 +151,7 @@ public class ServerTalker : MonoBehaviour
 
     void ProcessUserResponse( string rawResponse )
     {
+        if(tDp1Name != "z"){
         JSONNode node = JSON.Parse( rawResponse );
 
         playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
@@ -168,7 +169,6 @@ public class ServerTalker : MonoBehaviour
         foreach(GameObject pl in playerObjs)
         {
         if(pl.GetComponent<BudgeIt>().myTurn == 1)
-
         {Debug.Log("I was named: " + node["username"]); tDp1Name = node["username"]; pl.GetComponent<BudgeIt>().myName = node["username"]; pl.GetComponent<CharacterStats>().name = node["username"];}
 
         if(pl.GetComponent<BudgeIt>().myTurn == 2)
@@ -177,7 +177,8 @@ public class ServerTalker : MonoBehaviour
         {Debug.Log("I was named: " + enemyName2);  pl.GetComponent<BudgeIt>().myName = enemyName2;  pl.GetComponent<CharacterStats>().name = enemyName2;}
         if(pl.GetComponent<BudgeIt>().myTurn == 4)
         {Debug.Log("I was named: " + enemyName3);  pl.GetComponent<BudgeIt>().myName = enemyName3;  pl.GetComponent<CharacterStats>().name = enemyName3;}
-        }canInitialize=false;}           
+        }canInitialize=false;}  
+        }         
     }
 
     void ProcessServerResponse( string rawResponse )
@@ -408,7 +409,7 @@ public class ServerTalker : MonoBehaviour
 
     public IEnumerator UploadScore( string addressS, string myId )//, string myId
     {
-
+        if(tDp1Name != "z"){
         Debug.Log("Right before sending to database: "+addressS+myId);
         WWWForm form = new WWWForm();        
         form.AddField("id", 1);
@@ -438,13 +439,14 @@ public class ServerTalker : MonoBehaviour
                 Debug.Log("Form upload complete!" + TakeTurn);
             //    }
         }
-
+        }
         //ProcessGet(); //Now make sure results are read and distributed to all players
     }
 
     //Not Used yet
     public IEnumerator PostScore( string address  )//, string myId
     {
+        if(tDp1Name != "z"){
         WWWForm form = new WWWForm();
         // form.AddField("userFirst", ""); //Nevermind
         // form.AddField("userSecond", ""); 
@@ -468,10 +470,12 @@ public class ServerTalker : MonoBehaviour
                 //Debug.Log("Form upload complete!" + TakeTurn);
             }
         }
+        }
     }
 
     IEnumerator GetWebData( string address, string myId )//, int theTurn 
     {
+        if(tDp1Name != "z"){
         UnityWebRequest www = UnityWebRequest.Get(address + myId);
         yield return www.SendWebRequest();
 
@@ -486,6 +490,7 @@ public class ServerTalker : MonoBehaviour
             //Debug.LogError(www.downloadHandler.text);//success
             
             ProcessServerResponse(www.downloadHandler.text);
+        }
         }
     }
 
