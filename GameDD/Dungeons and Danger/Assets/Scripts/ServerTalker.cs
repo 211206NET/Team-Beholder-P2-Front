@@ -8,11 +8,23 @@ using UnityEngine.SceneManagement;
 public class ServerTalker : MonoBehaviour
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     string userID = "0";
     private float _webglbuffer = 20.0f;
 
 =======
 <<<<<<< HEAD
+<<<<<<< HEAD
+
+    static public int TakeTurn = 1;
+    //Need something like this
+    //public string highscoreURL = "http://localhost/unity_test/display.php";
+=======
+=======
+    private float _webglbuffer = 20.0f;
+>>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 <<<<<<< HEAD
 
     static public int TakeTurn = 1;
@@ -126,9 +138,12 @@ public class ServerTalker : MonoBehaviour
     public void ProcessGet()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", userID));
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 <<<<<<< HEAD
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
         StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
@@ -139,6 +154,9 @@ public class ServerTalker : MonoBehaviour
 >>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
 >>>>>>> 19b47f575e10707d4618a2876a954885a5340755
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
     }
 
@@ -656,7 +674,11 @@ public class ServerTalker : MonoBehaviour
             }
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         }
+=======
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 =======
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
@@ -700,7 +722,11 @@ public class ServerTalker : MonoBehaviour
             //Debug.LogError("NO!");//success
             Debug.LogError("Something went wrong dude: " + www.error);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 =======
 >>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
@@ -715,6 +741,9 @@ public class ServerTalker : MonoBehaviour
         }
         }
     }
+<<<<<<< HEAD
+}
+=======
 
     IEnumerator GetUserAllData( string address)//, int theTurn 
     {
@@ -882,4 +911,7 @@ public class ServerTalker : MonoBehaviour
 
 
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f

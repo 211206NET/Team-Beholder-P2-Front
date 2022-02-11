@@ -9,9 +9,12 @@ using System.Linq;
 public class BudgeIt : MonoBehaviour
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
 private float _webglbuffer = 1.0f;
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
     public int myTurn;
 <<<<<<< HEAD
     public int callToTurn = TurnController.Turn;
@@ -461,8 +464,11 @@ void CheckTarget()
                 nClosest.transform.GetChild(6).gameObject.SetActive(true); //Access enemy player
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
         }
 
@@ -470,6 +476,10 @@ void CheckTarget()
         Debug.Log("myturn: "+ myTurn + ", canAttack? "+canAttack);
         foundTarget = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 =======
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
@@ -483,17 +493,23 @@ void CheckTarget()
         canMove = true; movePoints = 3;
 <<<<<<< HEAD
         canAttack = false; //This would be set to true here if game had combat
+<<<<<<< HEAD
         //ServerTalker.RecordGameTurn(callToTurn);
         ServerTalker.TakeTurn = callToTurn;
 =======
 <<<<<<< HEAD
         canAttack = false; //This would be set to true here if game had combat
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 <<<<<<< HEAD
         //Servertalker.RecordGameTurn(callToTurn);
         ServerTalker.TakeTurn = callToTurn;
 =======
         //ServerTalker.RecordGameTurn(callToTurn);
         ServerTalker.TakeTurn = callToTurn;
+=======
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 =======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
         canAttack = true;
@@ -504,6 +520,10 @@ void CheckTarget()
         endTurnMode = true;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 =======
 >>>>>>> 19b47f575e10707d4618a2876a954885a5340755
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
@@ -513,13 +533,19 @@ void CheckTarget()
     void UpdateServer()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         if(myTurn == TurnController.Turn){
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 =======
         if(myTurn == TurnController.Turn){
 >>>>>>> 19b47f575e10707d4618a2876a954885a5340755
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
         GameObject sTalk; sTalk = GameObject.Find("GOD");
         sTalk.GetComponent<ServerTalker>().ProcessPost();}
@@ -532,12 +558,15 @@ void CheckTarget()
         //callToTurn = TurnController.Turn;
         //Movement
 <<<<<<< HEAD
+<<<<<<< HEAD
         //if(myTurn == 1){Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);}
         if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
         //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs + ", ThisPlayerIs: "+ServerTalker.ThisPlayerIs);
         if(TurnController.Turn == myTurn)// && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
 =======
 <<<<<<< HEAD
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 <<<<<<< HEAD
         if(callToTurn == myTurn)
         {
@@ -565,19 +594,28 @@ void CheckTarget()
         //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs + ", ThisPlayerIs: "+ServerTalker.ThisPlayerIs);
         if(TurnController.Turn == myTurn)// && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
 >>>>>>> 19b47f575e10707d4618a2876a954885a5340755
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
         {
             Debug.Log("TurnController.Turn: "+TurnController.Turn+", myTurn:"+myTurn);
 
             if(eachTurn == true)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 =======
             //nClosest.GetComponent<CharacterStats>().hp = 0; //Test    
             
             //Debug.Log("I'm "+myTurn+" and I am looking for a fight, I can attack: "+_attackonce+", Turn is "+TurnController.Turn+", foundTarget: "+foundTarget+", canAttack: "+canAttack);
             if(_attackonce == true && myTurn == TurnController.Turn && foundTarget && myTurn>1 && canAttack == true)
 >>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
             {
                 _attackonce = false; nClosest.GetComponent<BudgeIt>().Attack();
@@ -659,6 +697,7 @@ void Update()
                 }
 <<<<<<< HEAD
             }
+<<<<<<< HEAD
 
             if(!eachTurn)
             {
@@ -670,6 +709,8 @@ void Update()
 =======
 <<<<<<< HEAD
             }
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 
             if(!eachTurn)
@@ -690,6 +731,9 @@ void Update()
 
                 if(!eachTurn)
 >>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
                 {
                     //if(myTurn==2){Debug.Log("I was cleared!");}
@@ -1079,6 +1123,9 @@ void Attack()
 >>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 }
 =======
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 } //End Attack
 
@@ -1103,8 +1150,12 @@ public void FireSpell(int spell)
 
 }//End Class
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 5b52bd4916362e4e231f0d7f89bb7f9732f701e8
+=======
+>>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 =======
 >>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
