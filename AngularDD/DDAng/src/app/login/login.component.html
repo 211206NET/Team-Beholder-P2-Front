@@ -1,64 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.component.css">
+    <title>Project P2 Dungeon and Danger</title>
+</head>
+
 <body>
-<ol>
-    <li><a href="#bottom">Bottom!</a></li>
-</ol>
+
+    <div class="intro1">
+        <h1>Welcome Dungeon&Danger a battle simulator game!</h1>
+    </div>
+
+    <form action="URL"></form>
 
 
-<div class="intro1">
-    <h1>Welcome Dungeon&Danger a battle simulator game!</h1>
-</div>
+    <form action="action_page.php" method="post">
 
-<form action="URL"></form>
-
-
-<form action="action_page.php" method="post">
-
-<div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <div class="container">
+        <button class="btn btn-default" *ngIf="!loggedIn" (click)="logIn()">Login</button>
+        <button class="btn btn-default" *ngIf="loggedIn" (click)="logOut()">Logout</button>
+    </div>
     
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    </form>
+
+    <div>
+        <p class="mainbody">Welcome to the single player turn base dungeon and dragon theme battle game. In this game you fight against 3 bots using a random class in a free for all setting. Try to stay alive and defeat all the bots for the highest score. </p>
+    </div>
+
+    <div id="intro" class="intro" >
+        <img src="https://www.gamersdecide.com/sites/default/files/styles/news_images/public/dnd_best_classes.jpg" alt="">
+    </div>
     
-    <button type="submit">Login</button>
-    <label>
-    <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
-</div>
-
-<div class="container" style="background-color:#f1f1f1">
-    <span class="psw">Forgot <a href="#">password?</a></span>
-</div>
-</form>
-
-<div>
-    <p class="mainbody">Welcome to the single player turn base dungeon and dragon theme battle game. In this game you fight against 3 bots using a random class in a free for all setting. Try to stay alive and defeat all the bots for the highest score. </p>
-</div>
-
-<div id="intro" class="intro" >
-    <img src="https://www.gamersdecide.com/sites/default/files/styles/news_images/public/dnd_best_classes.jpg" alt="">
-</div>
-
-<hr>
+    <hr>
 
 
-<div class="ch">
+    <div class="ch">
 
-    <h2> Rules</h2>
-    <h3> Upcoming Feature</h3>
+        <h2> Rules</h2>
+        <h3> Upcoming Feature</h3>      
     
-    <ul>
-        <li>Turn base action mean each must wait their turn before allowing to act.</li>
-        <li>You first move then you allow to attack.</li>
-        <li>Every other character is an enemy.</li>
-        <li>For every enemy you take down you get a point.</li>
-        <li>Last person standing also get bonus point.</li>
-        <li>Each class have certain attacks.</li>
-    </ul>
+    </div>
 
-</div>
 
-    
-    <a href="#intro" style="color: brown;">Top</a>
+    <div id = "dot">
+        <ul class="rule">
+            <li>Turn base action mean each must wait their turn before allowing to act.</li>
+            <li>You first move then you allow to attack.</li>
+            <li>Every other character is an enemy.</li>
+            <li>For every enemy you take down you get a point.</li>
+            <li>Last person standing also get bonus point.</li>
+            <li>Each class have certain attacks.</li>
+        </ul>
+        
+        <ul class="upcoming">
+            <li>Multiplayer in the new a future</li>
+            <li>Text.</li>
+            <li>text.</li>
+            <li>text</li>
+            <li>text.</li>
+            <li>text</li>
+        </ul>
 
-    </body>
+    </div>
+
+
+        
+        <a href="#intro" style="color: brown;">Top</a>
+
+
+</body>
+</html>

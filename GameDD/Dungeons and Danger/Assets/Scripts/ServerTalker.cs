@@ -9,6 +9,7 @@ public class ServerTalker : MonoBehaviour
 {
     string userID = "0";
     private float _webglbuffer = 20.0f;
+
     public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
     public static bool SinglePlayerMode = true;
     bool canInitialize = true; ///Tell server you joined once
@@ -542,6 +543,7 @@ public class ServerTalker : MonoBehaviour
         {
             //Debug.LogError("NO!");//success
             Debug.LogError("Something went wrong dude: " + www.error);
+
             if(showDebug){Debug.LogError("Something went wrong dude: " + www.error);}
         }
         else
@@ -710,6 +712,3 @@ public class ServerTalker : MonoBehaviour
     }
 
 }
-
-
-

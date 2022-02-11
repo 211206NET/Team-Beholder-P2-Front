@@ -13,4 +13,12 @@ export class DdApiService {
   {
     return firstValueFrom(this.http.get<Scoreboard[]>("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/scoreboard"))
   }
+
+  getUserByUsername(id : string) :Promise<any>
+  {
+    console.log(id);
+    return firstValueFrom(this.http.get<any>(`http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/scoreboard/${id}`))
+  }
+
+
 }

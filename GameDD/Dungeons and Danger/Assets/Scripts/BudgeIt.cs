@@ -23,6 +23,7 @@ private float _delaySpeed = 0.2f;
 bool endTurnMode = false;
 public int kills = 0;
 
+
 private Transform selectUI;
 private Transform targetUI;
 public GameObject bloodSpatter;
@@ -397,10 +398,53 @@ void CheckTarget()
                 nClosest.GetComponent<BudgeIt>().amTarget=true;
                 nClosest.transform.GetChild(6).gameObject.SetActive(true); //Access enemy player
             }
-            //nClosest.GetComponent<CharacterStats>().hp = 0; //Test    
-            
-            //Debug.Log("I'm "+myTurn+" and I am looking for a fight, I can attack: "+_attackonce+", Turn is "+TurnController.Turn+", foundTarget: "+foundTarget+", canAttack: "+canAttack);
-            if(_attackonce == true && myTurn == TurnController.Turn && foundTarget && myTurn>1 && canAttack == true)
+        }
+
+        if(foundTarget == false && canMove == false){canAttack = false;}
+        Debug.Log("myturn: "+ myTurn + ", canAttack? "+canAttack);
+        foundTarget = false;
+    }
+
+    //Player moved and Attacked, end their turn
+    void EndTurn()
+    {
+        if(myTurn < 4){TurnController.Turn += 1;}else{TurnController.Turn = 1;}
+        callToTurn = TurnController.Turn;
+        canMove = true; movePoints = 3;
+        canAttack = false; //This would be set to true here if game had combat
+        //ServerTalker.RecordGameTurn(callToTurn);
+        ServerTalker.TakeTurn = callToTurn;
+        canAttack = true;
+        
+        Debug.Log("callToTurn: " + callToTurn);
+
+        delayEndTurn = Time.deltaTime+5.0f+_waitafterturn;
+        endTurnMode = true;
+
+        UpdateServer();
+    }
+
+    void UpdateServer()
+    {
+        if(myTurn == TurnController.Turn){
+        GameObject sTalk; sTalk = GameObject.Find("GOD");
+        sTalk.GetComponent<ServerTalker>().ProcessPost();}
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(!dead){
+        //callToTurn = TurnController.Turn;
+        //Movement
+        //if(myTurn == 1){Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);}
+        if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
+        //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs + ", ThisPlayerIs: "+ServerTalker.ThisPlayerIs);
+        if(TurnController.Turn == myTurn)// && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
+        {
+            Debug.Log("TurnController.Turn: "+TurnController.Turn+", myTurn:"+myTurn);
+
+            if(eachTurn == true)
             {
                 _attackonce = false; nClosest.GetComponent<BudgeIt>().Attack();
             } 
@@ -411,8 +455,8 @@ void CheckTarget()
 
     if(foundTarget == false && canMove == false){canAttack = false;}
     //Debug.Log("myturn: "+ myTurn + ", canAttack? "+canAttack+", canMove: "+canMove);
-    foundTarget = false;
-    }
+    //foundTarget = false;
+    //}
     else
     {
         //CheckTarget();//Causes stack overflow
@@ -479,8 +523,15 @@ void Update()
                     eachTurn = false;//}
                     //Debug.Log("MeBeStarting: "+myTurn +  ", "+Time.time);
                 }
+            }
 
-                if(!eachTurn)
+            if(!eachTurn)
+            {
+                EndTurn();
+            }
+                //if(myTurn==2){Debug.Log("I was cleared!");}
+                //Player Input
+                if(canMove == true)
                 {
                     //if(myTurn==2){Debug.Log("I was cleared!");}
                     //Player Input
@@ -838,10 +889,10 @@ void Attack()
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }
     }//end dead check
-
 } //End Attack
 
 
+<<<<<<< HEAD
 //FireSpell
 public void FireSpell(int spell)
 {
@@ -860,3 +911,5 @@ public void FireSpell(int spell)
 
 
 }//End Class
+=======
+>>>>>>> 5b52bd4916362e4e231f0d7f89bb7f9732f701e8
