@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginComponent } from './login/login.component';
 import { ScoreboardComponent } from './scoreboard/scoreboard.component';
+import { AuthGuard } from '@auth0/auth0-angular';
 import { VIP1Component } from './vip1/vip1.component';
+
 
 const routes: Routes = [
   // {
@@ -20,10 +22,10 @@ const routes: Routes = [
     path: 'home',
     component : HomePageComponent
   },
-
   {
     path: 'login',
-    component:LoginComponent
+    component : LoginComponent,
+    canActivate: [AuthGuard]
   },
 
   {
@@ -31,11 +33,13 @@ const routes: Routes = [
     component: VIP1Component
   },
 
+
   {
     path: '',
     redirectTo: 'login',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  
+  },
 ];
 
 @NgModule({

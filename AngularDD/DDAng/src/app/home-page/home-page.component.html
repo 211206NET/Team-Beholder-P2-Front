@@ -1,7 +1,7 @@
 <div>
     <h1>Dungeons&Dangers</h1>
 </div>
-<div class="container col-md-6">
+<!-- <div class="container col-md-6">
     <form (ngSubmit)="proccessForm(userForm)" #userForm="ngForm">
         <div class="form-group">
             <label for="username">Get Stats</label>
@@ -11,4 +11,41 @@
             <input type="submit" value="Create" class="btn btn-success">
         </div>
     </form>
+</div> -->
+
+<div class="createUser">
+    <p class="tp"><input type="text" id="newUser" name="newUser" [placeholder]="placeholder.newCharacter" #newUser></p>
+    <button class="tc" type="button" (click)="createUser(newUser.value)">Create New Username</button>
 </div>
+
+<div>
+    <ul>
+        <li>Make a character username</li>
+        <li>To make a character username use bottom search bar</li>
+        <li>To find your character's GameId go to scoreboard tab</li>
+        <li>To check your score used the Clickme</li>
+    </ul>
+</div>
+
+<br>
+<div class="clickme">
+<button type="button" (click)="clickme(username.value)">Clickme</button>
+</div>
+
+<p class="searchbox"><input type="text" id="username" name="username" [placeholder]="placeholder.username" #username></p>
+
+<div class="image1">
+    <img class="pic1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4QbDCAKosrL6NeL6OVXQFRg1_3US8rHoHeg&usqp=CAU" alt="">
+</div>
+
+<div class="playerInfo">
+
+    <li>The user ID #: {{userGameInfo.id}}</li>
+    <li>The player character name: {{userGameInfo.username }}</li>
+    <li>How many game played: {{userGameInfo.gamesPlayed}}</li>
+    <li>How many game played: {{userGameInfo.gamesWon}}</li>
+    <li>Total amount of kills: {{userGameInfo.totalKills}}</li>
+
+</div>
+
+<div class="image2"><img class="pic2" src="https://rpgcharacters.files.wordpress.com/2019/06/facebook-header-pride-dice-horizontal.jpg" alt=""></div>

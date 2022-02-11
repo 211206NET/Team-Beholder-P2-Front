@@ -38,7 +38,13 @@ body > ol > li > a {
 
 }
 
+<<<<<<< HEAD
 
+=======
+.ch{
+
+}
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 
 .ch > h2 {
     display: inline;
@@ -66,6 +72,7 @@ body > ol > li > a {
 #dot {
     display: inline;
 }
+<<<<<<< HEAD
 
 .rule {
     float: left;
@@ -81,7 +88,26 @@ body > ol > li > a {
     color: black;
 }
 
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 
+.rule {
+    float: left;
+    padding-top: 125px;
+    font-size: 25px;
+    color: black;
+}
+
+.upcoming {
+    float: right;
+    padding-top: 125px;
+    font-size: 25px;
+    color: black;
+}
+
+.container {
+    max-width: 2320px;
+}
 
 
 #test {

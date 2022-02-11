@@ -14,6 +14,7 @@ export class DdApiService {
     return firstValueFrom(this.http.get<Scoreboard[]>("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/scoreboard"))
   }
 
+<<<<<<< HEAD
   getUserByUsername(id : string) :Promise<any>
   {
     console.log(id);
@@ -21,4 +22,20 @@ export class DdApiService {
   }
 
 
+=======
+  getUserById(id : any) :Promise<Scoreboard>
+  {
+    return firstValueFrom(this.http.get<Scoreboard>(`http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/scoreboard/${id}`))
+    
+  }
+
+  addNewUser(user : Scoreboard )
+  {
+    
+    return firstValueFrom(this.http.post<any>(`http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/scoreboard`, user))
+  }
+
+
+
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 }

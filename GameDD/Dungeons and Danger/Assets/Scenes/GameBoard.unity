@@ -123,6 +123,8 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
+=======
 --- !u!1 &84642054
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 --- !u!1 &122940758
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 <<<<<<< HEAD
+<<<<<<< HEAD
   checkNow: 1
 =======
 <<<<<<< HEAD
@@ -267,6 +271,39 @@ MonoBehaviour:
   checkNow: 0
 >>>>>>> 19b47f575e10707d4618a2876a954885a5340755
 >>>>>>> 3c3e267c31066b09c7c93649da29b16bce3c1288
+=======
+<<<<<<< HEAD
+  tDp1Name: testA
+  tDp2Name: testB
+  tDp3Name: testC
+  tDp4Name: testD
+  tDP1mv: 0
+  tDP2mv: 0
+  tDP3mv: 0
+  tDP4mv: 0
+  tDP1fc: 0
+  tDP2fc: 0
+  tDP3fc: 0
+  tDP4fc: 0
+  tDAction: 0
+  tDActionID: 0
+  tDTargetName: testA
+  tDP1MaxHP: 10
+  tDP2MaxHP: 10
+  tDP3MaxHP: 10
+  tDP4MaxHP: 10
+  tDP1HP: 10
+  tDP2HP: 10
+  tDP3HP: 10
+  tDP4HP: 10
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
+=======
+  checkNow: 0
+>>>>>>> 19b47f575e10707d4618a2876a954885a5340755
+=======
+  checkNow: 1
+>>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 --- !u!4 &122940760
 Transform:
   m_ObjectHideFlags: 0

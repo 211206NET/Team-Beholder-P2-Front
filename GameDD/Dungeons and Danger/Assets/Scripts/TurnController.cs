@@ -13,6 +13,15 @@ public class TurnController : MonoBehaviour
     public static bool PlayerDead = false;
 
 
+<<<<<<< HEAD
+    //Run On Awake
+    void Awake()
+    {
+
+    }
+
+=======
+>>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
     // Update is called once per frame
     void Update()
     {

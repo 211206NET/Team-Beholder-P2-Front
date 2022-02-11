@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+<<<<<<< HEAD
 import { Console } from 'console';
+=======
+
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 
 @Component({
   selector: 'app-login',
@@ -15,7 +19,11 @@ export class LoginComponent implements OnInit {
     this.auth.loginWithRedirect();
   }
 
+<<<<<<< HEAD
   LogOut(){
+=======
+  logOut(){
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
     this.auth.logout();
   }
 
