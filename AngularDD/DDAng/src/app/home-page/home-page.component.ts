@@ -40,6 +40,20 @@ export class HomePageComponent implements OnInit {
     
   }
 
+    userToAdd : Scoreboard={
+      id : 0,
+      username : "",
+      gamesPlayed : 0,
+      gamesWon : 0,
+      totalKills : 0
+    }
+  createUser(newUser : any){
+    this.userToAdd.username = newUser
+    
+    this._apiService.addNewUser(this.userToAdd)
+    
+  }
+
 
   ngOnInit(): void {
   }

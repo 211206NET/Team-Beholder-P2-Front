@@ -20,6 +20,11 @@ export class DdApiService {
     
   }
 
+  addNewUser(user : Scoreboard )
+  {
+    console.log(user)
+    return firstValueFrom(this.http.post<any>(`http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/scoreboard`, user))
+  }
 
 
 

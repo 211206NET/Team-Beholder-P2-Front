@@ -12,15 +12,24 @@
         </div>
     </form>
 </div> -->
+<div class="createUser">
+    <p><input type="text" id="newUser" name="newUser" #newUser></p>
+    <button type="button" (click)="createUser(newUser.value)">Create New Username</button>
+</div> 
+
+
+<br>
 <div class="clickme">
 <p><input type="text" id="username" name="username" #username></p>
 <button type="button" (click)="clickme(username.value)">Clickme</button>
 </div>
 
-<ul>
+<div class="playerInfo">
+
     <li>{{userGameInfo.id}}</li>
     <li>{{userGameInfo.username }}</li>
     <li>{{userGameInfo.gamesPlayed}}</li>
     <li>{{userGameInfo.gamesWon}}</li>
     <li>{{userGameInfo.totalKills}}</li>
-</ul>
+
+</div>
