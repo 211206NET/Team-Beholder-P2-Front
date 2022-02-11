@@ -10,9 +10,9 @@ public int myTurn;
 public string myName;
 public int callToTurn = TurnController.Turn;
 public GameObject findGOD;
-bool canMove = true;
+public bool canMove = true;
 bool moveClear = true; //If move is not blocked
-bool canAttack = true; //Deactivated for now
+public bool canAttack = true; //Deactivated for now
 private bool _attackonce = true;
 public int movePoints = 3;
 public bool dead = false;
@@ -28,10 +28,10 @@ private Transform targetUI;
 public GameObject bloodSpatter;
 
 //Collision Code
-public GameObject topBlock;
-public GameObject bottomBlock;
-public GameObject leftBlock;
-public GameObject rightBlock;
+private GameObject topBlock;
+private GameObject bottomBlock;
+private GameObject leftBlock;
+private GameObject rightBlock;
 
 public GameObject[] otherPlayerPref;
 public GameObject[] otherPlayer;
@@ -42,11 +42,24 @@ public GameObject blockPF;
 //Vars for weapon
 private float _atkrange = 0.0f;
 public int weaponType = 1; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow, 5 = cleric staff
-private Transform weaponArt1;
-private Transform weaponArt2;
-private Transform weaponArt3;
-private Transform weaponArt4;
-private Transform weaponArt5;
+
+public GameObject firBallProj;
+public float fbVelocity = 500f;
+public GameObject mmProj;
+public float mmVelocity = 700f;
+
+// private Transform weaponArt1;
+// private Transform weaponArt2;
+// private Transform weaponArt3;
+// private Transform weaponArt4;
+// private Transform weaponArt5;
+
+// private GameObject clerIcon;
+// private GameObject palIcon;
+// private GameObject rangerIcon;
+// private GameObject warIcon;
+// private GameObject wizIcon;
+
 bool amTarget = false; //If can be attacked currently
 bool eachTurn = true;
 private float _checkCollide = 0.0f;
@@ -71,29 +84,54 @@ private bool _inrange = false;
 void Awake()
 {
     findGOD = GameObject.Find("GOD"); 
-
-    //Set initial weapon art
-    weaponArt1 = transform.Find("Sword"); 
-    weaponArt2 = transform.Find("SwordAndShield"); 
-    weaponArt3 = transform.Find("Staff"); 
-    weaponArt4 = transform.Find("Bow"); 
-    weaponArt5 = transform.Find("ClericStaff"); 
     selectUI = transform.Find("Selected"); 
     targetUI = transform.Find("TargetUI"); 
+    transform.GetChild(5).gameObject.SetActive(false);
+    transform.GetChild(6).gameObject.SetActive(false);
+    SetVis();
+}
+
+public void SetVis()
+{
+    
+    // palIcon = GameObject.Find("Canvas/PalIcon");
+    // rangerIcon = GameObject.Find("Canvas/RangerIcon");
+    // warIcon = GameObject.Find("Canvas/WarriorIcon");
+    // wizIcon = GameObject.Find("Canvas/WizIcon");
+    // clerIcon = GameObject.Find("Canvas/ClericIcon");
+
+    gameObject.transform.GetChild(7).GetChild(1).gameObject.SetActive(false);
+    gameObject.transform.GetChild(7).GetChild(2).gameObject.SetActive(false);
+    gameObject.transform.GetChild(7).GetChild(3).gameObject.SetActive(false);
+    gameObject.transform.GetChild(7).GetChild(4).gameObject.SetActive(false);
+    gameObject.transform.GetChild(7).GetChild(5).gameObject.SetActive(false);
+    // palIcon.SetActive(false);
+    // rangerIcon.SetActive(false);
+    // warIcon.SetActive(false);
+    // wizIcon.SetActive(false);
+    // clerIcon.SetActive(false);
+
+    //Set initial weapon art
+    // weaponArt1 = transform.Find("Sword"); 
+    // weaponArt2 = transform.Find("SwordAndShield"); 
+    // weaponArt3 = transform.Find("Staff"); 
+    // weaponArt4 = transform.Find("Bow"); 
+    // weaponArt5 = transform.Find("ClericStaff"); 
     
     transform.GetChild(0).gameObject.SetActive(false);
     transform.GetChild(1).gameObject.SetActive(false);
     transform.GetChild(2).gameObject.SetActive(false);
     transform.GetChild(3).gameObject.SetActive(false);
     transform.GetChild(4).gameObject.SetActive(false);
-    transform.GetChild(5).gameObject.SetActive(false);
-    transform.GetChild(6).gameObject.SetActive(false);
 }
 
 public void SetWeaponArt()
 {
     transform.GetChild(weaponType-1).gameObject.SetActive(true);
+    gameObject.transform.GetChild(7).GetChild(weaponType).gameObject.SetActive(true);
 }
+
+
 
 //-----------------------------------------------------------------------------------------------------------------------------------\\
 //                                                         MOVE                                                                    \\
@@ -332,8 +370,8 @@ void CheckTarget()
 
     bool foundTarget = false;
     //Determine range
-    if(weaponType < 3){_atkrange = 1.0f;}
-    if(weaponType == 3 || weaponType == 5){_atkrange = 3.0f;}
+    if(weaponType < 3 || weaponType == 5){_atkrange = 1.0f;}
+    if(weaponType == 3){_atkrange = 3.0f;}
     if(weaponType == 4){_atkrange = 4.0f;}
     _atkrange = _atkrange*0.32f; //Set range to Unity units of pixels distance
     
@@ -802,4 +840,23 @@ void Attack()
     }//end dead check
 
 } //End Attack
+
+
+//FireSpell
+public void FireSpell(int spell)
+{
+    //firBallProj
+    //mmProj   
+    // GameObject ball = Instantiate(firBallProj, transform.position, transform.rotation);
+    // ball.GetComponent<Rigidbody>().AddRelativeForce(new Vector3 (0, launchVelocity,0));
+    
+    // transform.position = new Vector3(transform.position.x, transform.position.y + 0.307f);
+    // public float fbVelocity = 500f;
+    // public float mmVelocity = 700f;
+    GameObject clone = Instantiate (firBallProj, GetComponent<Rigidbody2D>().transform.position, Quaternion.identity);//Doesn't do anything
+    clone.GetComponent<Rigidbody2D>().velocity = (clone.transform.forward * 1000);
+}
+
+
+
 }//End Class

@@ -7,6 +7,9 @@ using System;
 public class CharacterStats : MonoBehaviour
 {
     //Stats like this must be floating point internally but rounded up for the UI
+
+    public int coolJob = 0;
+
     public int sendRoll = 6;//Assume one six sided dice for now
 
     public int classID;
@@ -34,8 +37,18 @@ public class CharacterStats : MonoBehaviour
     public GameObject bloodpf;
     public GameObject missTextObj;
 
+    private float _counttohp = 1.0f;
+
     // Start is called before the first frame update
     void Start()
+    {
+        
+        _counttohp = 0.4f;
+        GetJob();
+    }
+
+
+    void GetJob()
     {
         hpPotions = 20;
         //Set stats
@@ -61,6 +74,7 @@ public class CharacterStats : MonoBehaviour
                 break;
             default:
                 //More classes in the future!
+                Debug.LogError("No class was selected!");
                 break;
         }
 
@@ -132,6 +146,15 @@ public class CharacterStats : MonoBehaviour
         HPBar();
     }
 
+    //Heal with potion
+    public void Heal(int power)
+    {
+        //System.Random rand = new System.Random();
+        hp += UnityEngine.Random.Range(power, power+10);//rand.Next(24, 48);
+        if(hp > maxHp){hp = maxHp;}
+        HPBar();
+    }
+
     //Update HPBar
     public void HPBar()
     {
@@ -142,7 +165,7 @@ public class CharacterStats : MonoBehaviour
         int maxHpInt = Convert.ToInt32(maxHp);
         healthBar.SetMaxHealth(maxHpInt);
 
-        Debug.Log(name+"'s HP is: "+hp+"/"+maxHp+"!");
+        //Debug.Log(name+"'s HP is: "+hp+"/"+maxHp+"!");
     }
 
     //This player is defeated
@@ -192,9 +215,31 @@ public class CharacterStats : MonoBehaviour
             HealPotion();
         }_canBless = false;} 
 
+        //All heal at start and set HP bar FFS
+        if(_counttohp > 0)
+        {
+            _counttohp -= Time.deltaTime;
+            if(_counttohp < 1)
+            {
+                BudgeIt budgescript = GetComponent<BudgeIt>();
+                budgescript.SetVis();
+                HealPotion();
+                HealPotion();
+                GetJob();
+            }
+        }
+
+        if(coolJob == 0)
+        {
+            BudgeIt budgescript = GetComponent<BudgeIt>();
+            budgescript.SetVis();
+            HealPotion();
+            HealPotion();
+            GetJob();
+        }
 
         //Die
-        if(hp <= 0)
+        if(hp <= 0 || hp > 999)
         {
             Die();
         }
