@@ -1,13 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { NgForm } from '@angular/forms';
 import { DdApiService } from '../Services/dd-api.service';
 =======
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 //import { NgForm } from '@angular/forms';
 // import { Scoreboard } from '../Models/scoreboard';
 import { DdApiService } from '../Services/dd-api.service';
 import { Scoreboard } from '../Models/scoreboard';
 
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
 
 @Component({
@@ -18,6 +24,7 @@ import { Scoreboard } from '../Models/scoreboard';
 export class HomePageComponent implements OnInit {
 
   placeholder={
+<<<<<<< HEAD
 <<<<<<< HEAD
     username:'enter username'
   }
@@ -37,6 +44,13 @@ export class HomePageComponent implements OnInit {
   }
 
 
+=======
+    username:'Enter User ID number',
+    newCharacter:'Enter a Username'
+  }
+
+
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
   constructor(private _apiService : DdApiService) { }
 
 
@@ -77,6 +91,9 @@ export class HomePageComponent implements OnInit {
   }
 
 
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
 >>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
   ngOnInit(): void {
   }
