@@ -1,6 +1,11 @@
 <div class="container">
     <h1>Scoreboard</h1>
-    <button routerLink="/vip1">VIP</button>
+
+    <div class="userVIP">
+        <p><input type="text" id="userVIP" name="userVIP" #userVIP [placeholder]="placeholder.username"></p>
+        <button type="button" (click)="checkVIP(userVIP.value)">VIP</button>
+    </div> 
+
 </div>
 <div class="container">
     <table id="scoreboard-table" class="table table-sm table-dark" *ngIf="allScores.length>0 else noScores" >
