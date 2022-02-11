@@ -7,14 +7,48 @@ h1
 
 }
 
-.search{
-    text-align: center;
-}
+
 
 .clickme{
-    text-align: center;
+    position: absolute;
+    right: 48%;
+    margin-top: 50px;
+}
+
+.searchbox {
+    position: absolute;
+    right: 45%;
 }
 
 .playerInfo{
+    margin: 95px;
+    text-align: center;
+    list-style-type: none;
+
+}
+
+.createUser {
+    position: absolute;
+    margin-top: 150px;
+    padding-left: 20px;
+}
+
+.image1{
+    position: absolute;
+    right: 2%;
+    margin-bottom: 100px;
+}
+
+.image1 > .pic1 {
+    width: 450px;
+    height: auto;
+} 
+
+.image2 {
     text-align: center;
 }
+.image2 > .pic2 {
+    width: 1050px;
+}
+
+

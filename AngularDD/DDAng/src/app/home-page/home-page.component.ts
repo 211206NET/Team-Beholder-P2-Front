@@ -13,8 +13,11 @@ import { Scoreboard } from '../Models/scoreboard';
 export class HomePageComponent implements OnInit {
 
   placeholder={
-    username:'enter username'
+    username:'Enter User ID number',
+    newCharacter:'Enter a Username'
   }
+
+
   constructor(private _apiService : DdApiService) { }
 
 
