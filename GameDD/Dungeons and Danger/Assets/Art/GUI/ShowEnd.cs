@@ -10,11 +10,7 @@ public class ShowEnd : MonoBehaviour
     public Text _Text;
     // Update is called once per frame
 
-    void Start()
-    {
-        GetRes = "";
-    }
-
+    
     public void BeVis()
     {
         Debug.Log("I fired");
@@ -29,7 +25,7 @@ public class ShowEnd : MonoBehaviour
         rend = GetComponent<Renderer>();
         rend.enabled = false;
     }
-
+    
     void Update()
     {
         _Text.text = GetRes;

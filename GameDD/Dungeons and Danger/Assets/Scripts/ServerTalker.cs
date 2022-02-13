@@ -9,7 +9,6 @@ public class ServerTalker : MonoBehaviour
 {
     string userID = "0";
     private float _webglbuffer = 20.0f;
-
     public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
     public static bool SinglePlayerMode = true;
     bool canInitialize = true; ///Tell server you joined once
@@ -58,7 +57,6 @@ public class ServerTalker : MonoBehaviour
     public int tDP3HP { get; set; } 
     public int tDP4HP { get; set; } 
     public int tDFinalDamage { get; set; }
-
 
 
 
@@ -112,12 +110,12 @@ public class ServerTalker : MonoBehaviour
 
     public void ProcessGetUser()
     {
-        StartCoroutine( GetUserData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", userID)); //User
+        StartCoroutine( GetUserData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/User/", userID));
     }
 
     public void ProcessGetAllUsers()
     {
-        StartCoroutine( GetUserAllData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/")); //User
+        StartCoroutine( GetUserAllData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/User/"));
     }
 
 
@@ -133,21 +131,19 @@ public class ServerTalker : MonoBehaviour
         string sentName = SendUser.UserName;
         Debug.Log("sentName: "+sentName);
 
-        //Debug.Log(node[0][1]);
+        Debug.Log(node[0][1]);
         Debug.Log("node length "+node.Count);
         for(int i = 0; i < node.Count; i++)
         {
             if(node[i][1] == sentName)
             {
                 userID = node[i][0].ToString(); //Find Id of the logged in user
-                tDp1Name = node[i][1];
-                Debug.Log("userID "+userID);
             }
         }
         if(userID == "0"){Debug.Log("You are not a user");}
         else
         {
-            //ProcessGet();
+            ProcessGet();
             ProcessGetUser();
         }
 
@@ -155,22 +151,7 @@ public class ServerTalker : MonoBehaviour
 
     void ProcessUserResponse( string rawResponse )
     {
-        
-        Debug.Log("proccres: "+tDp1Name);
-        if(tDp1Name != "z"){
         JSONNode node = JSON.Parse( rawResponse );
-
-        if(showDebug){
-        Debug.Log("Players: " + node["players"]);
-        Debug.Log("SQL Turn: " + node["gameTurn"]);
-        Debug.Log("P1MV: " + node["p1mv"]);
-        Debug.Log("P2MV: " + node["p2mv"]);
-        Debug.Log("P3MV: " + node["p3mv"]);
-        Debug.Log("P4MV: " + node["p4mv"]);
-        Debug.Log("P1FC: " + node["p1fc"]);
-        Debug.Log("P2FC: " + node["p2fc"]);
-        Debug.Log("P3FC: " + node["p3fc"]);
-        Debug.Log("P4FC: " + node["p4fc"]);}
 
         playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
 
@@ -186,9 +167,9 @@ public class ServerTalker : MonoBehaviour
         if(canInitialize){
         foreach(GameObject pl in playerObjs)
         {
-        if(pl.GetComponent<BudgeIt>().myTurn == 1){Debug.Log("I was named: " +tDp1Name);  pl.GetComponent<BudgeIt>().myName = tDp1Name; pl.GetComponent<CharacterStats>().name = tDp1Name;}
+        if(pl.GetComponent<BudgeIt>().myTurn == 1)
 
-        //{Debug.Log("I was named: " + node["username"]); tDp1Name = node["username"]; pl.GetComponent<BudgeIt>().myName = node["username"]; pl.GetComponent<CharacterStats>().name = node["username"];}
+        {Debug.Log("I was named: " + node["username"]); tDp1Name = node["username"]; pl.GetComponent<BudgeIt>().myName = node["username"]; pl.GetComponent<CharacterStats>().name = node["username"];}
 
         if(pl.GetComponent<BudgeIt>().myTurn == 2)
         {Debug.Log("I was named: " + enemyName1);  pl.GetComponent<BudgeIt>().myName = enemyName1;  pl.GetComponent<CharacterStats>().name = enemyName1;}
@@ -196,35 +177,25 @@ public class ServerTalker : MonoBehaviour
         {Debug.Log("I was named: " + enemyName2);  pl.GetComponent<BudgeIt>().myName = enemyName2;  pl.GetComponent<CharacterStats>().name = enemyName2;}
         if(pl.GetComponent<BudgeIt>().myTurn == 4)
         {Debug.Log("I was named: " + enemyName3);  pl.GetComponent<BudgeIt>().myName = enemyName3;  pl.GetComponent<CharacterStats>().name = enemyName3;}
-        }canInitialize=false;
-
-        tDGamesPlayed = node["gamesPlayed"];
-        tDGamesWon = node["gamesWon"];
-        tDTotalKills = node["totalKills"];
-        //Debug.Log("games played in server: "+tDGamesPlayed+", gamesPlayed: "+node["gamesPlayed"]);
-        canInitScore= false;
-
-        }
-        
-        }         
+        }canInitialize=false;}           
     }
 
     void ProcessServerResponse( string rawResponse )
     {
 
-        //JSONNode node = JSON.Parse( rawResponse );
+        JSONNode node = JSON.Parse( rawResponse );
 
         //playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
 
         //Initialize Once
-        // if(canInitScore)
-        // {
-        //     tDGamesPlayed = node["gamesPlayed"];
-        //     tDGamesWon = node["gamesWon"];
-        //     tDTotalKills = node["totalKills"];
-        //     Debug.Log("games played in server: "+tDGamesPlayed+", Id: "+node["gamesPlayed"]);
-        //     canInitScore= false;
-        // }
+        if(canInitScore)
+        {
+            tDGamesPlayed = node["gamesPlayed"];
+            tDGamesWon = node["gamesWon"];
+            tDTotalKills = node["totalKills"];
+            Debug.Log("games played in server: "+tDGamesPlayed+", Id: "+node["gamesPlayed"]);
+            canInitScore= false;
+        }
 
 
         // //Initialize Once
@@ -361,6 +332,7 @@ public class ServerTalker : MonoBehaviour
 
     }
 
+
     // static void RecordGameTurn(int takeTurn)
     // {
     //     // var dummyData = {
@@ -371,29 +343,8 @@ public class ServerTalker : MonoBehaviour
     //     Debug.Log("Game Turn: " + node["gameTurn"]);
     // }
 
+    //public static string Serialize (object? value, Type inputType, System.Text.Json.JsonSerializerOptions? options = default);
 
-    public IEnumerator Upload( string address )//, string myId
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("gameTurn", TakeTurn);
-        //form.AddField("Id");
-
-        //Debug.Log("form: " + form);
-
-        UnityWebRequest www = UnityWebRequest.Post(address, form); // + myId
-        yield return www.SendWebRequest();
-
-        //Debug.Log("address + myId: " + address + myId);
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log("Turn: " + TakeTurn + ", Something went wrong: " + www.error);
-        }
-        else
-        {
-            //Debug.Log("Form upload complete!" + TakeTurn);
-        }
-        
-    }
     // DELETE FROM "public"."Games" WHERE "Id" > 1
 
 
@@ -442,14 +393,6 @@ public class ServerTalker : MonoBehaviour
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(rawData);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //'application/x-www-form-urlencoded'  ,"application/json"
-        
-        
-        uwr.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-        uwr.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
-        uwr.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        uwr.SetRequestHeader("Access-Control-Allow-Origin", "*");
-        
-        
         yield return uwr.SendWebRequest(); 
         if (uwr.result != UnityWebRequest.Result.Success) 
         {
@@ -465,11 +408,10 @@ public class ServerTalker : MonoBehaviour
 
     public IEnumerator UploadScore( string addressS, string myId )//, string myId
     {
-        Debug.Log("tDGamesPlayed: "+tDGamesPlayed);
-        if(tDp1Name != "z"){
+
         Debug.Log("Right before sending to database: "+addressS+myId);
         WWWForm form = new WWWForm();        
-        form.AddField("id", myId);
+        form.AddField("id", 1);
         form.AddField("username", tDp1Name);
         form.AddField("gamesPlayed", tDGamesPlayed);
         form.AddField("gamesWon", tDGamesWon);
@@ -483,14 +425,6 @@ public class ServerTalker : MonoBehaviour
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(rawData);
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         uwr.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //'application/x-www-form-urlencoded'  ,"application/json"
-        
-        
-
-        uwr.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-        uwr.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
-        uwr.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        uwr.SetRequestHeader("Access-Control-Allow-Origin", "*");
-        
         yield return uwr.SendWebRequest(); 
         if (uwr.result != UnityWebRequest.Result.Success) 
         {
@@ -504,14 +438,13 @@ public class ServerTalker : MonoBehaviour
                 Debug.Log("Form upload complete!" + TakeTurn);
             //    }
         }
-        }
+
         //ProcessGet(); //Now make sure results are read and distributed to all players
     }
 
     //Not Used yet
     public IEnumerator PostScore( string address  )//, string myId
     {
-        if(tDp1Name != "z"){
         WWWForm form = new WWWForm();
         // form.AddField("userFirst", ""); //Nevermind
         // form.AddField("userSecond", ""); 
@@ -523,12 +456,6 @@ public class ServerTalker : MonoBehaviour
 
         using (UnityWebRequest www = UnityWebRequest.Post(address, form))
         {
-            
-
-            www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-            www.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
-            www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-            www.SetRequestHeader("Access-Control-Allow-Origin", "*");
             //Send the request then wait here until it returns
             yield return www.SendWebRequest(); //uwr
 
@@ -541,59 +468,30 @@ public class ServerTalker : MonoBehaviour
                 //Debug.Log("Form upload complete!" + TakeTurn);
             }
         }
-        }
     }
 
     IEnumerator GetWebData( string address, string myId )//, int theTurn 
     {
-        if(tDp1Name != "z"){
-
-        Dictionary<string, string> headers = new Dictionary<string, string>();
-
-        //JUNIPER HEEEELLP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        //#ifUNITY_WEBGL
-        #if (UNITY_WEBGL)
-        headers.Add("Access-Control-Allow-Credentials", "true");
-        headers.Add("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
-        headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        headers.Add("Access-Control-Allow-Origin", "*");
-        #endif
-
-
-        //WWW wwx = new WWW(address + myId, null, headers);
-        //UnityWebRequest.SetRequestHeader(headers);
         UnityWebRequest www = UnityWebRequest.Get(address + myId);
-
-    
-        www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-        www.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
-        www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        www.SetRequestHeader("Access-Control-Allow-Origin", "*");
-
         yield return www.SendWebRequest();
 
         if(www.result != UnityWebRequest.Result.Success)
         {
+            //Debug.LogError("NO!");//success
             Debug.LogError("Something went wrong dude: " + www.error);
             if(showDebug){Debug.LogError("Something went wrong dude: " + www.error);}
         }
         else
         {
             //Debug.LogError(www.downloadHandler.text);//success
+            
             ProcessServerResponse(www.downloadHandler.text);
-        }
         }
     }
 
     IEnumerator GetUserAllData( string address)//, int theTurn 
     {
         UnityWebRequest www = UnityWebRequest.Get(address);
-
-        www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-        www.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
-        www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        www.SetRequestHeader("Access-Control-Allow-Origin", "*");
-
         yield return www.SendWebRequest();
 
         if(www.result != UnityWebRequest.Result.Success)
@@ -611,11 +509,6 @@ public class ServerTalker : MonoBehaviour
     IEnumerator GetUserData( string address, string myId )//, int theTurn 
     {
         UnityWebRequest www = UnityWebRequest.Get(address + myId);
-
-        www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-        www.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
-        www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        www.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return www.SendWebRequest();
 
         if(www.result != UnityWebRequest.Result.Success)
@@ -630,15 +523,15 @@ public class ServerTalker : MonoBehaviour
         }
     }
     
+    
+
+    //
+
+    
     //Delete
     IEnumerator DeleteData( string address, string myId )//, int theTurn 
     {
         UnityWebRequest www = UnityWebRequest.Delete(address+myId);
-
-        www.SetRequestHeader("Access-Control-Allow-Credentials", "true");
-        www.SetRequestHeader("Access-Control-Allow-Headers", "Accept, X-Access-Token, X-Application-Name, X-Request-Sent-Time");
-        www.SetRequestHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-        www.SetRequestHeader("Access-Control-Allow-Origin", "*");
         yield return www.SendWebRequest();
 
         if(www.result != UnityWebRequest.Result.Success)
@@ -685,10 +578,10 @@ public class ServerTalker : MonoBehaviour
         // if(_checkGet > 0){_checkGet -= Time.deltaTime*1.0f;}
 
         //Cheat to control other player turns in multiplayer test
-        // if(Input.GetKeyDown("1")){ThisPlayerIs = 1;}
-        // if(Input.GetKeyDown("2")){ThisPlayerIs = 2;}
-        // if(Input.GetKeyDown("3")){ThisPlayerIs = 3;}
-        // if(Input.GetKeyDown("4")){ThisPlayerIs = 4;}
+        if(Input.GetKeyDown("1")){ThisPlayerIs = 1;}
+        if(Input.GetKeyDown("2")){ThisPlayerIs = 2;}
+        if(Input.GetKeyDown("3")){ThisPlayerIs = 3;}
+        if(Input.GetKeyDown("4")){ThisPlayerIs = 4;}
 
         //Wait on Quit
         if(_waitonquit > 0)
@@ -715,7 +608,7 @@ public class ServerTalker : MonoBehaviour
                 #endif
                 
                 //SceneManager.LoadScene(sceneName:"GameBoard");
-
+  
             }
         }
     }
@@ -736,4 +629,7 @@ public class ServerTalker : MonoBehaviour
         //Application.Quit();
     }
 
-}//End Class
+}
+
+
+

@@ -35,7 +35,6 @@ public class ClassStats : MonoBehaviour
         sendBackStats.AC = AC;
         sendBackStats.dmg = dmg;
         sendBackStats.wepType = wepT; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow
-        sendBackStats.coolJob = 1;
         sendBackStats.HPBar();
     }
 
@@ -57,7 +56,6 @@ public class ClassStats : MonoBehaviour
         sendBackStats.AC = AC;
         sendBackStats.dmg = dmg;
         sendBackStats.wepType = wepT; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow
-        sendBackStats.coolJob = 2;
         sendBackStats.HPBar();
     }
 
@@ -78,7 +76,6 @@ public class ClassStats : MonoBehaviour
         sendBackStats.AC = AC;
         sendBackStats.dmg = dmg;
         sendBackStats.wepType = wepT; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow
-        sendBackStats.coolJob = 3;
         sendBackStats.HPBar();
     }
 
@@ -99,7 +96,6 @@ public class ClassStats : MonoBehaviour
         sendBackStats.AC = AC;
         sendBackStats.dmg = dmg;
         sendBackStats.wepType = wepT; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow
-        sendBackStats.coolJob = 4;
         sendBackStats.HPBar();
     }
 
@@ -120,7 +116,6 @@ public class ClassStats : MonoBehaviour
         sendBackStats.AC = AC;
         sendBackStats.dmg = dmg;
         sendBackStats.wepType = wepT; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow
-        sendBackStats.coolJob = 5;
         sendBackStats.HPBar();
     }
 
