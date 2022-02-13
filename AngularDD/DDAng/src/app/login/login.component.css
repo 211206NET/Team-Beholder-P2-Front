@@ -1,0 +1,125 @@
+body {
+    background-color: whitesmoke;
+}
+
+body > ol > li > a {
+    color: aqua;
+}
+
+.mainbody {
+    border: 25px solid black;
+    font-size: 30px;
+    padding: 40px;
+}
+
+
+.intro {
+    display: flex;
+    align-items: center;
+}
+
+.intro1 > h1 {
+    background-color: red;
+    color: white;
+    text-align: center;
+    filter: drop-shadow(0 0 0.75rem crimson);
+}
+
+.intro > img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    
+}
+
+.character {
+    text-align: center;
+
+}
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+.ch{
+
+}
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+
+.ch > h2 {
+    display: inline;
+    float: left;
+    text-decoration-line: underline;
+    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    filter: drop-shadow(0 0 0.75rem blue);
+    padding-left: 25px;
+
+}
+
+
+.ch > h3 {
+    display: inline;
+    float: right;
+    text-decoration-line: underline;
+    font-size: 50px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    filter: drop-shadow(0 0 0.75rem red);
+    padding-right: 25px;
+
+}
+
+#dot {
+    display: inline;
+}
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+
+.rule {
+    float: left;
+    padding-top: 125px;
+    font-size: 25px;
+    color: black;
+}
+
+.upcoming {
+    float: right;
+    padding-top: 125px;
+    font-size: 25px;
+    color: black;
+}
+
+<<<<<<< HEAD
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+
+.rule {
+    float: left;
+    padding-top: 125px;
+    font-size: 25px;
+    color: black;
+}
+
+.upcoming {
+    float: right;
+    padding-top: 125px;
+    font-size: 25px;
+    color: black;
+}
+
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+.container {
+    max-width: 2320px;
+}
+
+
+#test {
+    width: auto;
+    height: 300px;
+}

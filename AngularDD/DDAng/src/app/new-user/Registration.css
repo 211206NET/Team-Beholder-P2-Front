@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100%;
+    font-family: Arial;
+    margin: 0;
+    background-color: whitesmoke;
+}
+
+.custom-nav {
+    padding: 10px;
+    text-align: left;
+    background: #34495E;
+    color: white;
+    height: 100px;
+}
+
+.custom-nav .nav-button {
+    padding: 10px;
+    margin-top: 20px;
+    margin-right: 10px;
+    float: right;
+
+    display: block;
+    width: 100px;
+    border: none;
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+    border-radius: .25rem;
+    text-align: center;
+    text-transform: uppercase;
+    transition: .15s ease-in-out;
+    transition-property: color, background-color, border-color, box-shadow;
+}
+
+p{
+    word-wrap: break-word;
+    color: blueviolet;
+}
+
+h3{
+    margin: 25px;
+}
+
+form{
+    margin: 35px;
+}
+

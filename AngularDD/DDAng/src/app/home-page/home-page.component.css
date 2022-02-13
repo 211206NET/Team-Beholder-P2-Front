@@ -1,0 +1,66 @@
+h1
+{
+    text-align: center;
+    background-color: maroon;
+    color: white;
+    border: 1px solid black;
+
+}
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+.search{
+    text-align: center;
+}
+=======
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+
+
+.clickme{
+    position: absolute;
+    right: 48%;
+    margin-top: 50px;
+}
+
+.searchbox {
+    position: absolute;
+    right: 45%;
+}
+
+.playerInfo{
+    margin: 95px;
+    text-align: center;
+    list-style-type: none;
+
+}
+
+.createUser {
+    position: absolute;
+    margin-top: 150px;
+    padding-left: 20px;
+}
+
+.image1{
+    position: absolute;
+    right: 2%;
+    margin-bottom: 100px;
+}
+
+.image1 > .pic1 {
+    width: 450px;
+    height: auto;
+} 
+
+.image2 {
+    text-align: center;
+}
+.image2 > .pic2 {
+    width: 1050px;
+}
+
+
+<<<<<<< HEAD
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+=======
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f

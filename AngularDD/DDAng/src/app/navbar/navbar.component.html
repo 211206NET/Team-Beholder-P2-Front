@@ -1,0 +1,43 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand homebrand" (click)="goHome()">Dungeons&Dangers</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="/login">Home</a>
+        </li>
+        <li>
+            <a class="nav-link" routerLink="/home" >User/Stats</a> 
+        </li>
+<<<<<<< HEAD
+        <li class="nav-item">
+            <app-login></app-login>
+        </li>
+        <li class="userinfo" *ngIf="user">
+            Welcome {{user.nickname}}
+        </li>
+        
+    </ul>
+=======
+        <li>
+            <a class="nav-link" routerLink="/scoreboard">Scoreboard</a>
+        </li>
+        <!-- <li class="nav-item">
+            <app-login></app-login>
+        </li>  -->
+        <li>
+            <a class="nav-link" href="https://mattcwiese.github.io/DungeonsAndDanger/">Play</a>
+        </li>
+        <li id="1" class="userinfo" *ngIf="user">
+            Welcome {{user.nickname}}
+            
+        <li> 
+        </ul>
+>>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+    </div>
+
+
+
+</nav>

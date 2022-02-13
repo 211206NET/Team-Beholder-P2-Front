@@ -1,0 +1,48 @@
+<div class="container">
+    <h1>Scoreboard</h1>
+
+    <div class="userVIP">
+        <p><input type="text" id="userVIP" name="userVIP" #userVIP [placeholder]="placeholder.username"></p>
+        <button type="button" (click)="checkVIP(userVIP.value)">VIP</button>
+    </div> 
+
+</div>
+<div class="container">
+    <table id="scoreboard-table" class="table table-sm table-dark" *ngIf="allScores.length>0 else noScores" >
+        <thead class="table-header">
+            <tr>
+                <th>
+                    GameID
+                </th>
+                <th>
+                    Username
+                </th> 
+                <th>
+                    Games Played
+                </th>
+                <th>
+                    Games Won
+                </th>
+                <th>
+                    Total Kills
+                </th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let score of allScores">
+                <td>{{score.id}}</td>
+                <td>{{score.username}}</td> 
+                <td>{{score.gamesPlayed}}</td>
+                <td>{{score.gamesWon}}</td>
+                <td>{{score.totalKills}}</td> 
+            </tr>
+        </tbody>
+    </table>
+    
+    <ng-template #noScores>
+        <p>
+            No Scores Available :(
+        </p>
+
+    </ng-template>
+</div>
