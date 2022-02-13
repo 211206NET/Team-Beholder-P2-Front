@@ -1,76 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-<<<<<<< HEAD
-=======
 using System.Linq;
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
 
 public class BudgeIt : MonoBehaviour
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
-private float _webglbuffer = 1.0f;
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-    public int myTurn;
-<<<<<<< HEAD
-    public int callToTurn = TurnController.Turn;
-    bool canMove = true;
-    bool canAttack = false; //Deactivated for now
-    public int movePoints = 3;
 
-    //Method to move square to determine a player moved something and it persisted to other players
-    void BudgeRight()
-    {
-        transform.position = new Vector3(transform.position.x + 0.307f, transform.position.y);
-        movePoints -= 1;
-        if(movePoints < 1){canMove = false;}
-    }
-
-    //Method to move square to determine a player moved something and it persisted to other players
-    void BudgeLeft()
-    {
-        transform.position = new Vector3(transform.position.x - 0.307f, transform.position.y);
-        movePoints -= 1;
-        if(movePoints < 1){canMove = false;}
-    }
-
-    //Method to move square to determine a player moved something and it persisted to other players
-    void BudgeUp()
-    {
-        transform.position = new Vector3(transform.position.x, transform.position.y + 0.307f);
-        movePoints -= 1;
-        if(movePoints < 1){canMove = false;}
-    }
-
-    //Method to move square to determine a player moved something and it persisted to other players
-    void BudgeDown()
-    {
-        transform.position = new Vector3(transform.position.x, transform.position.y - 0.307f);
-        movePoints -= 1;
-        if(movePoints < 1){canMove = false;}
-=======
-    public string myName;
-    public int callToTurn = TurnController.Turn;
-    public GameObject findGOD;
-    bool canMove = true;
-    bool moveClear = true; //If move is not blocked
-    bool canAttack = true; //Deactivated for now
-    public int movePoints = 3;
-    public bool dead = false;
-    private int _kills = 0;
-    private bool _processend = true; //can process
-    float delayEndTurn = 0.0f;
-    bool endTurnMode = false;
-=======
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
-
-private float _webglbuffer = 0.0f;
-
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+//Mechanics
 public int myTurn;
 public string myName;
 public int callToTurn = TurnController.Turn;
@@ -88,7 +24,7 @@ private float _delaySpeed = 0.2f;
 bool endTurnMode = false;
 public int kills = 0;
 
-
+//UI
 private Transform selectUI;
 private Transform targetUI;
 public GameObject bloodSpatter;
@@ -104,7 +40,6 @@ public GameObject[] otherPlayer;
 private bool _canMakeCollision = true;
 public GameObject blockPF;
 
-
 //Vars for weapon
 private float _atkrange = 0.0f;
 public int weaponType = 1; //1 = Sword, 2 = Sword and Shield, 3 = Staff, 4 = Bow, 5 = cleric staff
@@ -114,18 +49,6 @@ public float fbVelocity = 500f;
 public GameObject mmProj;
 public float mmVelocity = 700f;
 
-// private Transform weaponArt1;
-// private Transform weaponArt2;
-// private Transform weaponArt3;
-// private Transform weaponArt4;
-// private Transform weaponArt5;
-
-// private GameObject clerIcon;
-// private GameObject palIcon;
-// private GameObject rangerIcon;
-// private GameObject warIcon;
-// private GameObject wizIcon;
-
 bool amTarget = false; //If can be attacked currently
 bool eachTurn = true;
 private float _checkCollide = 0.0f;
@@ -134,7 +57,6 @@ private float _checkCollide = 0.0f;
 private int _getstr = 0; //Get character strength
 private int _getdmg = 0; //Get incomming damage
 private int _getattackroll; //Get incoming attack roll
-
 
 //AI vars
 private int _nearTargetDir = 0; //1 = to the right, 2 = left, 3 = up, 4 = down 
@@ -159,30 +81,12 @@ void Awake()
 
 public void SetVis()
 {
-    
-    // palIcon = GameObject.Find("Canvas/PalIcon");
-    // rangerIcon = GameObject.Find("Canvas/RangerIcon");
-    // warIcon = GameObject.Find("Canvas/WarriorIcon");
-    // wizIcon = GameObject.Find("Canvas/WizIcon");
-    // clerIcon = GameObject.Find("Canvas/ClericIcon");
 
     gameObject.transform.GetChild(7).GetChild(1).gameObject.SetActive(false);
     gameObject.transform.GetChild(7).GetChild(2).gameObject.SetActive(false);
     gameObject.transform.GetChild(7).GetChild(3).gameObject.SetActive(false);
     gameObject.transform.GetChild(7).GetChild(4).gameObject.SetActive(false);
     gameObject.transform.GetChild(7).GetChild(5).gameObject.SetActive(false);
-    // palIcon.SetActive(false);
-    // rangerIcon.SetActive(false);
-    // warIcon.SetActive(false);
-    // wizIcon.SetActive(false);
-    // clerIcon.SetActive(false);
-
-    //Set initial weapon art
-    // weaponArt1 = transform.Find("Sword"); 
-    // weaponArt2 = transform.Find("SwordAndShield"); 
-    // weaponArt3 = transform.Find("Staff"); 
-    // weaponArt4 = transform.Find("Bow"); 
-    // weaponArt5 = transform.Find("ClericStaff"); 
     
     transform.GetChild(0).gameObject.SetActive(false);
     transform.GetChild(1).gameObject.SetActive(false);
@@ -196,8 +100,6 @@ public void SetWeaponArt()
     transform.GetChild(weaponType-1).gameObject.SetActive(true);
     gameObject.transform.GetChild(7).GetChild(weaponType).gameObject.SetActive(true);
 }
-
-
 
 //-----------------------------------------------------------------------------------------------------------------------------------\\
 //                                                         MOVE                                                                    \\
@@ -463,182 +365,14 @@ void CheckTarget()
                 nClosest.GetComponent<BudgeIt>().amTarget=true;
                 nClosest.transform.GetChild(6).gameObject.SetActive(true); //Access enemy player
             }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
         }
 
         if(foundTarget == false && canMove == false){canAttack = false;}
         Debug.Log("myturn: "+ myTurn + ", canAttack? "+canAttack);
         foundTarget = false;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-    }
-
-    //Player moved and Attacked, end their turn
-    void EndTurn()
-    {
-        if(myTurn < 4){TurnController.Turn += 1;}else{TurnController.Turn = 1;}
-        callToTurn = TurnController.Turn;
-        canMove = true; movePoints = 3;
-<<<<<<< HEAD
-        canAttack = false; //This would be set to true here if game had combat
-<<<<<<< HEAD
-        //ServerTalker.RecordGameTurn(callToTurn);
-        ServerTalker.TakeTurn = callToTurn;
-=======
-<<<<<<< HEAD
-        canAttack = false; //This would be set to true here if game had combat
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-<<<<<<< HEAD
-        //Servertalker.RecordGameTurn(callToTurn);
-        ServerTalker.TakeTurn = callToTurn;
-=======
-        //ServerTalker.RecordGameTurn(callToTurn);
-        ServerTalker.TakeTurn = callToTurn;
-=======
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-        canAttack = true;
-        
-        Debug.Log("callToTurn: " + callToTurn);
-
-        delayEndTurn = Time.deltaTime+5.0f+_waitafterturn;
-        endTurnMode = true;
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-        UpdateServer();
-    }
-
-    void UpdateServer()
-    {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        if(myTurn == TurnController.Turn){
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
-=======
-        if(myTurn == TurnController.Turn){
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-        GameObject sTalk; sTalk = GameObject.Find("GOD");
-        sTalk.GetComponent<ServerTalker>().ProcessPost();}
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(!dead){
-        //callToTurn = TurnController.Turn;
-        //Movement
-<<<<<<< HEAD
-<<<<<<< HEAD
-        //if(myTurn == 1){Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);}
-        if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
-        //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs + ", ThisPlayerIs: "+ServerTalker.ThisPlayerIs);
-        if(TurnController.Turn == myTurn)// && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-<<<<<<< HEAD
-        if(callToTurn == myTurn)
-        {
-            //Player Input
-            if (Input.GetKeyDown("right"))
-            {
-                BudgeRight();
-            }
-            if (Input.GetKeyDown("left"))
-            {
-                BudgeLeft();
-            }
-            if (Input.GetKeyDown("up"))
-            {
-                BudgeUp();
-            }
-            if (Input.GetKeyDown("down"))
-            {
-                BudgeDown();
-            }
-=======
-        //if(myTurn == 1){Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs);}
-        if(callToTurn == myTurn && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
-=======
-        //Debug.Log("myTurn: " + myTurn + ", ServerPlayers: " + ServerTalker.playersTotal + ", MyPlayerIs " + ServerTalker.ThisPlayerIs + ", ThisPlayerIs: "+ServerTalker.ThisPlayerIs);
-        if(TurnController.Turn == myTurn)// && (myTurn == ServerTalker.ThisPlayerIs || ServerTalker.SinglePlayerMode == true))
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-        {
-            Debug.Log("TurnController.Turn: "+TurnController.Turn+", myTurn:"+myTurn);
-
-            if(eachTurn == true)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
-            //nClosest.GetComponent<CharacterStats>().hp = 0; //Test    
-            
-            //Debug.Log("I'm "+myTurn+" and I am looking for a fight, I can attack: "+_attackonce+", Turn is "+TurnController.Turn+", foundTarget: "+foundTarget+", canAttack: "+canAttack);
-            if(_attackonce == true && myTurn == TurnController.Turn && foundTarget && myTurn>1 && canAttack == true)
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-            {
-                _attackonce = false; nClosest.GetComponent<BudgeIt>().Attack();
-            } 
-        }
-    }
-    
-    //if(foundTarget == false){Debug.Log("DUDE OH NO NO ENEMY IN RANGE!, "+Time.time);}
-
-    if(foundTarget == false && canMove == false){canAttack = false;}
-    //Debug.Log("myturn: "+ myTurn + ", canAttack? "+canAttack+", canMove: "+canMove);
-    //foundTarget = false;
-    //}
-    else
-    {
-        //CheckTarget();//Causes stack overflow
-        //eachTurn = true;
-
-        _checkCollide = 1.0f+_webglbuffer;
-
-        //Debug.Log("No targets"+delayStart);
-    }
-}
+    }//End for each
+    }//End other Player length
+}//End Check target
 
 //Player moved and Attacked, end their turn
 void EndTurn()
@@ -695,46 +429,8 @@ void Update()
                     eachTurn = false;//}
                     //Debug.Log("MeBeStarting: "+myTurn +  ", "+Time.time);
                 }
-<<<<<<< HEAD
-            }
-<<<<<<< HEAD
-
-            if(!eachTurn)
-            {
-                EndTurn();
-            }
-                //if(myTurn==2){Debug.Log("I was cleared!");}
-                //Player Input
-                if(canMove == true)
-=======
-<<<<<<< HEAD
-            }
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
-
-            if(!eachTurn)
-            {
-<<<<<<< HEAD
-                EndTurn();
-            }
-<<<<<<< HEAD
-        }
-        else{callToTurn = TurnController.Turn;}
-    }
-=======
-=======
-                //if(myTurn==2){Debug.Log("I was cleared!");}
-                //Player Input
-                if(canMove == true)
-=======
 
                 if(!eachTurn)
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
                 {
                     //if(myTurn==2){Debug.Log("I was cleared!");}
                     //Player Input
@@ -743,7 +439,6 @@ void Update()
                     //AI start of turn, find what direction player is
                     if(myTurn > 1)
                     {
-
                         //_waitafterturn = 2.0f;
                         float px=0; float py=0;     //Check if any enemy is in range
                         float mx=0; float my=0;     //Check if any enemy is in range
@@ -810,7 +505,6 @@ void Update()
                     }
                     }
                 }
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
 
                 
                 //Check Player end turn conditions
@@ -1017,7 +711,7 @@ void Attack()
                     "I'm "+myTurn+" and I'm being attacked by AI");
     if(!dead)
     {
-            //canAttack = false;
+        //canAttack = false;
         //Debug.Log("On Mouse Down Worked");
         // this object was clicked - do something
         //Get Damage
@@ -1093,44 +787,32 @@ void Attack()
             //Debug.Log("My Hp Left: " + charStatsScript.hp);
         }
     }//end dead check
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD
-        //Tally score
-        if(dead && _processend == true)
+    //Tally score
+    if(dead && _processend == true)
+    {
+        if(myTurn > 1)//Enemy died give score to player 1
         {
-            if(myTurn > 1)//Enemy died give score to player 1
-            {
-                GameObject findGOD; findGOD = GameObject.Find("GOD");
-                findGOD.GetComponent<ServerTalker>().tDTotalKills += 1;
-                _kills += 1;
-                if(_kills == 3)
-                { 
-                    findGOD.GetComponent<ServerTalker>().tDGamesPlayed += 1; //Process win
-                    findGOD.GetComponent<ServerTalker>().tDGamesWon += 1; //Process win
-                    findGOD.GetComponent<ServerTalker>().ExitTheGame();
-                }
-            }
-            else
-            {
-                findGOD.GetComponent<ServerTalker>().tDGamesPlayed += 1; //Process loss
+            GameObject findGOD; findGOD = GameObject.Find("GOD");
+            findGOD.GetComponent<ServerTalker>().tDTotalKills += 1;
+            _kills += 1;
+            if(_kills == 3)
+            { 
+                findGOD.GetComponent<ServerTalker>().tDGamesPlayed += 1; //Process win
+                findGOD.GetComponent<ServerTalker>().tDGamesWon += 1; //Process win
                 findGOD.GetComponent<ServerTalker>().ExitTheGame();
             }
-            _processend = false;
         }
-    } 
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
-}
-=======
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+        else
+        {
+            findGOD.GetComponent<ServerTalker>().tDGamesPlayed += 1; //Process loss
+            findGOD.GetComponent<ServerTalker>().ExitTheGame();
+        }
+        _processend = false;
+    }
+    
 } //End Attack
 
-
-<<<<<<< HEAD
 //FireSpell
 public void FireSpell(int spell)
 {
@@ -1149,13 +831,3 @@ public void FireSpell(int spell)
 
 
 }//End Class
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 5b52bd4916362e4e231f0d7f89bb7f9732f701e8
-=======
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f

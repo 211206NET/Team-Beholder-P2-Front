@@ -7,34 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class ServerTalker : MonoBehaviour
 {
-<<<<<<< HEAD
-<<<<<<< HEAD
     string userID = "0";
     private float _webglbuffer = 20.0f;
 
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-    static public int TakeTurn = 1;
-    //Need something like this
-    //public string highscoreURL = "http://localhost/unity_test/display.php";
-=======
-=======
-    private float _webglbuffer = 20.0f;
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
-<<<<<<< HEAD
-
-    static public int TakeTurn = 1;
-    //Need something like this
-    //public string highscoreURL = "http://localhost/unity_test/display.php";
-=======
-=======
-    private float _webglbuffer = 20.0f;
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
     public static int ThisPlayerIs = 0; //What turn this player is, so each player only controls one character
     public static bool SinglePlayerMode = true;
     bool canInitialize = true; ///Tell server you joined once
@@ -85,15 +60,11 @@ public class ServerTalker : MonoBehaviour
     public int tDFinalDamage { get; set; }
 
 
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
+
 
     // Start is called before the first frame update
     void Start() //http://localhost:8000/user/
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
         tDp1Name = "z";
         tDp2Name = "z";
         tDp3Name = "z";
@@ -118,7 +89,6 @@ public class ServerTalker : MonoBehaviour
         tDP3HP = 0; 
         tDP4HP = 0; 
         tDFinalDamage = 0;
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
         //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
         //ProcessGet();
             //Run a get data
@@ -137,27 +107,7 @@ public class ServerTalker : MonoBehaviour
 
     public void ProcessGet()
     {
-<<<<<<< HEAD
-<<<<<<< HEAD
         StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/", userID));
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-<<<<<<< HEAD
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
-        StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
-=======
-        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
-=======
-        StartCoroutine( GetWebData("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/1?username=KindOfExcellent", "1"));
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
-        //StartCoroutine( GetWebData("https://localhost:7114/api/Game/", "1")); //, "http://"localhost:8000/user.gameTurn  //, "foo"
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
     }
 
     public void ProcessGetUser()
@@ -210,54 +160,6 @@ public class ServerTalker : MonoBehaviour
         if(tDp1Name != "z"){
         JSONNode node = JSON.Parse( rawResponse );
 
-<<<<<<< HEAD
-        //Debug.Log("Username: " + node["username"]);
-        //Debug.Log("Misc Data: " + node["someArray"][1]["name"] + " = " + node["someArray"][1]["value"]);
-
-        //e.g.
-<<<<<<< HEAD
-        
-        //PlayerData.SetBar(node["someArray"][1]["value"]);
-        Debug.Log("SQL Turn: " + node["gameTurn"]);
-        Debug.Log("P1X: " + node["p1x"]);
-        Debug.Log("P1Y: " + node["p1y"]);
-        Debug.Log("P2X: " + node["p2x"]);
-        Debug.Log("P2Y: " + node["p2y"]);
-        Debug.Log("P3X: " + node["p3x"]);
-        Debug.Log("P3Y: " + node["p3y"]);
-        Debug.Log("P4X: " + node["p4x"]);
-        Debug.Log("P4Y: " + node["p4y"]);
-
-    }
-
-=======
-        // Id
-        // Players 
-        // GameTurn 
-        // p1Name
-        // p2Name
-        // p3Name
-        // p4Name
-        // P1mv
-        // P2mv
-        // P3mv
-        // P4mv
-        // P1fc
-        // P2fc
-        // P3fc
-        // P4fc
-        // Action //0 = No Action Yet, 1 = Melee, 2 = Spell, 3 = Self Skill, 4 = Self Spell
-        // ActionID //the Id for the action in a list
-        // TargetName//Who is being targeted this turn
-        // P1MaxHP 
-        // P2MaxHP 
-        // P3MaxHP 
-        // P4MaxHP 
-        // P1HP 
-        // P2HP 
-        // P3HP 
-        // P4HP 
-
         if(showDebug){
         Debug.Log("Players: " + node["players"]);
         Debug.Log("SQL Turn: " + node["gameTurn"]);
@@ -270,9 +172,6 @@ public class ServerTalker : MonoBehaviour
         Debug.Log("P3FC: " + node["p3fc"]);
         Debug.Log("P4FC: " + node["p4fc"]);}
 
-
-=======
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
         playerObjs = GameObject.FindGameObjectsWithTag("Player"); //Return list of all Players
 
         string originalName = node["username"];
@@ -462,8 +361,6 @@ public class ServerTalker : MonoBehaviour
 
     }
 
-
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
     // static void RecordGameTurn(int takeTurn)
     // {
     //     // var dummyData = {
@@ -474,36 +371,7 @@ public class ServerTalker : MonoBehaviour
     //     Debug.Log("Game Turn: " + node["gameTurn"]);
     // }
 
-<<<<<<< HEAD
-=======
-    public void ProcessPost()
-    {
-<<<<<<< HEAD
-        //Debug.Log("ProcessPost fired at least");
-<<<<<<< HEAD
-        StartCoroutine(Upload("https://localhost:7114/api/Game"));//, "1"
-=======
-        StartCoroutine(Upload("https://localhost:7114/api/Game/", "1"));//, "1"
-        //StartCoroutine(DeleteData("https://localhost:7114/api/Game/", "2"));
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
-=======
-        //StartCoroutine( Upload("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Game/", "1"));
-    }
 
-    public void ProcessFinalPost()
-    {
-<<<<<<< HEAD
-        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scores", "1"));
->>>>>>> 19b47f575e10707d4618a2876a954885a5340755
-=======
-        StartCoroutine( UploadScore("http://ddrwebapi-prod.us-west-2.elasticbeanstalk.com/api/Scoreboard/1?username=KindOfExcellent", "1"));
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
-    }
-
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-    //public static string Serialize (object? value, Type inputType, System.Text.Json.JsonSerializerOptions? options = default);
-
-<<<<<<< HEAD
     public IEnumerator Upload( string address )//, string myId
     {
         WWWForm form = new WWWForm();
@@ -525,7 +393,7 @@ public class ServerTalker : MonoBehaviour
             //Debug.Log("Form upload complete!" + TakeTurn);
         }
         
-=======
+    }
     // DELETE FROM "public"."Games" WHERE "Id" > 1
 
 
@@ -673,15 +541,7 @@ public class ServerTalker : MonoBehaviour
                 //Debug.Log("Form upload complete!" + TakeTurn);
             }
         }
-<<<<<<< HEAD
-<<<<<<< HEAD
         }
-=======
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
     }
 
     IEnumerator GetWebData( string address, string myId )//, int theTurn 
@@ -714,36 +574,16 @@ public class ServerTalker : MonoBehaviour
 
         if(www.result != UnityWebRequest.Result.Success)
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
             Debug.LogError("Something went wrong dude: " + www.error);
-=======
-=======
-            //Debug.LogError("NO!");//success
-            Debug.LogError("Something went wrong dude: " + www.error);
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 173fc4014344b05e4db11b8546e1f349847e17f8
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
             if(showDebug){Debug.LogError("Something went wrong dude: " + www.error);}
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
         }
         else
         {
             //Debug.LogError(www.downloadHandler.text);//success
-            
             ProcessServerResponse(www.downloadHandler.text);
         }
         }
     }
-<<<<<<< HEAD
-}
-=======
 
     IEnumerator GetUserAllData( string address)//, int theTurn 
     {
@@ -767,9 +607,6 @@ public class ServerTalker : MonoBehaviour
             ProcessAllUserResponse(www.downloadHandler.text);
         }
     }
-<<<<<<< HEAD
-}
-=======
 
     IEnumerator GetUserData( string address, string myId )//, int theTurn 
     {
@@ -792,11 +629,6 @@ public class ServerTalker : MonoBehaviour
             ProcessUserResponse(www.downloadHandler.text);
         }
     }
-    
-    
-
-    //
-
     
     //Delete
     IEnumerator DeleteData( string address, string myId )//, int theTurn 
@@ -904,14 +736,4 @@ public class ServerTalker : MonoBehaviour
         //Application.Quit();
     }
 
-}
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 9c168730245cc0f2312f4151d5c6bc2aae5ad4cb
-<<<<<<< HEAD
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
-=======
->>>>>>> 7eba812b63d1f0bc7f65e3c2ad4cb0b5b0b0e72f
+}//End Class
