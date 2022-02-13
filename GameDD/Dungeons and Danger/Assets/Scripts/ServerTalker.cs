@@ -59,7 +59,6 @@ public class ServerTalker : MonoBehaviour
     public int tDFinalDamage { get; set; }
 
 
-
     // Start is called before the first frame update
     void Start() //http://localhost:8000/user/
     {

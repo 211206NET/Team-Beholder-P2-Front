@@ -47,9 +47,10 @@ public class CharacterStats : MonoBehaviour
         GetJob();
     }
 
-
     void GetJob()
     {
+        //if(coolJob == 0)
+        //{
         hpPotions = 20;
         //Set stats
         ClassStats classStatsScript = GetComponent<ClassStats>();
@@ -86,6 +87,7 @@ public class CharacterStats : MonoBehaviour
         HealPotion();
         HealPotion();
         //healthBar.doonceish=true;
+        //}
 
     }
 

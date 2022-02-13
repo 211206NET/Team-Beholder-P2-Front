@@ -2787,6 +2787,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 397065295975255975, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1218880770537984288, guid: 2d90cd0eb941557459b42f2559f8d743, type: 3}
       propertyPath: healthBar
       value: 
