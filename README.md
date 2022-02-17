@@ -62,19 +62,13 @@ Fight to the death in a battle royale. Connect to multiplayer games and particip
         
 
 
-
-
 # Tech Stack
 * C#
 * AWS
 * Angular
 * XUnit, Moq, Sonar cloud for testing and code analysis
 * Node JS
-* Socket IO
-
-
-
-
+* Auth0
 
 
 # Backburner
@@ -89,3 +83,15 @@ Fight to the death in a battle royale. Connect to multiplayer games and particip
 * Truly Functional stats
 * Buff/Debuff Abilities
 
+## Contributors
+- Matthew Wiese
+- Connor Kobel
+- Brayan Cordero
+- Kevin Chen
+
+## Getting Started
+To run the application use the following steps:
+
+- Install the Angular CLI to run the application with npm install -g @angular/cli
+- Clone the repo git clone 
+- Navigate to project folder and enter ng serve
