@@ -93,5 +93,5 @@ Fight to the death in a battle royale. Connect to multiplayer games and particip
 To run the application use the following steps:
 
 - Install the Angular CLI to run the application with npm install -g @angular/cli
-- Clone the repo git clone 
+- Clone the repo git clone https://github.com/211206NET/Team-Beholder-P2-Frontend.git
 - Navigate to project folder and enter ng serve
